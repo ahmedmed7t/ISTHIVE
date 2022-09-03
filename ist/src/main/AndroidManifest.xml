@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.isthive.ist">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".app.app"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".questionnaire.questionnaireModule.presentation.QuestionnaireActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Transparent"/>
+    </application>
+
+</manifest>

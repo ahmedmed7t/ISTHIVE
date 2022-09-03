@@ -1,0 +1,6 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="whatever_your_choice_was_we_could_do_better_we_want_to_know">whatever your choice was, we could do better we want to know</string>
+    <string name="submit">Submit</string>
+</resources>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/bottom_sheet_background.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/circle_background.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_angry.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_frown.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_happy.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_light_happy.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_neutral.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_smile.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_v2_happy.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_v3_happy.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rectangle_4_radius_white_round_corners.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rectangle_8_radius_white_round_corners.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/activity_questionare.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/bottom_sheet_container_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/ces_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/csat_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/emoji_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/fragment_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/nps_question.xml" value="0.33" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/numeric_ces_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/numeric_csat_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/popup_conatiner_view.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/rating_question.xml" value="0.22" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/sliding_question.xml" value="0.20416666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
