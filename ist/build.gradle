@@ -86,7 +86,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.ahmedmed7t'
+                groupId = 'com.github.ist'
                 artifactId = 'ist-Hive'
                 version = '1.0'
             }
