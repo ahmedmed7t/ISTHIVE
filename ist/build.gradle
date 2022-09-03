@@ -3,11 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'maven-publish'
 }
 
 android {
     compileSdk 32
-
     defaultConfig {
         minSdk 21
         targetSdk 32
@@ -78,4 +78,18 @@ dependencies {
 
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.ahmedmed7t'
+                artifactId = 'ist-Hive'
+                version = '1.0'
+            }
+        }
+    }
 }
