@@ -16,6 +16,8 @@
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_v3_happy.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rectangle_4_radius_white_round_corners.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rectangle_8_radius_white_round_corners.xml" value="0.176" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rounded_border.xml" value="0.1685" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/rounded_solid.xml" value="0.168" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/activity_questionare.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/bottom_sheet_container_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/ces_question.xml" value="0.20416666666666666" />
@@ -27,6 +29,8 @@
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/numeric_csat_question.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/popup_conatiner_view.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/rating_question.xml" value="0.22" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_list_item.xml" value="0.25" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_question.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/sliding_question.xml" value="0.20416666666666666" />
       </map>
     </option>

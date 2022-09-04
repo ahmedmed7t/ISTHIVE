@@ -9,6 +9,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
 import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
+import com.isthive.ist.questionnaire.questionsViews.singleChoice.SingleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.sliding.SlidingQuestion
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,9 +38,9 @@ internal class QuestionnaireActivity : AppCompatActivity() {
             when(it){
                 is QuestionnaireUiState.Success -> {
                     for (item in it.survey.Questions){
-                        if(item.QuestionType == QuestionType.Star_question){
+                        if(item.QuestionType == QuestionType.Single_choice){
                             BottomSheetContainer()
-                                .mainView(RatingQuestion(this, it.survey.Questions[3]))
+                                .mainView(SingleChoiceQuestion(this, it.survey.Questions[0]))
                                 .show(supportFragmentManager, "tag")
                             break
                         }

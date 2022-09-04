@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/singleChoiceListItemContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/singleChoiceListItemChoiceContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@drawable/rounded_solid"
+        android:backgroundTint="@color/light_blue"
+        android:paddingVertical="@dimen/_8sdp"
+        android:paddingStart="@dimen/_4sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/singleChoiceListItemRadio"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:buttonTint="@color/blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/singleChoiceListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/singleChoiceListItemRadio"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Ahmed Medhat" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/singleChoiceListItemRightMark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:src="@drawable/ic_thumb_filled"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/singleChoiceListItemOtherEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_marginHorizontal="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/rounded_border"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/singleChoiceListItemChoiceContainer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

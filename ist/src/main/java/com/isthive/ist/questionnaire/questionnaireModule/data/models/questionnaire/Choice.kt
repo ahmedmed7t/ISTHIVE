@@ -6,5 +6,6 @@ internal data class Choice(
     val ImageURL: String,
     val QuestionGUID: String,
     val Title: String,
-    val Type: Int
+    val Type: ChoiceType,
+    var isSelected: Boolean = false
 )

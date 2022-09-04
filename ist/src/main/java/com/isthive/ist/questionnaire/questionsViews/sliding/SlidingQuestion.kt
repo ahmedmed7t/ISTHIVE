@@ -40,14 +40,12 @@ class SlidingQuestion internal constructor(context: Context, question: Question?
         view?.apply {
             questionTitle = findViewById(R.id.slidingQuestionTitle)
             submitButton = findViewById(R.id.slidingQuestionSubmitButton)
-
         }
     }
 
     private fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
-
         }
     }
 
@@ -56,5 +54,4 @@ class SlidingQuestion internal constructor(context: Context, question: Question?
 
         }
     }
-
 }

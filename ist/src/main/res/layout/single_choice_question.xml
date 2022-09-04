@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_22sdp">
+
+    <TextView
+        android:id="@+id/singleChoiceQuestionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/singleChoiceQuestionClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Ahmed Medhat Mohamed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/singleChoiceQuestionClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/singleChoiceQuestionDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/singleChoiceQuestionTitle"
+        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionTitle" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/singleChoiceQuestionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_350sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/singleChoiceQuestionSubmitButton"
+        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionDescription"
+        tools:itemCount="8"
+        tools:listitem="@layout/single_choice_list_item" />
+
+
+    <TextView
+        android:id="@+id/singleChoiceQuestionSubmitButton"
+        style="@style/SubmitButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,9 @@
 package com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire
 
+import java.util.ArrayList
+
 internal data class Question(
-    val Choices: List<Choice>,
+    val Choices: ArrayList<Choice>?,
     val IsRequired: Boolean,
     val QuestionGUID: String,
     val QuestionID: Int,
