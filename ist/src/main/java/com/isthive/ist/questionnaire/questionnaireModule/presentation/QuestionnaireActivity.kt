@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
+import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
 import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
 import com.isthive.ist.questionnaire.questionsViews.singleChoice.SingleChoiceQuestion
@@ -40,7 +41,7 @@ internal class QuestionnaireActivity : AppCompatActivity() {
                     for (item in it.survey.Questions){
                         if(item.QuestionType == QuestionType.Single_choice){
                             BottomSheetContainer()
-                                .mainView(SingleChoiceQuestion(this, it.survey.Questions[0]))
+                                .mainView(MultipleChoiceQuestion(this, item))
                                 .show(supportFragmentManager, "tag")
                             break
                         }

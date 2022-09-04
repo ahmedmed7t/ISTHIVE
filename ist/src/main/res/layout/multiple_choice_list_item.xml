@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/singleChoiceListItemContainer"
+    android:id="@+id/multipleChoiceListItemContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/singleChoiceListItemChoiceContainer"
+        android:id="@+id/multipleChoiceListItemChoiceContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
@@ -19,29 +19,29 @@
         android:paddingStart="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RadioButton
-            android:id="@+id/singleChoiceListItemRadio"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:buttonTint="@color/blue"
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/multipleChoiceListItemCheck"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:button="@drawable/custom_checkbox"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/singleChoiceListItemTitle"
+            android:id="@+id/multipleChoiceListItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:textColor="@color/blue"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/singleChoiceListItemRadio"
+            app:layout_constraintStart_toEndOf="@id/multipleChoiceListItemCheck"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ahmed Medhat" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/singleChoiceListItemRightMark"
+            android:id="@+id/multipleChoiceListItemRightMark"
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:visibility="gone"
@@ -54,12 +54,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:id="@+id/singleChoiceListItemOtherEditText"
+        android:id="@+id/multipleChoiceListItemOtherEditText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_border"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceListItemChoiceContainer" />
+        app:layout_constraintTop_toBottomOf="@id/multipleChoiceListItemChoiceContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

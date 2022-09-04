@@ -1,13 +1,14 @@
-package com.isthive.ist.questionnaire.questionsViews.singleChoice
+package com.isthive.ist.questionnaire.questionsViews.multipleChoice
 
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.RadioButton
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,44 +17,42 @@ import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.ChoiceType
 
-internal class SingleChoiceAdapter constructor(
+internal class MultipleChoiceAdapter constructor(
     private val choices: ArrayList<Choice>,
     private val isModernMode: Boolean
-) : RecyclerView.Adapter<SingleChoiceAdapter.SingleViewHolder>() {
+) : RecyclerView.Adapter<MultipleChoiceAdapter.MultipleViewHolder>() {
 
-    private var lastSelectedPosition: Int? = null
-
-    inner class SingleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MultipleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val choiceContainer: ConstraintLayout =
-            itemView.findViewById(R.id.singleChoiceListItemContainer)
-        val choiceRadioButton: RadioButton = itemView.findViewById(R.id.singleChoiceListItemRadio)
-        val choiceTitle: TextView = itemView.findViewById(R.id.singleChoiceListItemTitle)
-        val otherEditText: EditText = itemView.findViewById(R.id.singleChoiceListItemOtherEditText)
+            itemView.findViewById(R.id.multipleChoiceListItemContainer)
+        val choiceCheckBox: AppCompatCheckBox = itemView.findViewById(R.id.multipleChoiceListItemCheck)
+        val choiceTitle: TextView = itemView.findViewById(R.id.multipleChoiceListItemTitle)
+        val otherEditText: EditText = itemView.findViewById(R.id.multipleChoiceListItemOtherEditText)
         val choiceRightIcon: AppCompatImageView =
-            itemView.findViewById(R.id.singleChoiceListItemRightMark)
+            itemView.findViewById(R.id.multipleChoiceListItemRightMark)
         val choiceDataContainer: ConstraintLayout =
-            itemView.findViewById(R.id.singleChoiceListItemChoiceContainer)
+            itemView.findViewById(R.id.multipleChoiceListItemChoiceContainer)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
-        return SingleViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MultipleViewHolder {
+        return MultipleViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.single_choice_list_item, parent, false)
+                .inflate(R.layout.multiple_choice_list_item, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MultipleViewHolder, position: Int) {
         holder.choiceTitle.text = choices[position].Title
         holder.choiceRightIcon.visibility = View.GONE
-        holder.choiceRadioButton.isChecked = false
+        holder.choiceCheckBox.isChecked = false
 
         holder.choiceContainer.setOnClickListener {
             selectChoice(position)
         }
-        holder.choiceRadioButton.setOnClickListener {
+        holder.choiceCheckBox.setOnClickListener {
             selectChoice(position)
         }
-        holder.choiceRadioButton.setOnCheckedChangeListener { _, isChecked ->
+        holder.choiceCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
                 holder.otherEditText.visibility = View.GONE
             }
@@ -69,8 +68,8 @@ internal class SingleChoiceAdapter constructor(
         }
     }
 
-    private fun viewModernMode(holder: SingleViewHolder, position: Int) {
-        holder.choiceRadioButton.visibility = View.GONE
+    private fun viewModernMode(holder: MultipleViewHolder, position: Int) {
+        holder.choiceCheckBox.visibility = View.GONE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
         holder.choiceDataContainer.background =
@@ -100,13 +99,13 @@ internal class SingleChoiceAdapter constructor(
         }
     }
 
-    private fun viewClassicMode(holder: SingleViewHolder, position: Int) {
-        holder.choiceRadioButton.visibility = View.VISIBLE
+    private fun viewClassicMode(holder: MultipleViewHolder, position: Int) {
+        holder.choiceCheckBox.visibility = View.VISIBLE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
         holder.choiceDataContainer.background = null
 
-        holder.choiceRadioButton.isChecked = choices[position].isSelected
+        holder.choiceCheckBox.isChecked = choices[position].isSelected
 
         if (choices[position].isSelected && choices[position].Type == ChoiceType.Other_Choice)
             holder.otherEditText.visibility = View.VISIBLE
@@ -115,22 +114,9 @@ internal class SingleChoiceAdapter constructor(
     override fun getItemCount() = choices.size
 
     private fun selectChoice(position: Int) {
-        choices.forEachIndexed { index, element ->
-            element.isSelected = position == index
-        }
+        choices[position].isSelected = !choices[position].isSelected
         android.os.Handler(Looper.getMainLooper()).post {
-            Log.v("Medhat", "new pos is $position")
-            Log.v("Medhat", "last pos is $lastSelectedPosition")
-            Log.v("Medhat", "new pos is ${choices[position].isSelected}")
-            lastSelectedPosition?.let {
-                Log.v("Medhat", "last pos is ${choices[it].isSelected}")
-            }
-
             notifyItemChanged(position)
-            lastSelectedPosition?.let {
-                notifyItemChanged(it)
-            }
-            lastSelectedPosition = position
         }
     }
 }

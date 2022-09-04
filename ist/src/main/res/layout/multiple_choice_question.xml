@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/_22sdp">
 
     <TextView
-        android:id="@+id/singleChoiceQuestionTitle"
+        android:id="@+id/MultipleChoiceQuestionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
@@ -15,13 +15,13 @@
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/singleChoiceQuestionClose"
+        app:layout_constraintEnd_toStartOf="@id/MultipleChoiceQuestionClose"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/singleChoiceQuestionClose"
+        android:id="@+id/MultipleChoiceQuestionClose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
@@ -32,7 +32,7 @@
         app:tint="@color/blue" />
 
     <TextView
-        android:id="@+id/singleChoiceQuestionDescription"
+        android:id="@+id/MultipleChoiceQuestionDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
@@ -41,26 +41,26 @@
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/singleChoiceQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionTitle" />
+        app:layout_constraintStart_toStartOf="@id/MultipleChoiceQuestionTitle"
+        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionTitle" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/singleChoiceQuestionRecyclerView"
+        android:id="@+id/MultipleChoiceQuestionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_250sdp"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_4sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/singleChoiceQuestionSubmitButton"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionDescription"
+        app:layout_constraintBottom_toTopOf="@id/MultipleChoiceQuestionSubmitButton"
+        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionDescription"
         tools:itemCount="8"
-        tools:listitem="@layout/single_choice_list_item" />
+        tools:listitem="@layout/multiple_choice_list_item" />
 
 
     <TextView
-        android:id="@+id/singleChoiceQuestionSubmitButton"
+        android:id="@+id/MultipleChoiceQuestionSubmitButton"
         style="@style/SubmitButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
