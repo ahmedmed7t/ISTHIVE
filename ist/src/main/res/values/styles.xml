@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Transparent" parent="Theme.MaterialComponents.Light">
+    <style name="Theme.Transparent" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/blue</item>
         <item name="android:background">#00000000
         </item> <!-- Or any transparency or color you need -->

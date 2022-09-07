@@ -1,4 +1,4 @@
-package com.isthive.ist.questionnaire.questionsViews.ces
+package com.isthive.ist.questionnaire.questionsViews.csat
 
 import android.content.Context
 import android.util.Log
@@ -10,10 +10,10 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
-class NumericCESQuestion internal constructor(
+class SCATQuestion internal constructor(
     context: Context,
     question: Question?,
-    resourceLayout: Int = R.layout.ces_question
+    resourceLayout: Int = R.layout.csat_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
     private lateinit var questionTitle: TextView
@@ -30,14 +30,15 @@ class NumericCESQuestion internal constructor(
 
     override fun initViews(view: View?) {
         view?.apply {
-            questionTitle = findViewById(R.id.cesQuestionTitle)
-            option1 = findViewById(R.id.cesOption1)
-            option2 = findViewById(R.id.cesOption2)
-            option3 = findViewById(R.id.cesOption3)
-            option4 = findViewById(R.id.cesOption4)
-            option5 = findViewById(R.id.cesOption5)
-            option6 = findViewById(R.id.cesOption6)
-            option7 = findViewById(R.id.cesOption7)
+            Log.v("Medhat", "in initViews")
+            questionTitle = findViewById(R.id.csatQuestionTitle)
+            option1 = findViewById(R.id.csatOption1)
+            option2 = findViewById(R.id.csatOption2)
+            option3 = findViewById(R.id.csatOption3)
+            option4 = findViewById(R.id.csatOption4)
+            option5 = findViewById(R.id.csatOption5)
+            option6 = findViewById(R.id.csatOption6)
+            option7 = findViewById(R.id.csatOption7)
         }
     }
 
@@ -46,6 +47,13 @@ class NumericCESQuestion internal constructor(
             questionTitle.text = Title
             setOptionsStyle(TemplateID)
             when (Scale) {
+                2 -> {
+                    option2.visibility = View.GONE
+                    option3.visibility = View.GONE
+                    option4.visibility = View.GONE
+                    option5.visibility = View.GONE
+                    option6.visibility = View.GONE
+                }
                 3 -> {
                     option2.visibility = View.GONE
                     option3.visibility = View.GONE
@@ -75,6 +83,7 @@ class NumericCESQuestion internal constructor(
 
     override fun handleUiEvents() {
         option1.setOnClickListener {
+            Log.v("Medhat", "option1 Clicked")
             onOptionClicked(option1)
         }
         option2.setOnClickListener {
@@ -105,6 +114,10 @@ class NumericCESQuestion internal constructor(
 
     private fun showChoices(choices: ArrayList<Choice>) {
         when (choices.size) {
+            2 -> {
+                option1.setOptionTitle(choices[0].Title)
+                option7.setOptionTitle(choices[1].Title)
+            }
             3 -> {
                 option1.setOptionTitle(choices[0].Title)
                 option4.setOptionTitle(choices[1].Title)
