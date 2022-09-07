@@ -119,13 +119,6 @@ internal class SingleChoiceAdapter constructor(
             element.isSelected = position == index
         }
         android.os.Handler(Looper.getMainLooper()).post {
-            Log.v("Medhat", "new pos is $position")
-            Log.v("Medhat", "last pos is $lastSelectedPosition")
-            Log.v("Medhat", "new pos is ${choices[position].isSelected}")
-            lastSelectedPosition?.let {
-                Log.v("Medhat", "last pos is ${choices[it].isSelected}")
-            }
-
             notifyItemChanged(position)
             lastSelectedPosition?.let {
                 notifyItemChanged(it)

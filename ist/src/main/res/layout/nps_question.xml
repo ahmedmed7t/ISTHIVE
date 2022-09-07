@@ -389,14 +389,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/npsQuestionSubmitButton"
-        style="@style/SubmitButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_38sdp"
-        android:text="@string/submit"
-        app:layout_constraintTop_toBottomOf="@id/npsQuestionsNumbersContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

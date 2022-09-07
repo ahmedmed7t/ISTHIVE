@@ -53,20 +53,9 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:paddingBottom="@dimen/_4sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/singleChoiceQuestionSubmitButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionDescription"
         tools:itemCount="8"
         tools:listitem="@layout/single_choice_list_item" />
-
-
-    <TextView
-        android:id="@+id/singleChoiceQuestionSubmitButton"
-        style="@style/SubmitButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,9 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
+import com.isthive.ist.questionnaire.questionsViews.csat.SCATQuestion
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
 import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
@@ -19,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 internal class QuestionnaireActivity : AppCompatActivity() {
     private val viewModel: QuestionnaireViewModel by viewModels()
 
+    private lateinit var questionProvider: QuestionProvider
     private lateinit var button: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,10 +41,11 @@ internal class QuestionnaireActivity : AppCompatActivity() {
         viewModel.questionnaireState.observe(this){
             when(it){
                 is QuestionnaireUiState.Success -> {
+                    questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
                     for (item in it.survey.Questions){
-                        if(item.QuestionType == QuestionType.Single_choice){
+                        if(item.QuestionType == QuestionType.CSAT){
                             BottomSheetContainer()
-                                .mainView(MultipleChoiceQuestion(this, item))
+                                .mainView(SCATQuestion(this, it.survey.Questions[1]))
                                 .show(supportFragmentManager, "tag")
                             break
                         }

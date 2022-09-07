@@ -9,17 +9,19 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NumericCESQuestion internal constructor(context: Context, question: Question?) :
-    FrameLayout(context) {
+class NumericCESQuestion internal constructor(
+    context: Context,
+    question: Question?,
+    resourceFile: Int = R.layout.numeric_ces_question
+) :
+    BaseQuestionView(context, question, resourceFile) {
 
-    private var view: View? = null
-    private var question: Question? = null
     private var selectedNumber = -1
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
-    private lateinit var submitButton: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -40,28 +42,11 @@ class NumericCESQuestion internal constructor(context: Context, question: Questi
     private lateinit var number4_5: TextView
     private lateinit var number5_5: TextView
 
-    init {
-        if (!isInEditMode) {
-            doOnAttach {
-                this.question = question
-                init()
-            }
-        }
-    }
-
-    private fun init() {
-        view = LayoutInflater.from(context).inflate(R.layout.numeric_ces_question, this, true)
-        initViews(view)
-        viewQuestionData()
-        handleUiEvents()
-    }
-
-    private fun initViews(view: View?) {
+    override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCesQuestionTitle)
             scale10Container = findViewById(R.id.numericCesQuestion10Container)
             scale5Container = findViewById(R.id.numericCesQuestion5Container)
-            submitButton = findViewById(R.id.numericCesQuestionSubmitButton)
             number1_10 = findViewById(R.id.numericCesQuestion10_1)
             number2_10 = findViewById(R.id.numericCesQuestion10_2)
             number3_10 = findViewById(R.id.numericCesQuestion10_3)
@@ -81,7 +66,7 @@ class NumericCESQuestion internal constructor(context: Context, question: Questi
         }
     }
 
-    private fun viewQuestionData() {
+    override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
             if (it.Scale == 10) {
@@ -94,7 +79,7 @@ class NumericCESQuestion internal constructor(context: Context, question: Questi
         }
     }
 
-    private fun handleUiEvents() {
+    override fun handleUiEvents() {
         number1_10.setOnClickListener {
             onNumberClicked(1, number1_10)
         }
@@ -139,10 +124,6 @@ class NumericCESQuestion internal constructor(context: Context, question: Questi
         }
         number5_5.setOnClickListener {
             onNumberClicked(5, number5_5)
-        }
-
-        submitButton.setOnClickListener {
-
         }
     }
 

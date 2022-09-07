@@ -13,12 +13,14 @@ import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.StarShape
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class RatingQuestion internal constructor(context: Context, question: Question?) :
-    FrameLayout(context) {
-
-    private var view: View? = null
-    private var question: Question? = null
+class RatingQuestion internal constructor(
+    context: Context,
+    question: Question?,
+    resourceLayout: Int = R.layout.rating_question
+) :
+    BaseQuestionView(context, question, resourceLayout) {
 
     private var normalRatingIcon: Int? = null
     private var selectedRatingIcon: Int? = null
@@ -26,7 +28,6 @@ class RatingQuestion internal constructor(context: Context, question: Question?)
     private var selectedColor: Int? = null
 
     private lateinit var questionTitle: TextView
-    private lateinit var submitButton: TextView
 
     private lateinit var rating1Text: TextView
     private lateinit var rating2Text: TextView
@@ -52,26 +53,9 @@ class RatingQuestion internal constructor(context: Context, question: Question?)
     private lateinit var rating4Container: LinearLayout
     private lateinit var rating5Container: LinearLayout
 
-    init {
-        if (!isInEditMode) {
-            doOnAttach {
-                this.question = question
-                init()
-            }
-        }
-    }
-
-    private fun init() {
-        view = LayoutInflater.from(context).inflate(R.layout.rating_question, this, true)
-        initViews(view)
-        viewQuestionData()
-        handleUiEvents()
-    }
-
-    private fun initViews(view: View?) {
+    override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.ratingQuestionTitle)
-            submitButton = findViewById(R.id.ratingQuestionSubmitButton)
             rating1Text = findViewById(R.id.rating1Text)
             rating2Text = findViewById(R.id.rating2Text)
             rating3Text = findViewById(R.id.rating3Text)
@@ -98,7 +82,7 @@ class RatingQuestion internal constructor(context: Context, question: Question?)
         }
     }
 
-    private fun viewQuestionData() {
+    override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
             when (it.StarOption?.Shape) {
@@ -138,7 +122,7 @@ class RatingQuestion internal constructor(context: Context, question: Question?)
         }
     }
 
-    private fun handleUiEvents() {
+    override fun handleUiEvents() {
         rating1Container.setOnClickListener {
             on1RatingClicked()
         }
@@ -154,12 +138,9 @@ class RatingQuestion internal constructor(context: Context, question: Question?)
         rating5Container.setOnClickListener {
             on5RatingClicked()
         }
-        submitButton.setOnClickListener {
-
-        }
     }
 
-    private fun viewInitialIcons(){
+    private fun viewInitialIcons() {
         showNotSelectedIcon(rating1Icon)
         showNotSelectedIcon(rating2Icon)
         showNotSelectedIcon(rating3Icon)

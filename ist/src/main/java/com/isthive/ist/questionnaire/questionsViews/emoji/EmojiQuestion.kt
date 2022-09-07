@@ -10,12 +10,15 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-internal class EmojiQuestion internal constructor(context: Context, question: Question?) :
-    FrameLayout(context) {
+internal class EmojiQuestion internal constructor(
+    context: Context,
+    question: Question?,
+    resourceFile: Int = R.layout.emoji_question
+) :
+    BaseQuestionView(context, question, resourceFile) {
 
-    private var view: View? = null
-    private var question: Question? = null
     private var is5EmojiMode = true
     private var lastEmojiClicked: AppCompatImageView? = null
 
@@ -34,25 +37,8 @@ internal class EmojiQuestion internal constructor(context: Context, question: Qu
     private lateinit var lastSpace: View
 
     private lateinit var closeButton: AppCompatImageView
-    private lateinit var submitButton: TextView
 
-    init {
-        if (!isInEditMode) {
-            doOnAttach {
-                this.question = question
-                init()
-            }
-        }
-    }
-
-    private fun init() {
-        view = LayoutInflater.from(context).inflate(R.layout.emoji_question, this, true)
-        initViews(view)
-        initViewData()
-        handleUiEvents()
-    }
-
-    private fun initViews(view: View?) {
+    override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.emojiQuestionTitle)
 
@@ -70,11 +56,10 @@ internal class EmojiQuestion internal constructor(context: Context, question: Qu
             lastSpace = findViewById(R.id.emojiQuestionLastSpace)
 
             closeButton = findViewById(R.id.emojiQuestionClose)
-            submitButton = findViewById(R.id.emojiQuestionSubmitButton)
         }
     }
 
-    private fun initViewData() {
+    override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
             when (TemplateID) {
@@ -92,7 +77,7 @@ internal class EmojiQuestion internal constructor(context: Context, question: Qu
         }
     }
 
-    private fun handleUiEvents() {
+    override fun handleUiEvents() {
         angryEmoji.setOnClickListener {
             onEmojiClicked(angryEmoji)
         }
@@ -109,9 +94,6 @@ internal class EmojiQuestion internal constructor(context: Context, question: Qu
             onEmojiClicked(happyEmoji)
         }
         closeButton.setOnClickListener {
-
-        }
-        submitButton.setOnClickListener {
 
         }
     }

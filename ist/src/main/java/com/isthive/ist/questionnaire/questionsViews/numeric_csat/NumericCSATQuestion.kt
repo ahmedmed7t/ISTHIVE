@@ -9,17 +9,19 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NumericCSATQuestion internal constructor(context: Context, question: Question?) :
-    FrameLayout(context) {
+class NumericCSATQuestion internal constructor(
+    context: Context,
+    question: Question?,
+    resourceFile: Int = R.layout.numeric_csat_question
+) :
+    BaseQuestionView(context, question, resourceFile) {
 
-    private var view: View? = null
-    private var question: Question? = null
     private var selectedNumber = -1
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
-    private lateinit var submitButton: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -40,28 +42,12 @@ class NumericCSATQuestion internal constructor(context: Context, question: Quest
     private lateinit var number4_5: TextView
     private lateinit var number5_5: TextView
 
-    init {
-        if (!isInEditMode) {
-            doOnAttach {
-                this.question = question
-                init()
-            }
-        }
-    }
 
-    private fun init() {
-        view = LayoutInflater.from(context).inflate(R.layout.numeric_csat_question, this, true)
-        initViews(view)
-        viewQuestionData()
-        handleUiEvents()
-    }
-
-    private fun initViews(view: View?) {
+    override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCsatQuestionTitle)
             scale10Container = findViewById(R.id.numericCsatQuestion10Container)
             scale5Container = findViewById(R.id.numericCsatQuestion5Container)
-            submitButton = findViewById(R.id.numericCsatQuestionSubmitButton)
 
             number1_10 = findViewById(R.id.numericCsatQuestion10_1)
             number2_10 = findViewById(R.id.numericCsatQuestion10_2)
@@ -82,7 +68,7 @@ class NumericCSATQuestion internal constructor(context: Context, question: Quest
         }
     }
 
-    private fun viewQuestionData() {
+    override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
             if (it.Scale == 10) {
@@ -95,7 +81,7 @@ class NumericCSATQuestion internal constructor(context: Context, question: Quest
         }
     }
 
-    private fun handleUiEvents() {
+    override fun handleUiEvents() {
         number1_10.setOnClickListener {
             onNumberClicked(1, number1_10)
         }
@@ -142,9 +128,6 @@ class NumericCSATQuestion internal constructor(context: Context, question: Quest
             onNumberClicked(5, number5_5)
         }
 
-        submitButton.setOnClickListener {
-
-        }
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView) {

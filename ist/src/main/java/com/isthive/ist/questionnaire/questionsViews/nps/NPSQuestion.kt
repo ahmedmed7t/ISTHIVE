@@ -10,17 +10,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NPSQuestion internal constructor(context: Context, question: Question?) :
-    FrameLayout(context) {
+class NPSQuestion internal constructor(context: Context, question: Question?, resourceFile: Int = R.layout.nps_question) :
+    BaseQuestionView(context, question, resourceFile) {
 
-    private var view: View? = null
-    private var question: Question? = null
     private var selectedNumber = -1
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
-    private lateinit var submitButton: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -42,28 +40,11 @@ class NPSQuestion internal constructor(context: Context, question: Question?) :
     private lateinit var number4_5: TextView
     private lateinit var number5_5: TextView
 
-    init {
-        if (!isInEditMode) {
-            doOnAttach {
-                this.question = question
-                init()
-            }
-        }
-    }
-
-    private fun init() {
-        view = LayoutInflater.from(context).inflate(R.layout.nps_question, this, true)
-        initViews(view)
-        viewQuestionData()
-        handleUiEvents()
-    }
-
-    private fun initViews(view: View?) {
+    override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.npsQuestionTitle)
             scale10Container = findViewById(R.id.npsQuestion10Container)
             scale5Container = findViewById(R.id.npsQuestion5Container)
-            submitButton = findViewById(R.id.npsQuestionSubmitButton)
             number0_10 = findViewById(R.id.npsQuestion10_0)
             number1_10 = findViewById(R.id.npsQuestion10_1)
             number2_10 = findViewById(R.id.npsQuestion10_2)
@@ -84,7 +65,7 @@ class NPSQuestion internal constructor(context: Context, question: Question?) :
         }
     }
 
-    private fun viewQuestionData() {
+    override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
             if (it.Scale == 10) {
@@ -97,7 +78,7 @@ class NPSQuestion internal constructor(context: Context, question: Question?) :
         }
     }
 
-    private fun handleUiEvents() {
+    override fun handleUiEvents() {
         number0_10.setOnClickListener {
             onNumberClicked(0, number0_10)
         }
@@ -145,10 +126,6 @@ class NPSQuestion internal constructor(context: Context, question: Question?) :
         }
         number5_5.setOnClickListener {
             onNumberClicked(5, number5_5)
-        }
-
-        submitButton.setOnClickListener {
-
         }
     }
 
