@@ -9,7 +9,7 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.fcr.FCRQuestion
 import com.isthive.ist.questionnaire.questionsViews.ces.NumericCESQuestion
 import com.isthive.ist.questionnaire.questionsViews.numeric_ces.NumCESQuestion
-import com.isthive.ist.questionnaire.questionsViews.csat.CSATQuestion
+import com.isthive.ist.questionnaire.questionsViews.csat.SCATQuestion
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
 import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
@@ -149,7 +149,7 @@ internal class QuestionProvider(
             QuestionType.Image_Single_Choice -> NumCESQuestion(
                 context.applicationContext, question
             )
-            QuestionType.CSAT -> CSATQuestion(context.applicationContext, question)
+            QuestionType.CSAT -> SCATQuestion(context.applicationContext, question)
             QuestionType.FCR -> FCRQuestion(context.applicationContext, question)
             QuestionType.CES -> NumericCESQuestion(context.applicationContext, question)
             QuestionType.Numeric_CSAT -> NumericCSATQuestion(context.applicationContext, question)
