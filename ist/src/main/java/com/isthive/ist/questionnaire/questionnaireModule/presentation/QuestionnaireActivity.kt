@@ -7,13 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
-import com.isthive.ist.questionnaire.questionsViews.csat.SCATQuestion
-import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
-import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
-import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
-import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
-import com.isthive.ist.questionnaire.questionsViews.singleChoice.SingleChoiceQuestion
-import com.isthive.ist.questionnaire.questionsViews.sliding.SlidingQuestion
+import com.isthive.ist.questionnaire.questionsViews.fcr.FCRQuestion
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,7 +39,7 @@ internal class QuestionnaireActivity : AppCompatActivity() {
                     for (item in it.survey.Questions){
                         if(item.QuestionType == QuestionType.CSAT){
                             BottomSheetContainer()
-                                .mainView(SCATQuestion(this, it.survey.Questions[1]))
+                                .mainView(FCRQuestion(this, it.survey.Questions[0]))
                                 .show(supportFragmentManager, "tag")
                             break
                         }
