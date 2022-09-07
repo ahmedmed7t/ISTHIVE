@@ -10,7 +10,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
-class SCATQuestion internal constructor(
+class CSATQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.csat_question

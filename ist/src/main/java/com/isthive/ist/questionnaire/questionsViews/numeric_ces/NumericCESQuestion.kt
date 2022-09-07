@@ -8,7 +8,7 @@ import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NumCESQuestion internal constructor(
+class NumericCESQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceFile: Int = R.layout.numeric_ces_question

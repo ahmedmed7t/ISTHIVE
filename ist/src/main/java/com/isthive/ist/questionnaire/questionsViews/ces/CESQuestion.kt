@@ -10,7 +10,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
-class NumericCESQuestion internal constructor(
+class CESQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.ces_question

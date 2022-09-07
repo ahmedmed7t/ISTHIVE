@@ -7,9 +7,9 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.SkipLogic
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.fcr.FCRQuestion
-import com.isthive.ist.questionnaire.questionsViews.ces.NumericCESQuestion
-import com.isthive.ist.questionnaire.questionsViews.numeric_ces.NumCESQuestion
-import com.isthive.ist.questionnaire.questionsViews.csat.SCATQuestion
+import com.isthive.ist.questionnaire.questionsViews.ces.CESQuestion
+import com.isthive.ist.questionnaire.questionsViews.numeric_ces.NumericCESQuestion
+import com.isthive.ist.questionnaire.questionsViews.csat.CSATQuestion
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
 import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
@@ -56,8 +56,8 @@ internal class QuestionProvider(
     }
 
     private fun getNextQuestionIndexFromSkipLogic(question: Question, answer: Answer): Int {
-        var nextQuestionGuid = ""
-        var nextQuestionIndex = 0
+        var nextQuestionGuid: String
+        var nextQuestionIndex: Int
         skipLogic?.let {
             for (item in it) {
                 if (question.QuestionGUID == item.QuestionGUID) {
@@ -126,34 +126,34 @@ internal class QuestionProvider(
                 context.applicationContext,
                 question
             )
-            QuestionType.List_question -> NumCESQuestion(context.applicationContext, question)
-            QuestionType.Date_question -> NumCESQuestion(context.applicationContext, question)
+            QuestionType.List_question -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Date_question -> NumericCESQuestion(context.applicationContext, question)
             QuestionType.Slide_question -> SlidingQuestion(context.applicationContext, question)
             QuestionType.Star_question -> RatingQuestion(context.applicationContext, question)
             QuestionType.NPS -> NPSQuestion(context.applicationContext, question)
-            QuestionType.Text_input -> NumCESQuestion(context.applicationContext, question)
-            QuestionType.Number_input -> NumCESQuestion(context.applicationContext, question)
-            QuestionType.Email_input -> NumCESQuestion(context.applicationContext, question)
-            QuestionType.Phone_number_input -> NumCESQuestion(
+            QuestionType.Text_input -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Number_input -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Email_input -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Phone_number_input -> NumericCESQuestion(
                 context.applicationContext, question
             )
-            QuestionType.Postal_code_input -> NumCESQuestion(
+            QuestionType.Postal_code_input -> NumericCESQuestion(
                 context.applicationContext, question
             )
-            QuestionType.URL_input -> NumCESQuestion(context.applicationContext, question)
+            QuestionType.URL_input -> NumericCESQuestion(context.applicationContext, question)
             QuestionType.Single_choice -> SingleChoiceQuestion(context.applicationContext, question)
             QuestionType.EmojiHiveCFM_Mobile_API -> EmojiQuestion(
                 context.applicationContext, question
             )
-            QuestionType.Image_MCQ -> NumCESQuestion(context.applicationContext, question)
-            QuestionType.Image_Single_Choice -> NumCESQuestion(
+            QuestionType.Image_MCQ -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Image_Single_Choice -> NumericCESQuestion(
                 context.applicationContext, question
             )
-            QuestionType.CSAT -> SCATQuestion(context.applicationContext, question)
+            QuestionType.CSAT -> CSATQuestion(context.applicationContext, question)
             QuestionType.FCR -> FCRQuestion(context.applicationContext, question)
-            QuestionType.CES -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.CES -> CESQuestion(context.applicationContext, question)
             QuestionType.Numeric_CSAT -> NumericCSATQuestion(context.applicationContext, question)
-            QuestionType.Numeric_CES -> NumCESQuestion(context.applicationContext, question)
+            QuestionType.Numeric_CES -> NumericCESQuestion(context.applicationContext, question)
         }
     }
 }
