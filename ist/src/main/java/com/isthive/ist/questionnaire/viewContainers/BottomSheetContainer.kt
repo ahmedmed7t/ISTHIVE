@@ -69,8 +69,14 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
     }
 
     fun addView(popUpContent: View) {
+        popUpContent.layoutParams = ViewGroup.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
         bottomSheetContainer.apply {
-            addView(popUpMainView)
+            removeView(popUpMainView)
+            addView(popUpContent)
+            popUpMainView = popUpContent
         }
     }
 

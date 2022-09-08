@@ -52,7 +52,6 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:stepSize="1"
         android:theme="@style/Theme.Transparent"
-        android:value="2"
         android:valueFrom="1"
         android:valueTo="5"
         app:haloColor="@color/blue"

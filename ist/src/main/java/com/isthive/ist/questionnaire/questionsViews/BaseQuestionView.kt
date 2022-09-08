@@ -30,9 +30,7 @@ abstract class BaseQuestionView internal constructor(
     }
 
     private fun init(resourceFile: Int) {
-        Log.v("Medhat", "will inflate View ")
         view = LayoutInflater.from(context).inflate(resourceFile, this, true)
-        Log.v("Medhat", "View inflated")
         initViews(view)
         viewQuestionData()
         handleUiEvents()

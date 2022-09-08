@@ -51,7 +51,6 @@
         android:layout_height="@dimen/_250sdp"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:paddingBottom="@dimen/_4sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionDescription"

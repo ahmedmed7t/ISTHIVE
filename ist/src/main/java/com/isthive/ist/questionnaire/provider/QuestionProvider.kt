@@ -1,6 +1,7 @@
 package com.isthive.ist.questionnaire.provider
 
 import android.content.Context
+import android.util.Log
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
@@ -25,25 +26,36 @@ internal class QuestionProvider(
 
     var questionIndex = -1
 
-    fun getNextQuestion(answer: Answer, context: Context): BaseQuestionView {
+    fun getNextQuestion(answer: Answer?, context: Context): BaseQuestionView? {
         while (questionIndex < questions.count()) {
             if (questionIndex == -1) {
+                Log.v("Medhat", "question Index is ${questionIndex} for first time index = -1")
                 questionIndex += 1
                 return loadViewRelevantToQuestion(questions[questionIndex], context)
             }
             val question = questions[questionIndex]
             if (isQuestionHaveSkipLogic(question.QuestionGUID)) {
                 questionIndex = getNextQuestionIndexFromSkipLogic(question, answer)
+                Log.v("Medhat", "question Index is ${questionIndex} from get next from skip logic")
                 break
             } else {
                 questionIndex += 1
+                Log.v("Medhat", "question Index is ${questionIndex} just add one")
                 break
             }
         }
-
+        Log.v("Medhat", "question Index is ${questionIndex}")
+        if(questionIndex == questions.size)
+            return null
         return loadViewRelevantToQuestion(questions[questionIndex], context)
     }
 
+    fun updateQuestionIndex(question: Question?){
+        for((index, item) in questions.withIndex()){
+            if(question?.QuestionGUID == item.QuestionGUID)
+                questionIndex = index
+        }
+    }
     private fun isQuestionHaveSkipLogic(questionGUID: String): Boolean {
         skipLogic?.let {
             for (item in it) {
@@ -55,7 +67,7 @@ internal class QuestionProvider(
         return false
     }
 
-    private fun getNextQuestionIndexFromSkipLogic(question: Question, answer: Answer): Int {
+    private fun getNextQuestionIndexFromSkipLogic(question: Question, answer: Answer?): Int {
         var nextQuestionGuid: String
         var nextQuestionIndex: Int
         skipLogic?.let {
@@ -71,20 +83,22 @@ internal class QuestionProvider(
                                 question.QuestionType != QuestionType.Postal_code_input ||
                                 question.QuestionType != QuestionType.URL_input ||
                                 question.QuestionType != QuestionType.Image_MCQ) &&
-                        (item.MinValue <= answer.NumberResponse &&
-                                item.MaxValue >= answer.NumberResponse)
+                        (item.MinValue <= (answer?.NumberResponse ?: 0) &&
+                                item.MaxValue >= (answer?.NumberResponse ?: 0))
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(
                             question, nextQuestionGuid
                         )
+                        Log.v("Medhat", "get Next from skip first condition return $nextQuestionIndex")
                         return nextQuestionIndex
 
                     } else if (item.QChoiceGUID.isNotEmpty() &&
-                        (item.QChoiceGUID == answer.getSingleChoiceAnswer().ChoiceGuid)
+                        (item.QChoiceGUID == answer?.getSingleChoiceAnswer()?.ChoiceGuid)
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(question, nextQuestionGuid)
+                        Log.v("Medhat", "get Next from skip second condition return $nextQuestionIndex")
                         return nextQuestionIndex
 
                     } else if (question.QuestionType == QuestionType.Multiple_choice_question ||
@@ -99,11 +113,13 @@ internal class QuestionProvider(
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(question, nextQuestionGuid)
+                        Log.v("Medhat", "get Next from skip third condition return $nextQuestionIndex")
                         return nextQuestionIndex
                     }
                 }
             }
         }
+        Log.v("Medhat", "get Next from skip return 0")
         return 0
     }
 
