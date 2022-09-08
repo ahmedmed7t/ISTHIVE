@@ -1,17 +1,16 @@
 package com.isthive.ist.questionnaire.questionsViews.multipleChoice
 
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
@@ -19,15 +18,20 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 
 internal class MultipleChoiceAdapter constructor(
     private val choices: ArrayList<Choice>,
-    private val isModernMode: Boolean
+    private val isModernMode: Boolean,
+    private val handlerMultiple: MultipleChoiceAdapterHandler
 ) : RecyclerView.Adapter<MultipleChoiceAdapter.MultipleViewHolder>() {
 
+    var otherText = ""
+    var otherIndex = -1
     inner class MultipleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val choiceContainer: ConstraintLayout =
             itemView.findViewById(R.id.multipleChoiceListItemContainer)
-        val choiceCheckBox: AppCompatCheckBox = itemView.findViewById(R.id.multipleChoiceListItemCheck)
+        val choiceCheckBox: AppCompatCheckBox =
+            itemView.findViewById(R.id.multipleChoiceListItemCheck)
         val choiceTitle: TextView = itemView.findViewById(R.id.multipleChoiceListItemTitle)
-        val otherEditText: EditText = itemView.findViewById(R.id.multipleChoiceListItemOtherEditText)
+        val otherEditText: EditText =
+            itemView.findViewById(R.id.multipleChoiceListItemOtherEditText)
         val choiceRightIcon: AppCompatImageView =
             itemView.findViewById(R.id.multipleChoiceListItemRightMark)
         val choiceDataContainer: ConstraintLayout =
@@ -56,6 +60,11 @@ internal class MultipleChoiceAdapter constructor(
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
                 holder.otherEditText.visibility = View.GONE
             }
+        }
+
+        holder.otherEditText.addTextChangedListener {
+            otherText = it.toString()
+            otherIndex = position
         }
 
         when (isModernMode) {
@@ -114,6 +123,11 @@ internal class MultipleChoiceAdapter constructor(
     override fun getItemCount() = choices.size
 
     private fun selectChoice(position: Int) {
+        if (choices[position].isSelected)
+            handlerMultiple.onChoiceUnSelected(position)
+        else
+            handlerMultiple.onChoiceSelected(position)
+
         choices[position].isSelected = !choices[position].isSelected
         android.os.Handler(Looper.getMainLooper()).post {
             notifyItemChanged(position)

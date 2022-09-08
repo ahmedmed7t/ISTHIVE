@@ -8,7 +8,9 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.doOnAttach
+import com.google.android.material.slider.Slider
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
@@ -20,10 +22,12 @@ class SlidingQuestion internal constructor(
     BaseQuestionView(context, question, resourceLayout) {
 
     private lateinit var questionTitle: TextView
+    private lateinit var slider: Slider
 
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.slidingQuestionTitle)
+            slider = findViewById(R.id.slidingQuestionSlider)
         }
     }
 
@@ -35,5 +39,14 @@ class SlidingQuestion internal constructor(
 
     override fun handleUiEvents() {
 
+    }
+
+    override fun getAnswer(): Answer? {
+        question?.apply {
+            return Answer(
+                QuestionGUID, QuestionID,null, slider.value.toInt(), null
+            )
+        }
+        return null
     }
 }

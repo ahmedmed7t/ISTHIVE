@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
@@ -37,6 +38,8 @@ internal class EmojiQuestion internal constructor(
     private lateinit var lastSpace: View
 
     private lateinit var closeButton: AppCompatImageView
+
+    private var selectedEmoji = 0
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -79,23 +82,42 @@ internal class EmojiQuestion internal constructor(
 
     override fun handleUiEvents() {
         angryEmoji.setOnClickListener {
+            selectedEmoji = 1
             onEmojiClicked(angryEmoji)
         }
         frownEmoji.setOnClickListener {
+            selectedEmoji = 2
             onEmojiClicked(frownEmoji)
         }
         neutralEmoji.setOnClickListener {
+            question?.let {
+                when(it.Scale){
+                    3 -> { selectedEmoji = 2}
+                    5 -> { selectedEmoji = 3}
+                }
+            }
             onEmojiClicked(neutralEmoji)
         }
         smileEmoji.setOnClickListener {
+            selectedEmoji = 4
             onEmojiClicked(smileEmoji)
         }
         happyEmoji.setOnClickListener {
+            question?.let {
+                selectedEmoji = it.Scale
+            }
             onEmojiClicked(happyEmoji)
         }
         closeButton.setOnClickListener {
 
         }
+    }
+
+    override fun getAnswer(): Answer? {
+        question?.apply {
+            return Answer(QuestionGUID, QuestionID, null, selectedEmoji)
+        }
+        return null
     }
 
     private fun onEmojiClicked(emoji: AppCompatImageView) {

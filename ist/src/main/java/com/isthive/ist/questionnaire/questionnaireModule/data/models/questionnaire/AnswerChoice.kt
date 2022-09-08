@@ -3,5 +3,5 @@ package com.isthive.ist.questionnaire.questionnaireModule.data.models.questionna
 internal data class AnswerChoice(
     var ChoiceGuid: String,
     var ChoiceID: Int,
-    var TextAnswer: String
+    var TextAnswer: String? = null
 )

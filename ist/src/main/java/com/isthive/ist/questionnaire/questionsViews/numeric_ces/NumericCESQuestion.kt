@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
@@ -122,6 +123,15 @@ class NumericCESQuestion internal constructor(
         number5_5.setOnClickListener {
             onNumberClicked(5, number5_5)
         }
+    }
+
+    override fun getAnswer(): Answer? {
+        question?.apply {
+            return Answer(
+                QuestionGUID, QuestionID,null, selectedNumber, null
+            )
+        }
+        return null
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView) {

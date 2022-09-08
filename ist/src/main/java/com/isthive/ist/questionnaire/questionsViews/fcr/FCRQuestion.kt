@@ -6,6 +6,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.AnswerChoice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
@@ -24,6 +26,7 @@ class FCRQuestion internal constructor(
     private lateinit var optionsContainer: LinearLayout
 
     private var lastSelectedItem: RadioButtonListItem? = null
+    private var lastSelectedIndex: Int? = null
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -47,21 +50,38 @@ class FCRQuestion internal constructor(
     private fun setOptionsStyle(style: String) {
         option1.setMode(style)
         option2.setMode(style)
-        enableHorizontalMode()
-//        if(style.contains("horizontal", ignoreCase = true)){
-//            enableHorizontalMode()
-//        }else{
-//            enableVerticalMode()
-//        }
+        if(style.contains("horizontal", ignoreCase = true)){
+            enableHorizontalMode()
+        }else{
+            enableVerticalMode()
+        }
     }
 
     override fun handleUiEvents() {
         option1.setOnClickListener {
-            onOptionClicked(option1)
+            onOptionClicked(option1,0)
         }
         option2.setOnClickListener {
-            onOptionClicked(option2)
+            onOptionClicked(option2,1)
         }
+    }
+
+    override fun getAnswer(): Answer? {
+        lastSelectedIndex?.let { lastIndex ->
+            question?.apply {
+                val answer = Answer(
+                    QuestionGUID, QuestionID, arrayListOf(
+                        AnswerChoice(
+                            Choices!![lastIndex].ChoiceGUID,
+                            Choices[lastIndex].ChoiceID,
+                            null
+                        )
+                    )
+                )
+                return answer
+            }
+        }
+        return null
     }
 
     private fun enableHorizontalMode(){
@@ -88,7 +108,8 @@ class FCRQuestion internal constructor(
         option.layoutParams = param
     }
 
-    private fun onOptionClicked(selectedItem: RadioButtonListItem) {
+    private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+        lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)
         lastSelectedItem = selectedItem

@@ -7,9 +7,14 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 
-abstract class BaseQuestionView internal constructor(context: Context, question: Question?, resourceFile: Int) :
+abstract class BaseQuestionView internal constructor(
+    context: Context,
+    question: Question?,
+    resourceFile: Int
+) :
     FrameLayout(context) {
 
     internal var view: View? = null
@@ -24,7 +29,7 @@ abstract class BaseQuestionView internal constructor(context: Context, question:
         }
     }
 
-    private fun init(resourceFile: Int){
+    private fun init(resourceFile: Int) {
         Log.v("Medhat", "will inflate View ")
         view = LayoutInflater.from(context).inflate(resourceFile, this, true)
         Log.v("Medhat", "View inflated")
@@ -33,9 +38,17 @@ abstract class BaseQuestionView internal constructor(context: Context, question:
         handleUiEvents()
     }
 
-    abstract fun initViews(view: View?)
+    internal abstract fun initViews(view: View?)
 
-    abstract fun viewQuestionData()
+    internal abstract fun viewQuestionData()
 
-    abstract fun handleUiEvents()
+    internal abstract fun handleUiEvents()
+
+    internal abstract fun getAnswer(): Answer?
+    internal fun canSkip(): Boolean {
+        question?.let {
+            return !it.IsRequired
+        }
+        return true
+    }
 }

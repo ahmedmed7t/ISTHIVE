@@ -11,6 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
@@ -18,10 +20,12 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 
 internal class SingleChoiceAdapter constructor(
     private val choices: ArrayList<Choice>,
-    private val isModernMode: Boolean
+    private val isModernMode: Boolean,
+    private val handler: SingleChoiceAdapterHandler
 ) : RecyclerView.Adapter<SingleChoiceAdapter.SingleViewHolder>() {
 
     private var lastSelectedPosition: Int? = null
+    var otherText = ""
 
     inner class SingleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val choiceContainer: ConstraintLayout =
@@ -57,6 +61,10 @@ internal class SingleChoiceAdapter constructor(
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
                 holder.otherEditText.visibility = View.GONE
             }
+        }
+
+        holder.otherEditText.addTextChangedListener { text->
+            otherText = text.toString()
         }
 
         when (isModernMode) {
@@ -115,6 +123,7 @@ internal class SingleChoiceAdapter constructor(
     override fun getItemCount() = choices.size
 
     private fun selectChoice(position: Int) {
+        handler.onChoiceSelected(position)
         choices.forEachIndexed { index, element ->
             element.isSelected = position == index
         }

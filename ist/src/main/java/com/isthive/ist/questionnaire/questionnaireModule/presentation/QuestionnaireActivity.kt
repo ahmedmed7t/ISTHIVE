@@ -7,12 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
+import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.fcr.FCRQuestion
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-internal class QuestionnaireActivity : AppCompatActivity() {
+internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     private val viewModel: QuestionnaireViewModel by viewModels()
 
     private lateinit var questionProvider: QuestionProvider
@@ -40,6 +41,7 @@ internal class QuestionnaireActivity : AppCompatActivity() {
                         if(item.QuestionType == QuestionType.CSAT){
                             BottomSheetContainer()
                                 .mainView(FCRQuestion(this, it.survey.Questions[0]))
+                                .setHandler(this)
                                 .show(supportFragmentManager, "tag")
                             break
                         }
@@ -52,5 +54,21 @@ internal class QuestionnaireActivity : AppCompatActivity() {
     internal companion object{
         const val QUESTIONNAIRE_USER_NAME = "QUESTIONNAIRE_USER_NAME"
         const val QUESTIONNAIRE_PASSWORD = "QUESTIONNAIRE_PASSWORD"
+    }
+
+    override fun onNextClicked() {
+
+    }
+
+    override fun onBackClicked() {
+
+    }
+
+    override fun onSubmitClicked() {
+
+    }
+
+    override fun onCloseClicked() {
+
     }
 }

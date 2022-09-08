@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.AnswerChoice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
@@ -27,6 +29,7 @@ class CESQuestion internal constructor(
     private lateinit var option7: RadioButtonListItem
 
     private var lastSelectedItem: RadioButtonListItem? = null
+    private var lastSelectedIndex: Int? = null
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -47,14 +50,14 @@ class CESQuestion internal constructor(
             setOptionsStyle(TemplateID)
             when (Scale) {
                 3 -> {
-                    option2.visibility = View.GONE
-                    option3.visibility = View.GONE
+                    option4.visibility = View.GONE
                     option5.visibility = View.GONE
                     option6.visibility = View.GONE
+                    option7.visibility = View.GONE
                 }
                 5 -> {
-                    option2.visibility = View.GONE
                     option6.visibility = View.GONE
+                    option7.visibility = View.GONE
                 }
             }
             Choices?.let { choices ->
@@ -75,29 +78,48 @@ class CESQuestion internal constructor(
 
     override fun handleUiEvents() {
         option1.setOnClickListener {
-            onOptionClicked(option1)
+            onOptionClicked(option1, 0)
         }
         option2.setOnClickListener {
-            onOptionClicked(option2)
+            onOptionClicked(option2, 1)
         }
         option3.setOnClickListener {
-            onOptionClicked(option3)
+            onOptionClicked(option3, 2)
         }
         option4.setOnClickListener {
-            onOptionClicked(option4)
+            onOptionClicked(option4, 3)
         }
         option5.setOnClickListener {
-            onOptionClicked(option5)
+            onOptionClicked(option5, 4)
         }
         option6.setOnClickListener {
-            onOptionClicked(option6)
+            onOptionClicked(option6, 5)
         }
         option7.setOnClickListener {
-            onOptionClicked(option7)
+            onOptionClicked(option7, 6)
         }
     }
 
-    private fun onOptionClicked(selectedItem: RadioButtonListItem) {
+    override fun getAnswer(): Answer? {
+        lastSelectedIndex?.let { lastIndex ->
+            question?.apply {
+                val answer = Answer(
+                    QuestionGUID, QuestionID, arrayListOf(
+                        AnswerChoice(
+                            Choices!![lastIndex].ChoiceGUID,
+                            Choices[lastIndex].ChoiceID,
+                            null
+                        )
+                    )
+                )
+                return answer
+            }
+        }
+        return null
+    }
+
+    private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+        lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)
         lastSelectedItem = selectedItem
@@ -107,15 +129,15 @@ class CESQuestion internal constructor(
         when (choices.size) {
             3 -> {
                 option1.setOptionTitle(choices[0].Title)
-                option4.setOptionTitle(choices[1].Title)
-                option7.setOptionTitle(choices[2].Title)
+                option2.setOptionTitle(choices[1].Title)
+                option3.setOptionTitle(choices[2].Title)
             }
             5 -> {
                 option1.setOptionTitle(choices[0].Title)
-                option3.setOptionTitle(choices[1].Title)
-                option4.setOptionTitle(choices[2].Title)
-                option5.setOptionTitle(choices[3].Title)
-                option7.setOptionTitle(choices[4].Title)
+                option2.setOptionTitle(choices[1].Title)
+                option3.setOptionTitle(choices[2].Title)
+                option4.setOptionTitle(choices[3].Title)
+                option5.setOptionTitle(choices[4].Title)
             }
             7 -> {
                 option1.setOptionTitle(choices[0].Title)

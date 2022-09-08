@@ -11,7 +11,7 @@ import com.isthive.ist.questionnaire.questionsViews.ces.CESQuestion
 import com.isthive.ist.questionnaire.questionsViews.numeric_ces.NumericCESQuestion
 import com.isthive.ist.questionnaire.questionsViews.csat.CSATQuestion
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
-import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
+import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleMultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
 import com.isthive.ist.questionnaire.questionsViews.numeric_csat.NumericCSATQuestion
 import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
@@ -122,7 +122,7 @@ internal class QuestionProvider(
     private fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
-            QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(
+            QuestionType.Multiple_choice_question -> MultipleMultipleChoiceQuestion(
                 context.applicationContext,
                 question
             )

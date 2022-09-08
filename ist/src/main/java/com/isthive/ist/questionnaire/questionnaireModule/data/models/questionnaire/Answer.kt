@@ -3,8 +3,9 @@ package com.isthive.ist.questionnaire.questionnaireModule.data.models.questionna
 internal class Answer(
     var QuestionGUID: String,
     var QuestionID: Int,
-    var SelectedChoices: ArrayList<AnswerChoice>? = arrayListOf(),
-    var NumberResponse: Int
+    var SelectedChoices: ArrayList<AnswerChoice>? = null,
+    var NumberResponse: Int? = null,
+    var TextResponse: String? = null
 ){
     fun getSingleChoiceAnswer(): AnswerChoice {
         if (SelectedChoices != null && SelectedChoices!!.count() > 0) {

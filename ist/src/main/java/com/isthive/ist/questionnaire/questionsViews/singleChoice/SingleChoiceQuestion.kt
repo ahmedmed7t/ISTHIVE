@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.core.view.doOnAttach
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.AnswerChoice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
@@ -16,7 +18,7 @@ internal class SingleChoiceQuestion internal constructor(
     question: Question?,
     resourceFile: Int = R.layout.single_choice_question
 ) :
-    BaseQuestionView(context, question, resourceFile) {
+    BaseQuestionView(context, question, resourceFile), SingleChoiceAdapterHandler {
 
     private val MODEREN_STYLE = "Modern"
 
@@ -24,6 +26,7 @@ internal class SingleChoiceQuestion internal constructor(
     private lateinit var choicesRecyclerView: RecyclerView
 
     private lateinit var choicesAdapter: SingleChoiceAdapter
+    private var selectedChoice: Int? = null
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -38,7 +41,7 @@ internal class SingleChoiceQuestion internal constructor(
         question?.apply {
             questionTitle.text = Title
             Choices?.let { choices ->
-                choicesAdapter = SingleChoiceAdapter(choices, TemplateID == MODEREN_STYLE)
+                choicesAdapter = SingleChoiceAdapter(choices, TemplateID == MODEREN_STYLE, this@SingleChoiceQuestion)
                 choicesRecyclerView.adapter = choicesAdapter
             }
         }
@@ -46,5 +49,27 @@ internal class SingleChoiceQuestion internal constructor(
 
     override fun handleUiEvents() {
 
+    }
+
+    override fun getAnswer(): Answer? {
+        question?.apply {
+            selectedChoice?.let { choice ->
+                return Answer(
+                    QuestionGUID, QuestionID, arrayListOf(
+                        AnswerChoice(
+                            Choices!![choice].ChoiceGUID,
+                            Choices[choice].ChoiceID,
+                            choicesAdapter.otherText.ifBlank { null }
+                        )
+                    ), null
+                )
+            }
+        }
+
+        return null
+    }
+
+    override fun onChoiceSelected(position: Int) {
+        selectedChoice = position
     }
 }

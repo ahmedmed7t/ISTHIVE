@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.StarShape
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
@@ -28,6 +29,7 @@ class RatingQuestion internal constructor(
     private var selectedColor: Int? = null
 
     private lateinit var questionTitle: TextView
+    private var selectedRate: Int = 0
 
     private lateinit var rating1Text: TextView
     private lateinit var rating2Text: TextView
@@ -140,6 +142,15 @@ class RatingQuestion internal constructor(
         }
     }
 
+    override fun getAnswer(): Answer? {
+        question?.apply {
+            return Answer(
+                QuestionGUID, QuestionID,null, selectedRate, null
+            )
+        }
+        return null
+    }
+
     private fun viewInitialIcons() {
         showNotSelectedIcon(rating1Icon)
         showNotSelectedIcon(rating2Icon)
@@ -149,6 +160,7 @@ class RatingQuestion internal constructor(
     }
 
     private fun on1RatingClicked() {
+        selectedRate = 1
         showSelectedData(rating1Text, rating1Line)
         showSelectedIcon(rating1Icon)
 
@@ -163,6 +175,7 @@ class RatingQuestion internal constructor(
     }
 
     private fun on2RatingClicked() {
+        selectedRate = 2
         showSelectedIcon(rating1Icon)
         showSelectedIcon(rating2Icon)
         showSelectedData(rating2Text, rating2Line)
@@ -177,6 +190,7 @@ class RatingQuestion internal constructor(
     }
 
     private fun on3RatingClicked() {
+        selectedRate = 3
         showSelectedIcon(rating1Icon)
         showSelectedIcon(rating2Icon)
         showSelectedIcon(rating3Icon)
@@ -191,6 +205,7 @@ class RatingQuestion internal constructor(
     }
 
     private fun on4RatingClicked() {
+        selectedRate = 4
         showSelectedIcon(rating1Icon)
         showSelectedIcon(rating2Icon)
         showSelectedIcon(rating3Icon)
@@ -205,6 +220,7 @@ class RatingQuestion internal constructor(
     }
 
     private fun on5RatingClicked() {
+        selectedRate = 5
         showSelectedIcon(rating1Icon)
         showSelectedIcon(rating2Icon)
         showSelectedIcon(rating3Icon)

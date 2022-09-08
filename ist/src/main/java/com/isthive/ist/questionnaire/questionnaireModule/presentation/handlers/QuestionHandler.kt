@@ -1,8 +1,8 @@
 package com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers
 
-interface QuestionHandler {
+internal interface QuestionHandler {
     fun onNextClicked()
-    fun onPreviousClicked()
+    fun onBackClicked()
     fun onSubmitClicked()
     fun onCloseClicked()
 }
