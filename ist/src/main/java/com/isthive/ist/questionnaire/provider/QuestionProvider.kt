@@ -29,22 +29,18 @@ internal class QuestionProvider(
     fun getNextQuestion(answer: Answer?, context: Context): BaseQuestionView? {
         while (questionIndex < questions.count()) {
             if (questionIndex == -1) {
-                Log.v("Medhat", "question Index is ${questionIndex} for first time index = -1")
                 questionIndex += 1
                 return loadViewRelevantToQuestion(questions[questionIndex], context)
             }
             val question = questions[questionIndex]
             if (isQuestionHaveSkipLogic(question.QuestionGUID)) {
                 questionIndex = getNextQuestionIndexFromSkipLogic(question, answer)
-                Log.v("Medhat", "question Index is ${questionIndex} from get next from skip logic")
                 break
             } else {
                 questionIndex += 1
-                Log.v("Medhat", "question Index is ${questionIndex} just add one")
                 break
             }
         }
-        Log.v("Medhat", "question Index is ${questionIndex}")
         if(questionIndex == questions.size)
             return null
         return loadViewRelevantToQuestion(questions[questionIndex], context)
@@ -52,8 +48,10 @@ internal class QuestionProvider(
 
     fun updateQuestionIndex(question: Question?){
         for((index, item) in questions.withIndex()){
-            if(question?.QuestionGUID == item.QuestionGUID)
+            if(question?.QuestionGUID == item.QuestionGUID) {
                 questionIndex = index
+                break
+            }
         }
     }
     private fun isQuestionHaveSkipLogic(questionGUID: String): Boolean {
@@ -90,7 +88,6 @@ internal class QuestionProvider(
                         nextQuestionIndex = nextQuestionGuidIsNull(
                             question, nextQuestionGuid
                         )
-                        Log.v("Medhat", "get Next from skip first condition return $nextQuestionIndex")
                         return nextQuestionIndex
 
                     } else if (item.QChoiceGUID.isNotEmpty() &&
@@ -98,7 +95,6 @@ internal class QuestionProvider(
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(question, nextQuestionGuid)
-                        Log.v("Medhat", "get Next from skip second condition return $nextQuestionIndex")
                         return nextQuestionIndex
 
                     } else if (question.QuestionType == QuestionType.Multiple_choice_question ||
@@ -113,13 +109,11 @@ internal class QuestionProvider(
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(question, nextQuestionGuid)
-                        Log.v("Medhat", "get Next from skip third condition return $nextQuestionIndex")
                         return nextQuestionIndex
                     }
                 }
             }
         }
-        Log.v("Medhat", "get Next from skip return 0")
         return 0
     }
 

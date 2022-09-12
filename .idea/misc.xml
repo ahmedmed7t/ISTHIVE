@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Android Studio Projects/ISTHiveApp/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable-hdpi/rectangle_8_radius_white_round_corners.xml" value="0.181" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/bottom_sheet_background.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/circle_background.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/circle_checkbox_checked.xml" value="0.1" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/circle_checkbox_unchecked.xml" value="0.1905" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/correct_edit_text_background.xml" value="0.181" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/custom_checkbox.xml" value="0.1905" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/error_edit_text_background.xml" value="0.181" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_angry.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_frown.xml" value="0.176" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/drawable/ic_classic_happy.xml" value="0.176" />
@@ -29,6 +32,7 @@
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/emoji_question.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/fcr_question.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/fragment_splash.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/input_question.xml" value="0.33" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/multiple_choice_list_item.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/multiple_choice_question.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/nps_question.xml" value="0.33" />

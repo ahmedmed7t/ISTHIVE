@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_22sdp">
+
+    <TextView
+        android:id="@+id/inputQuestionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/inputQuestionClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Ahmed Medhat Mohamed" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/inputQuestionClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_6sdp"
+        android:src="@drawable/ic_baseline_close_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/inputQuestionDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/inputQuestionTitle"
+        app:layout_constraintTop_toBottomOf="@id/inputQuestionTitle" />
+
+    <TextView
+        android:id="@+id/inputQuestionLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/inputQuestionDescription"
+        tools:text="Label" />
+
+    <EditText
+        android:id="@+id/inputQuestionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/normal_edit_text_background"
+        app:layout_constraintTop_toBottomOf="@id/inputQuestionLabel" />
+
+    <TextView
+        android:id="@+id/inputQuestionErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:textColor="@color/red"
+        app:layout_constraintStart_toStartOf="@id/inputQuestionEditText"
+        app:layout_constraintTop_toBottomOf="@id/inputQuestionEditText"
+        tools:text="Error Message" />
+</androidx.constraintlayout.widget.ConstraintLayout>
