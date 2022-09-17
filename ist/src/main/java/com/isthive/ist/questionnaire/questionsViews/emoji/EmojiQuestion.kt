@@ -37,7 +37,8 @@ internal class EmojiQuestion internal constructor(
     private lateinit var frontSpace: View
     private lateinit var lastSpace: View
 
-    private lateinit var closeButton: AppCompatImageView
+    private lateinit var errorMessage: TextView
+    private lateinit var questionRequired: TextView
 
     private var selectedEmoji = 0
 
@@ -58,13 +59,18 @@ internal class EmojiQuestion internal constructor(
             frontSpace = findViewById(R.id.emojiQuestionFrontSpace)
             lastSpace = findViewById(R.id.emojiQuestionLastSpace)
 
-            closeButton = findViewById(R.id.emojiQuestionClose)
+            errorMessage = findViewById(R.id.emojiQuestionErrorMessage)
+            questionRequired = findViewById(R.id.emojiQuestionRequired)
         }
     }
 
     override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
+            if(IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             when (TemplateID) {
                 MODERN_STYLE -> enableModernMode()
                 CLASSIC_LIGHT -> enableClassicLightMode()
@@ -108,9 +114,16 @@ internal class EmojiQuestion internal constructor(
             }
             onEmojiClicked(happyEmoji)
         }
-        closeButton.setOnClickListener {
+    }
 
-        }
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer? {
@@ -121,6 +134,7 @@ internal class EmojiQuestion internal constructor(
     }
 
     private fun onEmojiClicked(emoji: AppCompatImageView) {
+        hideError()
         context?.resources?.apply {
             var normalSize = getDimension(com.intuit.sdp.R.dimen._40sdp).toInt()
             var clickedSize = getDimension(com.intuit.sdp.R.dimen._45sdp).toInt()

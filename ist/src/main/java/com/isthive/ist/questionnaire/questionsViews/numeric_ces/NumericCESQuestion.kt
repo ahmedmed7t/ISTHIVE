@@ -9,7 +9,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NumericCESQuestion internal constructor(
+internal class NumericCESQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceFile: Int = R.layout.numeric_ces_question
@@ -20,6 +20,8 @@ class NumericCESQuestion internal constructor(
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
+    private lateinit var questionRequired: TextView
+    private lateinit var errorMessage: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -43,6 +45,8 @@ class NumericCESQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCesQuestionTitle)
+            errorMessage = findViewById(R.id.numericCesQuestionErrorMessage)
+            questionRequired = findViewById(R.id.numericCesQuestionRequired)
             scale10Container = findViewById(R.id.numericCesQuestion10Container)
             scale5Container = findViewById(R.id.numericCesQuestion5Container)
             number1_10 = findViewById(R.id.numericCesQuestion10_1)
@@ -67,6 +71,10 @@ class NumericCESQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
+            if(it.IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             if (it.Scale == 10) {
                 scale10Container.visibility = View.VISIBLE
                 scale5Container.visibility = View.GONE
@@ -125,6 +133,11 @@ class NumericCESQuestion internal constructor(
         }
     }
 
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
@@ -135,6 +148,8 @@ class NumericCESQuestion internal constructor(
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView) {
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
         selectedNumber = value
         maximizeSelectedNumber(selectedView)
         lastSelectedNumber?.let {

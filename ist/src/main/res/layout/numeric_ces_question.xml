@@ -10,26 +10,16 @@
         android:id="@+id/numericCesQuestionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/numericCesQuestionClose"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/numericCesQuestionClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/ic_baseline_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
 
     <TextView
         android:id="@+id/numericCesQuestionDescription"
@@ -40,19 +30,32 @@
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/numericCesQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/numericCesQuestionTitle" />
+
+    <TextView
+        android:id="@+id/numericCesQuestionRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionDescription"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numericCesQuestionsNumbersContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_34sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/numericCesQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionDescription">
+        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionRequired">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/numericCesQuestion5Container"
@@ -373,4 +376,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/numericCesQuestionErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/please_answer_this_question"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/numericCesQuestionsNumbersContainer"
+        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionsNumbersContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

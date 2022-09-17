@@ -10,26 +10,16 @@
         android:id="@+id/fcrQuestionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/fcrQuestionClose"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/fcrQuestionClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/ic_baseline_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
 
     <TextView
         android:id="@+id/fcrQuestionDescription"
@@ -40,18 +30,31 @@
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/fcrQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/fcrQuestionTitle" />
+
+    <TextView
+        android:id="@+id/fcrQuestionRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fcrQuestionDescription"
+        />
 
     <LinearLayout
         android:id="@+id/fcrOptionsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/fcrQuestionDescription">
+        app:layout_constraintTop_toBottomOf="@id/fcrQuestionRequired">
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/fcrOption1"
@@ -78,4 +81,14 @@
             />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/fcrQuestionErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/please_answer_this_question"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/fcrOptionsContainer"
+        app:layout_constraintTop_toBottomOf="@id/fcrOptionsContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,26 +10,16 @@
         android:id="@+id/slidingQuestionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/slidingQuestionClose"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/slidingQuestionClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/ic_baseline_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
 
     <TextView
         android:id="@+id/slidingQuestionDescription"
@@ -37,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
@@ -44,19 +35,30 @@
         app:layout_constraintStart_toStartOf="@id/slidingQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/slidingQuestionTitle" />
 
+    <TextView
+        android:id="@+id/slidingQuestionRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/slidingQuestionDescription" />
+
     <com.google.android.material.slider.Slider
         android:id="@+id/slidingQuestionSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:stepSize="1"
         android:theme="@style/Theme.Transparent"
         android:valueFrom="1"
         android:valueTo="5"
         app:haloColor="@color/blue"
         app:labelBehavior="gone"
-        app:layout_constraintTop_toBottomOf="@id/slidingQuestionDescription"
+        app:layout_constraintTop_toBottomOf="@id/slidingQuestionRequired"
         app:thumbColor="@color/white"
         app:trackColorActive="@color/blue"
         app:trackColorInactive="@color/fade_blue" />

@@ -13,17 +13,19 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
-class FCRQuestion internal constructor(
+internal class FCRQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.fcr_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
     private lateinit var questionTitle: TextView
+    private lateinit var errorMessage: TextView
 
     private lateinit var option1: RadioButtonListItem
     private lateinit var option2: RadioButtonListItem
     private lateinit var optionsContainer: LinearLayout
+    private lateinit var questionRequired: TextView
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -31,9 +33,11 @@ class FCRQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.fcrQuestionTitle)
+            errorMessage = findViewById(R.id.fcrQuestionErrorMessage)
             option1 = findViewById(R.id.fcrOption1)
             option2 = findViewById(R.id.fcrOption2)
             optionsContainer = findViewById(R.id.fcrOptionsContainer)
+            questionRequired = findViewById(R.id.fcrQuestionRequired)
         }
     }
 
@@ -41,6 +45,10 @@ class FCRQuestion internal constructor(
         question?.apply {
             questionTitle.text = Title
             setOptionsStyle(TemplateID)
+            if(IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             Choices?.let { choices ->
                 showChoices(choices)
             }
@@ -66,10 +74,20 @@ class FCRQuestion internal constructor(
         }
     }
 
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
+    }
+
     override fun getAnswer(): Answer? {
         lastSelectedIndex?.let { lastIndex ->
             question?.apply {
-                val answer = Answer(
+                return Answer(
                     QuestionGUID, QuestionID, arrayListOf(
                         AnswerChoice(
                             Choices!![lastIndex].ChoiceGUID,
@@ -78,7 +96,6 @@ class FCRQuestion internal constructor(
                         )
                     )
                 )
-                return answer
             }
         }
         return null
@@ -109,6 +126,7 @@ class FCRQuestion internal constructor(
     }
 
     private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+        hideError()
         lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)

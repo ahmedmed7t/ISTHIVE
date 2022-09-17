@@ -10,26 +10,16 @@
         android:id="@+id/ratingQuestionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/ratingQuestionClose"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ratingQuestionClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/ic_baseline_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
 
     <TextView
         android:id="@+id/ratingQuestionDescription"
@@ -37,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
@@ -44,15 +35,26 @@
         app:layout_constraintStart_toStartOf="@id/ratingQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/ratingQuestionTitle" />
 
+    <TextView
+        android:id="@+id/ratingQuestionRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingQuestionDescription" />
+
     <LinearLayout
         android:id="@+id/ratingQuestionRatesContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_34sdp"
+        android:layout_marginTop="@dimen/_14sdp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ratingQuestionDescription">
+        app:layout_constraintTop_toBottomOf="@id/ratingQuestionRequired">
 
         <LinearLayout
             android:id="@+id/rating1Container"
@@ -223,4 +225,15 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/ratingQuestionErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/please_answer_this_question"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/ratingQuestionRatesContainer"
+        app:layout_constraintTop_toBottomOf="@id/ratingQuestionRatesContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

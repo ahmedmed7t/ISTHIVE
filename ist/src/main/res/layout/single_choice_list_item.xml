@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
         android:background="@drawable/rounded_solid"
-        android:backgroundTint="@color/light_blue"
+        android:backgroundTint="@color/white_blue"
         android:paddingVertical="@dimen/_8sdp"
         android:paddingStart="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent">

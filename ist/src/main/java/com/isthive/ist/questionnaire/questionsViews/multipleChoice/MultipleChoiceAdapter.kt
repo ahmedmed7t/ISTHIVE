@@ -104,7 +104,7 @@ internal class MultipleChoiceAdapter constructor(
                 )
             )
             holder.choiceDataContainer.backgroundTintList =
-                ContextCompat.getColorStateList(holder.itemView.context, R.color.light_blue)
+                ContextCompat.getColorStateList(holder.itemView.context, R.color.white_blue)
         }
     }
 

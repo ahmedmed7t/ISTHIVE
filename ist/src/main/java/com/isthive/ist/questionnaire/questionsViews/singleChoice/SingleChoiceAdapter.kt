@@ -1,7 +1,6 @@
 package com.isthive.ist.questionnaire.questionsViews.singleChoice
 
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
@@ -104,7 +102,7 @@ internal class SingleChoiceAdapter constructor(
                 )
             )
             holder.choiceDataContainer.backgroundTintList =
-                ContextCompat.getColorStateList(holder.itemView.context, R.color.light_blue)
+                ContextCompat.getColorStateList(holder.itemView.context, R.color.white_blue)
         }
     }
 

@@ -6,17 +6,6 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/_22sdp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/emojiQuestionClose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:padding="@dimen/_6sdp"
-        android:src="@drawable/ic_baseline_close_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
-
     <TextView
         android:id="@+id/emojiQuestionTitle"
         android:layout_width="0dp"
@@ -29,7 +18,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emojiQuestionClose"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Ahmed Medhat Mohamed" />
 
     <TextView
@@ -46,13 +35,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emojiQuestionTitle" />
 
+    <TextView
+        android:id="@+id/emojiQuestionRequired"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emojiQuestionDescription"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emojiQuestionEmojiContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_18sdp"
-        android:layout_marginTop="@dimen/_30sdp"
-        app:layout_constraintTop_toBottomOf="@id/emojiQuestionDescription">
+        android:layout_marginTop="@dimen/_18sdp"
+        app:layout_constraintTop_toBottomOf="@id/emojiQuestionRequired">
 
         <LinearLayout
             android:id="@+id/emojiQuestionContainer"
@@ -129,4 +130,16 @@
                 android:layout_weight="1" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/emojiQuestionErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/please_answer_this_question"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/emojiQuestionEmojiContainer"
+        app:layout_constraintTop_toBottomOf="@id/emojiQuestionEmojiContainer" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

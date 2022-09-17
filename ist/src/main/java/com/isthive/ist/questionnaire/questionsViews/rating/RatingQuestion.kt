@@ -16,7 +16,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.StarShape
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class RatingQuestion internal constructor(
+internal class RatingQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.rating_question
@@ -29,6 +29,8 @@ class RatingQuestion internal constructor(
     private var selectedColor: Int? = null
 
     private lateinit var questionTitle: TextView
+    private lateinit var questionRequired: TextView
+    private lateinit var errorMessage: TextView
     private var selectedRate: Int = 0
 
     private lateinit var rating1Text: TextView
@@ -58,6 +60,8 @@ class RatingQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.ratingQuestionTitle)
+            errorMessage = findViewById(R.id.ratingQuestionErrorMessage)
+            questionRequired = findViewById(R.id.ratingQuestionRatesContainer)
             rating1Text = findViewById(R.id.rating1Text)
             rating2Text = findViewById(R.id.rating2Text)
             rating3Text = findViewById(R.id.rating3Text)
@@ -87,6 +91,10 @@ class RatingQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
+            if(it.IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             when (it.StarOption?.Shape) {
                 StarShape.STAR -> {
                     normalRatingIcon = R.drawable.ic_star
@@ -126,20 +134,35 @@ class RatingQuestion internal constructor(
 
     override fun handleUiEvents() {
         rating1Container.setOnClickListener {
+            hideError()
             on1RatingClicked()
         }
         rating2Container.setOnClickListener {
+            hideError()
             on2RatingClicked()
         }
         rating3Container.setOnClickListener {
+            hideError()
             on3RatingClicked()
         }
         rating4Container.setOnClickListener {
+            hideError()
             on4RatingClicked()
         }
         rating5Container.setOnClickListener {
+            hideError()
             on5RatingClicked()
         }
+    }
+
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer? {

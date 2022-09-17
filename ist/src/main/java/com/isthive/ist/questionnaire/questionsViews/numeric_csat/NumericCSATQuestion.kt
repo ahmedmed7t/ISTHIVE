@@ -12,7 +12,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NumericCSATQuestion internal constructor(
+internal class NumericCSATQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceFile: Int = R.layout.numeric_csat_question
@@ -23,6 +23,8 @@ class NumericCSATQuestion internal constructor(
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
+    private lateinit var questionRequired: TextView
+    private lateinit var errorMessage: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -43,10 +45,11 @@ class NumericCSATQuestion internal constructor(
     private lateinit var number4_5: TextView
     private lateinit var number5_5: TextView
 
-
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCsatQuestionTitle)
+            questionRequired = findViewById(R.id.numericCsatQuestionRequired)
+            errorMessage = findViewById(R.id.numericCsatQuestionErrorMessage)
             scale10Container = findViewById(R.id.numericCsatQuestion10Container)
             scale5Container = findViewById(R.id.numericCsatQuestion5Container)
 
@@ -72,6 +75,10 @@ class NumericCSATQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
+            if(it.IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             if (it.Scale == 10) {
                 scale10Container.visibility = View.VISIBLE
                 scale5Container.visibility = View.GONE
@@ -131,6 +138,11 @@ class NumericCSATQuestion internal constructor(
 
     }
 
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
@@ -141,6 +153,9 @@ class NumericCSATQuestion internal constructor(
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView) {
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
+
         selectedNumber = value
         maximizeSelectedNumber(selectedView)
         lastSelectedNumber?.let {

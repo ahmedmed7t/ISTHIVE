@@ -7,13 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
-import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
-import com.isthive.ist.questionnaire.questionsViews.fcr.FCRQuestion
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @AndroidEntryPoint
 internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
@@ -25,6 +26,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     private var currentView: BaseQuestionView? = null
 
     private var questionViews = Stack<BaseQuestionView>()
+    private val answers: HashMap<String?, Answer?> = hashMapOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,10 +64,23 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     }
 
     override fun onNextClicked() {
-        Log.v("Medhat", "question stack on next size is ${questionViews.size}")
+        if (currentView?.question?.IsRequired == true) {
+            if (currentView?.isAnswerValid == true) {
+                answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
+                goToNextStep()
+            }else{
+//                currentView?.showError()
+            }
+        } else {
+            if (currentView?.getAnswer() != null)
+                answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
+            goToNextStep()
+        }
+    }
+
+    private fun goToNextStep(){
         if (questionViews.size < viewModel.questions.value?.size!!) {
             val nextView = questionProvider.getNextQuestion(currentView?.getAnswer(), this)
-            Log.v("Medhat", "next question is ${nextView}")
             nextView?.let {
                 bottomSheetContainer.addView(it)
                 questionViews.push(it)

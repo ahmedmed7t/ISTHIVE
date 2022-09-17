@@ -10,7 +10,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-internal class MultipleMultipleChoiceQuestion internal constructor(
+internal class MultipleChoiceQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceFile: Int = R.layout.multiple_choice_question
@@ -21,6 +21,8 @@ internal class MultipleMultipleChoiceQuestion internal constructor(
 
     private lateinit var questionTitle: TextView
     private lateinit var choicesRecyclerView: RecyclerView
+    private lateinit var questionRequired: TextView
+    private lateinit var errorMessage: TextView
 
     private lateinit var choicesAdapter: MultipleChoiceAdapter
     private val selectedItems = arrayListOf<Int>()
@@ -29,6 +31,8 @@ internal class MultipleMultipleChoiceQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.MultipleChoiceQuestionTitle)
             choicesRecyclerView = findViewById(R.id.MultipleChoiceQuestionRecyclerView)
+            errorMessage = findViewById(R.id.MultipleChoiceQuestionErrorMessage)
+            questionRequired = findViewById(R.id.MultipleChoiceQuestionRequired)
             choicesRecyclerView.setHasFixedSize(true)
             choicesRecyclerView.isNestedScrollingEnabled = false
         }
@@ -37,11 +41,15 @@ internal class MultipleMultipleChoiceQuestion internal constructor(
     override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
+            if(IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             Choices?.let { choices ->
                 choicesAdapter = MultipleChoiceAdapter(
                     choices,
                     TemplateID == MODERN_STYLE,
-                    this@MultipleMultipleChoiceQuestion
+                    this@MultipleChoiceQuestion
                 )
                 choicesRecyclerView.adapter = choicesAdapter
             }
@@ -49,6 +57,16 @@ internal class MultipleMultipleChoiceQuestion internal constructor(
     }
 
     override fun handleUiEvents() {
+    }
+
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer? {
@@ -82,10 +100,16 @@ internal class MultipleMultipleChoiceQuestion internal constructor(
     }
 
     override fun onChoiceSelected(position: Int) {
+        hideError()
         selectedItems.add(position)
     }
 
     override fun onChoiceUnSelected(position: Int) {
         selectedItems.remove(position)
+        if(selectedItems.isEmpty()){
+            showError()
+        }else{
+            hideError()
+        }
     }
 }

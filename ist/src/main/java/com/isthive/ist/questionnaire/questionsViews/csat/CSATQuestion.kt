@@ -1,7 +1,6 @@
 package com.isthive.ist.questionnaire.questionsViews.csat
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.isthive.ist.R
@@ -12,13 +11,14 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
-class CSATQuestion internal constructor(
+internal class CSATQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.csat_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
     private lateinit var questionTitle: TextView
+    private lateinit var errorMessage: TextView
 
     private lateinit var option1: RadioButtonListItem
     private lateinit var option2: RadioButtonListItem
@@ -27,6 +27,7 @@ class CSATQuestion internal constructor(
     private lateinit var option5: RadioButtonListItem
     private lateinit var option6: RadioButtonListItem
     private lateinit var option7: RadioButtonListItem
+    private lateinit var questionRequired: TextView
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -34,6 +35,7 @@ class CSATQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.csatQuestionTitle)
+            errorMessage = findViewById(R.id.csatQuestionErrorMessage)
             option1 = findViewById(R.id.csatOption1)
             option2 = findViewById(R.id.csatOption2)
             option3 = findViewById(R.id.csatOption3)
@@ -41,6 +43,7 @@ class CSATQuestion internal constructor(
             option5 = findViewById(R.id.csatOption5)
             option6 = findViewById(R.id.csatOption6)
             option7 = findViewById(R.id.csatOption7)
+            questionRequired = findViewById(R.id.csatQuestionRequired)
         }
     }
 
@@ -48,6 +51,10 @@ class CSATQuestion internal constructor(
         question?.apply {
             questionTitle.text = Title
             setOptionsStyle(TemplateID)
+            if(IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             when (Scale) {
                 2 -> {
                     option3.visibility = View.GONE
@@ -107,10 +114,20 @@ class CSATQuestion internal constructor(
         }
     }
 
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
+    private fun hideError(){
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
+    }
+
     override fun getAnswer(): Answer? {
         lastSelectedIndex?.let { lastIndex ->
             question?.apply {
-                val answer = Answer(
+                return Answer(
                     QuestionGUID, QuestionID, arrayListOf(
                         AnswerChoice(
                             Choices!![lastIndex].ChoiceGUID,
@@ -119,14 +136,13 @@ class CSATQuestion internal constructor(
                         )
                     )
                 )
-                return answer
             }
         }
         return null
     }
 
-
     private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+        hideError()
         lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)

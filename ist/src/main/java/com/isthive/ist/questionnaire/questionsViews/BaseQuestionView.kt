@@ -19,6 +19,7 @@ abstract class BaseQuestionView internal constructor(
 
     internal var view: View? = null
     internal var question: Question? = null
+    internal var isAnswerValid = false
 
     init {
         if (!isInEditMode) {
@@ -41,6 +42,8 @@ abstract class BaseQuestionView internal constructor(
     internal abstract fun viewQuestionData()
 
     internal abstract fun handleUiEvents()
+
+    internal abstract fun showError()
 
     internal abstract fun getAnswer(): Answer?
     internal fun canSkip(): Boolean {

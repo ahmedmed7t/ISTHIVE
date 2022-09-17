@@ -1,7 +1,6 @@
 package com.isthive.ist.questionnaire.provider
 
 import android.content.Context
-import android.util.Log
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
@@ -12,7 +11,8 @@ import com.isthive.ist.questionnaire.questionsViews.ces.CESQuestion
 import com.isthive.ist.questionnaire.questionsViews.numeric_ces.NumericCESQuestion
 import com.isthive.ist.questionnaire.questionsViews.csat.CSATQuestion
 import com.isthive.ist.questionnaire.questionsViews.emoji.EmojiQuestion
-import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleMultipleChoiceQuestion
+import com.isthive.ist.questionnaire.questionsViews.input.InputQuestion
+import com.isthive.ist.questionnaire.questionsViews.multipleChoice.MultipleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.nps.NPSQuestion
 import com.isthive.ist.questionnaire.questionsViews.numeric_csat.NumericCSATQuestion
 import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
@@ -132,7 +132,7 @@ internal class QuestionProvider(
     private fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
-            QuestionType.Multiple_choice_question -> MultipleMultipleChoiceQuestion(
+            QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(
                 context.applicationContext,
                 question
             )
@@ -141,16 +141,16 @@ internal class QuestionProvider(
             QuestionType.Slide_question -> SlidingQuestion(context.applicationContext, question)
             QuestionType.Star_question -> RatingQuestion(context.applicationContext, question)
             QuestionType.NPS -> NPSQuestion(context.applicationContext, question)
-            QuestionType.Text_input -> NumericCESQuestion(context.applicationContext, question)
-            QuestionType.Number_input -> NumericCESQuestion(context.applicationContext, question)
-            QuestionType.Email_input -> NumericCESQuestion(context.applicationContext, question)
-            QuestionType.Phone_number_input -> NumericCESQuestion(
+            QuestionType.Text_input -> InputQuestion(context.applicationContext, question)
+            QuestionType.Number_input -> InputQuestion(context.applicationContext, question)
+            QuestionType.Email_input -> InputQuestion(context.applicationContext, question)
+            QuestionType.Phone_number_input -> InputQuestion(
                 context.applicationContext, question
             )
-            QuestionType.Postal_code_input -> NumericCESQuestion(
+            QuestionType.Postal_code_input -> InputQuestion(
                 context.applicationContext, question
             )
-            QuestionType.URL_input -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.URL_input -> InputQuestion(context.applicationContext, question)
             QuestionType.Single_choice -> SingleChoiceQuestion(context.applicationContext, question)
             QuestionType.EmojiHiveCFM_Mobile_API -> EmojiQuestion(
                 context.applicationContext, question

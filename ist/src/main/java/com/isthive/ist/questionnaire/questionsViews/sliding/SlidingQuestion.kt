@@ -14,7 +14,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class SlidingQuestion internal constructor(
+internal class SlidingQuestion internal constructor(
     context: Context,
     question: Question?,
     resourceLayout: Int = R.layout.sliding_question
@@ -22,11 +22,14 @@ class SlidingQuestion internal constructor(
     BaseQuestionView(context, question, resourceLayout) {
 
     private lateinit var questionTitle: TextView
+    private lateinit var questionRequired: TextView
     private lateinit var slider: Slider
 
     override fun initViews(view: View?) {
+        isAnswerValid = true
         view?.apply {
             questionTitle = findViewById(R.id.slidingQuestionTitle)
+            questionRequired = findViewById(R.id.slidingQuestionRequired)
             slider = findViewById(R.id.slidingQuestionSlider)
         }
     }
@@ -34,11 +37,18 @@ class SlidingQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
+            if(it.IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
         }
     }
 
     override fun handleUiEvents() {
 
+    }
+
+    override fun showError() {
     }
 
     override fun getAnswer(): Answer? {

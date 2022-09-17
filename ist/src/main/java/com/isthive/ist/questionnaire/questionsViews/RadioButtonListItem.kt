@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
@@ -84,7 +83,7 @@ internal class RadioButtonListItem(context: Context, attrs: AttributeSet?) :
 
     private fun unSelectOption() {
         if (style == MODERN_STYLE) {
-            optionContainer.backgroundTintList = ContextCompat.getColorStateList(context, R.color.light_blue)
+            optionContainer.backgroundTintList = ContextCompat.getColorStateList(context, R.color.white_blue)
             optionTitle.setTextColor(ContextCompat.getColor(context, R.color.blue))
             optionMark.visibility = View.GONE
         } else {

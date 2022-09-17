@@ -24,6 +24,8 @@ internal class SingleChoiceQuestion internal constructor(
 
     private lateinit var questionTitle: TextView
     private lateinit var choicesRecyclerView: RecyclerView
+    private lateinit var questionRequired: TextView
+    private lateinit var errorMessage: TextView
 
     private lateinit var choicesAdapter: SingleChoiceAdapter
     private var selectedChoice: Int? = null
@@ -31,7 +33,9 @@ internal class SingleChoiceQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.singleChoiceQuestionTitle)
+            questionRequired = findViewById(R.id.singleChoiceQuestionRequired)
             choicesRecyclerView = findViewById(R.id.singleChoiceQuestionRecyclerView)
+            errorMessage = findViewById(R.id.singleChoiceQuestionErrorMessage)
             choicesRecyclerView.setHasFixedSize(true)
             choicesRecyclerView.isNestedScrollingEnabled = false
         }
@@ -40,6 +44,10 @@ internal class SingleChoiceQuestion internal constructor(
     override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
+            if(IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             Choices?.let { choices ->
                 choicesAdapter = SingleChoiceAdapter(choices, TemplateID == MODEREN_STYLE, this@SingleChoiceQuestion)
                 choicesRecyclerView.adapter = choicesAdapter
@@ -49,6 +57,11 @@ internal class SingleChoiceQuestion internal constructor(
 
     override fun handleUiEvents() {
 
+    }
+
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): Answer? {
@@ -65,11 +78,12 @@ internal class SingleChoiceQuestion internal constructor(
                 )
             }
         }
-
         return null
     }
 
     override fun onChoiceSelected(position: Int) {
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
         selectedChoice = position
     }
 }

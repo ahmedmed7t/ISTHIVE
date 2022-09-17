@@ -5,4 +5,18 @@
     <string name="submit">Submit</string>
     <string name="next">Next</string>
     <string name="back">Back</string>
+    <string name="text">Text</string>
+    <string name="number">Number</string>
+    <string name="email">Email</string>
+    <string name="telephone">Telephone</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="url">URL</string>
+    <string name="please_enter_valid_text">please enter valid Text</string>
+    <string name="please_enter_valid_number">Please Enter Valid Number</string>
+    <string name="please_enter_valid_url">please enter valid URL</string>
+    <string name="please_enter_valid_postal_code">please enter valid Postal Code</string>
+    <string name="please_enter_valid_telephone">please enter valid Telephone</string>
+    <string name="please_enter_valid_email">please enter valid Email</string>
+    <string name="required">(Required)</string>
+    <string name="please_answer_this_question">Please Answer this question</string>
 </resources>

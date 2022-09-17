@@ -13,13 +13,18 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class NPSQuestion internal constructor(context: Context, question: Question?, resourceFile: Int = R.layout.nps_question) :
+internal class NPSQuestion internal constructor(
+    context: Context,
+    question: Question?,
+    resourceFile: Int = R.layout.nps_question
+) :
     BaseQuestionView(context, question, resourceFile) {
 
     private var selectedNumber = -1
     private var lastSelectedNumber: TextView? = null
 
     private lateinit var questionTitle: TextView
+    private lateinit var errorMessage: TextView
     private lateinit var scale10Container: ConstraintLayout
     private lateinit var scale5Container: ConstraintLayout
 
@@ -41,9 +46,13 @@ class NPSQuestion internal constructor(context: Context, question: Question?, re
     private lateinit var number4_5: TextView
     private lateinit var number5_5: TextView
 
+    private lateinit var questionRequired: TextView
+
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.npsQuestionTitle)
+            questionRequired = findViewById(R.id.npsQuestionRequired)
+            errorMessage = findViewById(R.id.npsQuestionErrorMessage)
             scale10Container = findViewById(R.id.npsQuestion10Container)
             scale5Container = findViewById(R.id.npsQuestion5Container)
             number0_10 = findViewById(R.id.npsQuestion10_0)
@@ -69,6 +78,10 @@ class NPSQuestion internal constructor(context: Context, question: Question?, re
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
+            if(it.IsRequired)
+                questionRequired.visibility = View.VISIBLE
+            else
+                questionRequired.visibility = View.GONE
             if (it.Scale == 10) {
                 scale10Container.visibility = View.VISIBLE
                 scale5Container.visibility = View.GONE
@@ -130,16 +143,23 @@ class NPSQuestion internal constructor(context: Context, question: Question?, re
         }
     }
 
+    override fun showError() {
+        isAnswerValid = false
+        errorMessage.visibility = View.VISIBLE
+    }
+
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
-                QuestionGUID, QuestionID,null, selectedNumber, null
+                QuestionGUID, QuestionID, null, selectedNumber, null
             )
         }
         return null
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView) {
+        isAnswerValid = true
+        errorMessage.visibility = View.GONE
         selectedNumber = value
         maximizeSelectedNumber(selectedView)
         lastSelectedNumber?.let {
