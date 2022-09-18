@@ -1,6 +1,7 @@
 package com.isthive.ist.questionnaire.provider
 
 import android.content.Context
+import android.util.Log
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
@@ -46,6 +47,33 @@ internal class QuestionProvider(
         return loadViewRelevantToQuestion(questions[questionIndex], context)
     }
 
+    fun isLastQuestion(question: Question?): Boolean{
+        var indexOfQuestion = -1
+        for((index, item) in questions.withIndex()){
+            if(question?.QuestionGUID == item.QuestionGUID) {
+                indexOfQuestion = index
+                break
+            }
+        }
+        Log.v("Medhat", "last index is $indexOfQuestion of questions size ${questions.size}")
+        return indexOfQuestion == questions.size-1
+    }
+
+    fun isFirstQuestion(question: Question?): Boolean{
+        Log.v("Medhat", "first index is question $question ")
+        Log.v("Medhat", "first index is question GUID ${question?.QuestionGUID} ")
+        var indexOfQuestion = -1
+        for((index, item) in questions.withIndex()){
+            if(question?.QuestionGUID == item.QuestionGUID) {
+                indexOfQuestion = index
+                break
+            }
+        }
+
+        Log.v("Medhat", "first index is $indexOfQuestion of questions size ${questions.size}")
+        return indexOfQuestion == 0
+    }
+
     fun updateQuestionIndex(question: Question?){
         for((index, item) in questions.withIndex()){
             if(question?.QuestionGUID == item.QuestionGUID) {
@@ -54,6 +82,7 @@ internal class QuestionProvider(
             }
         }
     }
+
     private fun isQuestionHaveSkipLogic(questionGUID: String): Boolean {
         skipLogic?.let {
             for (item in it) {

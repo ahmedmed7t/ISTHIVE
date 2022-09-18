@@ -22,9 +22,9 @@ abstract class BaseQuestionView internal constructor(
     internal var isAnswerValid = false
 
     init {
+        this.question = question
         if (!isInEditMode) {
             doOnAttach {
-                this.question = question
                 init(resourceFile)
             }
         }

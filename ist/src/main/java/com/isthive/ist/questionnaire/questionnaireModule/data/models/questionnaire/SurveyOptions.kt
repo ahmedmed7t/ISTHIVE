@@ -5,7 +5,7 @@ internal data class SurveyOptions(
     val EnableCloseButton: Boolean,
     val EnablePreviousButton: Boolean,
     val HasProgressBar: Boolean,
-    val NavigationMode: Int,
+    val NavigationMode: NavigationMode,
     val ProgressBarPosition: Int,
     val Theme: Theme
 )

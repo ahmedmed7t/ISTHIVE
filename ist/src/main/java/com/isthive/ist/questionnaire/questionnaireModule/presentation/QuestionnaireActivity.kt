@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
@@ -46,10 +47,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
                 is QuestionnaireUiState.Success -> {
                     questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
                     currentView = questionProvider.getNextQuestion(null, this)
-                    currentView?.let {
-                        questionViews.push(it)
+                    currentView?.let { questionView ->
+                        questionViews.push(questionView)
                         bottomSheetContainer = BottomSheetContainer()
-                            .mainView(it)
+                            .mainView(questionView)
+                            .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
                             .setHandler(this)
                         bottomSheetContainer.show(supportFragmentManager, "tag")
                     }
@@ -68,8 +70,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
             if (currentView?.isAnswerValid == true) {
                 answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
                 goToNextStep()
-            }else{
-//                currentView?.showError()
+            } else {
+                currentView?.showError()
             }
         } else {
             if (currentView?.getAnswer() != null)
@@ -78,11 +80,15 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
         }
     }
 
-    private fun goToNextStep(){
+    private fun goToNextStep() {
         if (questionViews.size < viewModel.questions.value?.size!!) {
             val nextView = questionProvider.getNextQuestion(currentView?.getAnswer(), this)
             nextView?.let {
-                bottomSheetContainer.addView(it)
+                bottomSheetContainer.addView(
+                    it,
+                    isFirstItem = questionProvider.isFirstQuestion(nextView.question),
+                    isLastItem = questionProvider.isLastQuestion(nextView.question)
+                )
                 questionViews.push(it)
                 currentView = it
             }
@@ -92,10 +98,12 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     override fun onBackClicked() {
         if (questionViews.size > 1) {
             questionViews.pop()
-            Log.v("Medhat", "question stack on back size is ${questionViews.size}")
-            Log.v("Medhat", "last question is ${questionViews.lastElement()}")
             questionViews.lastElement()
-            bottomSheetContainer.addView(questionViews.lastElement())
+            bottomSheetContainer.addView(
+                questionViews.lastElement(),
+                isFirstItem = questionProvider.isFirstQuestion(questionViews.lastElement().question),
+                isLastItem = questionProvider.isLastQuestion(questionViews.lastElement().question)
+            )
             currentView = questionViews.lastElement()
             questionProvider.updateQuestionIndex((currentView as BaseQuestionView).question)
         }

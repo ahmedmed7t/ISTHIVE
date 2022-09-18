@@ -11,8 +11,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 
 /**
@@ -37,12 +39,15 @@ internal class PopupContainerView : DialogFragment() {
     private lateinit var topBackButton: AppCompatImageView
     private lateinit var bottomBackButton: AppCompatImageView
     private lateinit var largeNextButton: TextView
-    private lateinit var smallNextButton: TextView
+    private lateinit var smallNextButton: AppCompatImageView
     private lateinit var smallSubmitButton: TextView
     private lateinit var smallActionsContainer: LinearLayout
 
+    private lateinit var closeButton: AppCompatImageView
+
     private var questionHandler: QuestionHandler? = null
     private var isLastItem = false
+    private var navigationMode = NavigationMode.Modern
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +74,7 @@ internal class PopupContainerView : DialogFragment() {
             smallNextButton = findViewById(R.id.popUpNSmallNextButton)
             smallSubmitButton = findViewById(R.id.popUpSmallSubmitButton)
             smallActionsContainer = findViewById(R.id.popUp3ActionsContainer)
+            closeButton = findViewById(R.id.popUpContainerClose)
         }
     }
 
@@ -82,6 +88,80 @@ internal class PopupContainerView : DialogFragment() {
         return this
     }
 
+    fun setNavigationMode(navigationMode: NavigationMode): PopupContainerView {
+        this.navigationMode = navigationMode
+        return this
+    }
+
+    fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
+        this.isLastItem = isLastItem
+        if (navigationMode == NavigationMode.Modern)
+            handleModernNavigation(isLastItem, isFirstItem)
+        else
+            handleClassicNavigation(isLastItem)
+
+        popUpContent.layoutParams = ViewGroup.LayoutParams(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        popUpContainer.apply {
+            removeView(popUpMainView)
+            addView(popUpContent)
+            popUpMainView = popUpContent
+        }
+    }
+
+    private fun handleClassicNavigation(isLastItem: Boolean) {
+        if (isLastItem) {
+            largeNextButton.text = context?.resources?.getString(R.string.submit)
+        } else {
+            largeNextButton.text = context?.resources?.getString(R.string.next)
+        }
+    }
+
+    private fun handleModernNavigation(isLastItem: Boolean, isFirstItem: Boolean) {
+        smallSubmitButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+        context?.let {
+            smallSubmitButton.setTextColor(
+                ContextCompat.getColor(it, R.color.fade_gray)
+            )
+        }
+
+        if (isFirstItem) {
+            bottomBackButton.backgroundTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+            bottomBackButton.imageTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+        } else {
+            bottomBackButton.backgroundTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+            bottomBackButton.imageTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+        }
+
+        if (isLastItem) {
+            smallNextButton.backgroundTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+            smallNextButton.imageTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+
+            smallSubmitButton.backgroundTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+            context?.let {
+                smallSubmitButton.setTextColor(
+                    ContextCompat.getColor(it, R.color.white)
+                )
+            }
+
+        } else {
+            smallNextButton.backgroundTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+            smallNextButton.imageTintList =
+                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+        }
+    }
+
     private fun inflateView() {
         popUpMainView?.layoutParams = ViewGroup.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -90,6 +170,10 @@ internal class PopupContainerView : DialogFragment() {
         popUpContainer.apply {
             addView(popUpMainView)
         }
+        if (navigationMode == NavigationMode.Modern)
+            enableModernNavigationMode()
+        else
+            enableClassicNavigationMode()
     }
 
     override fun onStart() {
@@ -105,7 +189,10 @@ internal class PopupContainerView : DialogFragment() {
         }
     }
 
-    private fun handleViewEvents(){
+    private fun handleViewEvents() {
+        closeButton.setOnClickListener {
+            questionHandler?.onCloseClicked()
+        }
         topBackButton.setOnClickListener {
             questionHandler?.onBackClicked()
         }
@@ -119,21 +206,21 @@ internal class PopupContainerView : DialogFragment() {
             questionHandler?.onSubmitClicked()
         }
         largeNextButton.setOnClickListener {
-            if(isLastItem)
+            if (isLastItem)
                 questionHandler?.onSubmitClicked()
             else
                 questionHandler?.onNextClicked()
         }
     }
 
-    fun enableClassicNavigationMode() {
+    private fun enableClassicNavigationMode() {
         topBackButton.visibility = View.VISIBLE
         largeNextButton.visibility = View.VISIBLE
 
         smallActionsContainer.visibility = View.GONE
     }
 
-    fun enableModernNavigationMode() {
+    private fun enableModernNavigationMode() {
         topBackButton.visibility = View.GONE
         largeNextButton.visibility = View.GONE
 
