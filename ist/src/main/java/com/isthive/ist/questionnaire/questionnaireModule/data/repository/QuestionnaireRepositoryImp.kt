@@ -1,10 +1,12 @@
 package com.isthive.ist.questionnaire.questionnaireModule.data.repository
 
 import com.isthive.ist.questionnaire.questionnaireModule.data.localDataSource.QuestionnaireLocalDataSource
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.*
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GenerateTokenRequest
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GenerateTokenResponse
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GetQuestionnaireRequest
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GetQuestionnaireResponse
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.SaveSurveyRequest
 import com.isthive.ist.questionnaire.questionnaireModule.data.remoteDataSource.QuestionnaireRemoteDataSource
 import com.isthive.ist.questionnaire.questionnaireModule.domain.models.TokenModel
 import com.isthive.ist.questionnaire.questionnaireModule.domain.repository.QuestionnaireRepository
@@ -14,7 +16,7 @@ import javax.inject.Inject
 internal class QuestionnaireRepositoryImp @Inject constructor(
     private val questionnaireRemoteDataSource: QuestionnaireRemoteDataSource,
     private val questionnaireLocalDataSource: QuestionnaireLocalDataSource
-): QuestionnaireRepository {
+) : QuestionnaireRepository {
     override suspend fun getToken(getTokenRequest: GenerateTokenRequest): Response<GenerateTokenResponse> {
         return questionnaireRemoteDataSource.getToken(getTokenRequest)
     }
@@ -34,4 +36,10 @@ internal class QuestionnaireRepositoryImp @Inject constructor(
 
     override fun getAccessToken() =
         questionnaireLocalDataSource.getAccessToken()
+
+    override suspend fun saveSurvey(
+        accessToken: String,
+        saveSurveyRequest: SaveSurveyRequest
+    ) =
+        questionnaireRemoteDataSource.saveSurvey(accessToken, saveSurveyRequest)
 }

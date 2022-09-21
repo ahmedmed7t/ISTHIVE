@@ -1,16 +1,18 @@
 package com.isthive.ist.questionnaire.questionnaireModule.data.remoteDataSource
 
 import com.isthive.ist.app.api.ApiService
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.*
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GenerateTokenRequest
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GenerateTokenResponse
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GetQuestionnaireRequest
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.GetQuestionnaireResponse
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.SaveSurveyRequest
 import retrofit2.Response
 import javax.inject.Inject
 
 internal class QuestionnaireRemoteDataSourceImp @Inject constructor(
     private val apiService: ApiService
-): QuestionnaireRemoteDataSource {
+) : QuestionnaireRemoteDataSource {
     override suspend fun getToken(getTokenRequest: GenerateTokenRequest): Response<GenerateTokenResponse> {
         return apiService.generateToken(getTokenRequest)
     }
@@ -23,4 +25,10 @@ internal class QuestionnaireRemoteDataSourceImp @Inject constructor(
             "bearer $accessToken", getQuestionnaireRequest
         )
     }
+
+    override suspend fun saveSurvey(
+        accessToken: String,
+        saveSurveyRequest: SaveSurveyRequest
+    ) =
+        apiService.saveSurvey("bearer $accessToken", saveSurveyRequest)
 }

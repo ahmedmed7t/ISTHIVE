@@ -1,20 +1,17 @@
 package com.isthive.ist.questionnaire.questionnaireModule.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
-import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 @AndroidEntryPoint
@@ -111,7 +108,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     }
 
     override fun onSubmitClicked() {
-
+        if (answers.isNotEmpty()) {
+            for (item in answers)
+                viewModel.saveSurveyRequest.QuestionResponses.add(item.value)
+        }
+        //TODO call submit survey api
     }
 
     override fun onCloseClicked() {
