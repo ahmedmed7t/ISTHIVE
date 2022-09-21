@@ -52,6 +52,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
                         bottomSheetContainer = BottomSheetContainer()
                             .mainView(questionView)
                             .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
+                            .setWelcomeMessage(it.survey.SurveyOptions.Theme.WelcomeMessage)
                             .setHandler(this)
                         bottomSheetContainer.show(supportFragmentManager, "tag")
                     }

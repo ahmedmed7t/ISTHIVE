@@ -36,6 +36,7 @@ internal class CESQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.cesQuestionTitle)
             errorMessage = findViewById(R.id.cesQuestionErrorMessage)
+            questionDescription = findViewById(R.id.cesQuestionDescription)
             option1 = findViewById(R.id.cesOption1)
             option2 = findViewById(R.id.cesOption2)
             option3 = findViewById(R.id.cesOption3)

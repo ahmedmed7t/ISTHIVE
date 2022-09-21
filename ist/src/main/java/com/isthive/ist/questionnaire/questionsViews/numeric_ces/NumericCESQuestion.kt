@@ -45,6 +45,7 @@ internal class NumericCESQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCesQuestionTitle)
+            questionDescription = findViewById(R.id.numericCesQuestionDescription)
             errorMessage = findViewById(R.id.numericCesQuestionErrorMessage)
             questionRequired = findViewById(R.id.numericCesQuestionRequired)
             scale10Container = findViewById(R.id.numericCesQuestion10Container)

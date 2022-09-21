@@ -31,6 +31,7 @@
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/slidingQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/slidingQuestionTitle" />
@@ -39,8 +40,8 @@
         android:id="@+id/slidingQuestionRequired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
         android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         android:text="@string/required"
         android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"

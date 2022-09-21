@@ -30,6 +30,7 @@ internal class MultipleChoiceQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.MultipleChoiceQuestionTitle)
+            questionDescription = findViewById(R.id.MultipleChoiceQuestionDescription)
             choicesRecyclerView = findViewById(R.id.MultipleChoiceQuestionRecyclerView)
             errorMessage = findViewById(R.id.MultipleChoiceQuestionErrorMessage)
             questionRequired = findViewById(R.id.MultipleChoiceQuestionRequired)

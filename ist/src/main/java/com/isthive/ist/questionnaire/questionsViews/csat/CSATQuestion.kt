@@ -36,6 +36,7 @@ internal class CSATQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.csatQuestionTitle)
             errorMessage = findViewById(R.id.csatQuestionErrorMessage)
+            questionDescription = findViewById(R.id.csatQuestionDescription)
             option1 = findViewById(R.id.csatOption1)
             option2 = findViewById(R.id.csatOption2)
             option3 = findViewById(R.id.csatOption3)

@@ -19,4 +19,5 @@
     <string name="please_enter_valid_email">please enter valid Email</string>
     <string name="required">(Required)</string>
     <string name="please_answer_this_question">Please Answer this question</string>
+    <string name="take_survey">Take Survey</string>
 </resources>

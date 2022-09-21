@@ -34,6 +34,7 @@ internal class SingleChoiceQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.singleChoiceQuestionTitle)
             questionRequired = findViewById(R.id.singleChoiceQuestionRequired)
+            questionDescription = findViewById(R.id.singleChoiceQuestionDescription)
             choicesRecyclerView = findViewById(R.id.singleChoiceQuestionRecyclerView)
             errorMessage = findViewById(R.id.singleChoiceQuestionErrorMessage)
             choicesRecyclerView.setHasFixedSize(true)

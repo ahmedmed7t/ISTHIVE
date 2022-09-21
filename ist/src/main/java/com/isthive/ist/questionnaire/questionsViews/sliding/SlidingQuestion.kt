@@ -29,6 +29,7 @@ internal class SlidingQuestion internal constructor(
         isAnswerValid = true
         view?.apply {
             questionTitle = findViewById(R.id.slidingQuestionTitle)
+            questionDescription = findViewById(R.id.slidingQuestionDescription)
             questionRequired = findViewById(R.id.slidingQuestionRequired)
             slider = findViewById(R.id.slidingQuestionSlider)
         }

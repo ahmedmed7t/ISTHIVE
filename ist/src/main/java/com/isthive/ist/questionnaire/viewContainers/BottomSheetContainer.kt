@@ -3,6 +3,8 @@ package com.isthive.ist.questionnaire.viewContainers
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +17,10 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.WelcomeMessage
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.WelcomeMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class BottomSheetContainer : BottomSheetDialogFragment() {
 
@@ -25,6 +30,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
 
     private var isLastItem = false
     private var navigationMode = NavigationMode.Modern
+    private var welcomeMessage: WelcomeMessage? = null
 
     private lateinit var topBackButton: AppCompatImageView
     private lateinit var bottomBackButton: AppCompatImageView
@@ -32,6 +38,12 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
     private lateinit var smallNextButton: AppCompatImageView
     private lateinit var smallSubmitButton: TextView
     private lateinit var smallActionsContainer: LinearLayout
+    private lateinit var allActionsContainer: ConstraintLayout
+
+    private lateinit var welcomeContainer: ConstraintLayout
+    private lateinit var welcomeTitle: TextView
+    private lateinit var welcomeDescription: TextView
+    private lateinit var takeSurveyButton: TextView
 
     private lateinit var closeButton: AppCompatImageView
 
@@ -60,7 +72,14 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             smallNextButton = findViewById(R.id.bottomSheetNSmallNextButton)
             smallSubmitButton = findViewById(R.id.bottomSheetSmallSubmitButton)
             smallActionsContainer = findViewById(R.id.bottomSheet3ActionsContainer)
+            allActionsContainer = findViewById(R.id.bottomSheetActionContainer)
             closeButton = findViewById(R.id.bottomSheetContainerClose)
+
+            welcomeContainer = findViewById(R.id.bottomSheetWelcomeContainer)
+            welcomeTitle = findViewById(R.id.bottomSheetWelcomeTitle)
+            welcomeDescription = findViewById(R.id.bottomSheetWelcomeMessage)
+            takeSurveyButton = findViewById(R.id.bottomSheetWelcomeTakeSurvey)
+
         }
     }
 
@@ -86,6 +105,10 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             else
                 questionHandler?.onNextClicked()
         }
+
+        takeSurveyButton.setOnClickListener {
+            hideWelcomeMessage()
+        }
     }
 
     fun mainView(popUpContent: View): BottomSheetContainer {
@@ -103,6 +126,10 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
         return this
     }
 
+    fun setWelcomeMessage(welcomeMessage: WelcomeMessage): BottomSheetContainer {
+        this.welcomeMessage = welcomeMessage
+        return this
+    }
 
     fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
         this.isLastItem = isLastItem
@@ -177,9 +204,6 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        bottomSheetContainer.apply {
-            addView(popUpMainView)
-        }
         if (navigationMode == NavigationMode.Modern) {
             enableModernNavigationMode()
             handleModernNavigation(isLastItem = false, isFirstItem = true)
@@ -187,6 +211,21 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             enableClassicNavigationMode()
             handleClassicNavigation(false)
         }
+
+        bottomSheetContainer.apply {
+            addView(popUpMainView)
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            hideWelcomeMessage()
+            welcomeMessage?.let {
+                if(it.Mode == WelcomeMode.Separate_View){
+                    viewWelcomeMessage(it.Title, it.SubTitle)
+                }else if(it.Mode == WelcomeMode.First_Question){
+                    (popUpMainView as BaseQuestionView).showWelcomeMessage(it.SubTitle)
+                }
+            }
+        }, 150)
     }
 
     private fun enableClassicNavigationMode() {
@@ -201,6 +240,21 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
         largeNextButton.visibility = View.GONE
 
         smallActionsContainer.visibility = View.VISIBLE
+    }
+
+    private fun viewWelcomeMessage(title: String, description: String){
+        welcomeTitle.text = title
+        welcomeDescription.text = description
+        welcomeContainer.visibility = View.VISIBLE
+        allActionsContainer.visibility = View.GONE
+        topBackButton.visibility = View.GONE
+    }
+
+    private fun hideWelcomeMessage(){
+        welcomeContainer.visibility = View.GONE
+        allActionsContainer.visibility = View.VISIBLE
+        if (navigationMode == NavigationMode.Classic)
+            topBackButton.visibility = View.VISIBLE
     }
 
     override fun getTheme(): Int {

@@ -45,6 +45,7 @@ internal class EmojiQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.emojiQuestionTitle)
+            questionDescription = findViewById(R.id.emojiQuestionDescription)
 
             angryEmoji = findViewById(R.id.emojiQuestionAngryEmoji)
             frownEmoji = findViewById(R.id.emojiQuestionFrownEmoji)
@@ -267,4 +268,6 @@ internal class EmojiQuestion internal constructor(
         const val CLASSIC = "Normal"
         const val CLASSIC_II = "Bold"
     }
+
+
 }

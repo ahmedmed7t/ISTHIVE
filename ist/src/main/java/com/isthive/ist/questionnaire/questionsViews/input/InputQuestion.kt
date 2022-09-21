@@ -31,6 +31,7 @@ internal class InputQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.inputQuestionTitle)
+            questionDescription = findViewById(R.id.inputQuestionDescription)
             questionLabel = findViewById(R.id.inputQuestionLabel)
             questionError = findViewById(R.id.inputQuestionErrorMessage)
             questionInput = findViewById(R.id.inputQuestionEditText)

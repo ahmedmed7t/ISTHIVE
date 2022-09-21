@@ -3,6 +3,8 @@ package com.isthive.ist.questionnaire.viewContainers
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +17,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.WelcomeMessage
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.WelcomeMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
+import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 /**
  * This view is just a container that is designed to hold a view inside
@@ -42,12 +47,19 @@ internal class PopupContainerView : DialogFragment() {
     private lateinit var smallNextButton: AppCompatImageView
     private lateinit var smallSubmitButton: TextView
     private lateinit var smallActionsContainer: LinearLayout
+    private lateinit var allActionsContainer: ConstraintLayout
 
     private lateinit var closeButton: AppCompatImageView
+
+    private lateinit var welcomeContainer: ConstraintLayout
+    private lateinit var welcomeTitle: TextView
+    private lateinit var welcomeDescription: TextView
+    private lateinit var takeSurveyButton: TextView
 
     private var questionHandler: QuestionHandler? = null
     private var isLastItem = false
     private var navigationMode = NavigationMode.Modern
+    private var welcomeMessage: WelcomeMessage? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +87,12 @@ internal class PopupContainerView : DialogFragment() {
             smallSubmitButton = findViewById(R.id.popUpSmallSubmitButton)
             smallActionsContainer = findViewById(R.id.popUp3ActionsContainer)
             closeButton = findViewById(R.id.popUpContainerClose)
+            allActionsContainer = findViewById(R.id.popUpActionContainer)
+
+            welcomeContainer = findViewById(R.id.popUpWelcomeContainer)
+            welcomeTitle = findViewById(R.id.popUpWelcomeTitle)
+            welcomeDescription = findViewById(R.id.popUpWelcomeMessage)
+            takeSurveyButton = findViewById(R.id.popUpWelcomeTakeSurvey)
         }
     }
 
@@ -90,6 +108,11 @@ internal class PopupContainerView : DialogFragment() {
 
     fun setNavigationMode(navigationMode: NavigationMode): PopupContainerView {
         this.navigationMode = navigationMode
+        return this
+    }
+
+    fun setWelcomeMessage(welcomeMessage: WelcomeMessage): PopupContainerView {
+        this.welcomeMessage = welcomeMessage
         return this
     }
 
@@ -167,13 +190,25 @@ internal class PopupContainerView : DialogFragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
-        popUpContainer.apply {
-            addView(popUpMainView)
-        }
         if (navigationMode == NavigationMode.Modern)
             enableModernNavigationMode()
         else
             enableClassicNavigationMode()
+
+        popUpContainer.apply {
+            addView(popUpMainView)
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            hideWelcomeMessage()
+            welcomeMessage?.let {
+                if(it.Mode == WelcomeMode.Separate_View){
+                    viewWelcomeMessage(it.Title, it.SubTitle)
+                }else if(it.Mode == WelcomeMode.First_Question){
+                    (popUpMainView as BaseQuestionView).showWelcomeMessage(it.SubTitle)
+                }
+            }
+        }, 150)
     }
 
     override fun onStart() {
@@ -225,5 +260,20 @@ internal class PopupContainerView : DialogFragment() {
         largeNextButton.visibility = View.GONE
 
         smallActionsContainer.visibility = View.VISIBLE
+    }
+
+    private fun viewWelcomeMessage(title: String, description: String){
+        welcomeTitle.text = title
+        welcomeDescription.text = description
+        welcomeContainer.visibility = View.VISIBLE
+        allActionsContainer.visibility = View.GONE
+        topBackButton.visibility = View.GONE
+    }
+
+    private fun hideWelcomeMessage(){
+        welcomeContainer.visibility = View.GONE
+        allActionsContainer.visibility = View.VISIBLE
+        if (navigationMode == NavigationMode.Classic)
+            topBackButton.visibility = View.VISIBLE
     }
 }

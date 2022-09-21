@@ -33,6 +33,7 @@ internal class FCRQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.fcrQuestionTitle)
+            questionDescription = findViewById(R.id.fcrQuestionDescription)
             errorMessage = findViewById(R.id.fcrQuestionErrorMessage)
             option1 = findViewById(R.id.fcrOption1)
             option2 = findViewById(R.id.fcrOption2)

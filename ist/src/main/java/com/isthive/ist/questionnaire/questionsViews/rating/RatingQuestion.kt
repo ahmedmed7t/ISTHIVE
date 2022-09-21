@@ -60,6 +60,7 @@ internal class RatingQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.ratingQuestionTitle)
+            questionDescription = findViewById(R.id.ratingQuestionDescription)
             errorMessage = findViewById(R.id.ratingQuestionErrorMessage)
             questionRequired = findViewById(R.id.ratingQuestionRatesContainer)
             rating1Text = findViewById(R.id.rating1Text)

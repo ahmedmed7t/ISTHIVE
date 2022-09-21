@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
@@ -20,6 +21,8 @@ abstract class BaseQuestionView internal constructor(
     internal var view: View? = null
     internal var question: Question? = null
     internal var isAnswerValid = false
+
+    protected lateinit var questionDescription: TextView
 
     init {
         this.question = question
@@ -44,6 +47,11 @@ abstract class BaseQuestionView internal constructor(
     internal abstract fun handleUiEvents()
 
     internal abstract fun showError()
+
+    internal fun showWelcomeMessage(welcomeSubtitle: String) {
+        questionDescription.visibility = View.VISIBLE
+        questionDescription.text = welcomeSubtitle
+    }
 
     internal abstract fun getAnswer(): Answer?
     internal fun canSkip(): Boolean {

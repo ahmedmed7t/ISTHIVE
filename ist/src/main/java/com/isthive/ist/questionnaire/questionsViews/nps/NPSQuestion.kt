@@ -52,6 +52,7 @@ internal class NPSQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.npsQuestionTitle)
             questionRequired = findViewById(R.id.npsQuestionRequired)
+            questionDescription = findViewById(R.id.npsQuestionDescription)
             errorMessage = findViewById(R.id.npsQuestionErrorMessage)
             scale10Container = findViewById(R.id.npsQuestion10Container)
             scale5Container = findViewById(R.id.npsQuestion5Container)
