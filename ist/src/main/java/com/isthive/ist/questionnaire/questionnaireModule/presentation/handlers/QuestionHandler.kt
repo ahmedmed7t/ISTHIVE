@@ -4,5 +4,5 @@ internal interface QuestionHandler {
     fun onNextClicked()
     fun onBackClicked()
     fun onSubmitClicked()
-    fun onCloseClicked()
+    fun onDismiss()
 }

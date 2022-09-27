@@ -1,5 +1,6 @@
 package com.isthive.ist.questionnaire.viewContainers
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -37,7 +38,7 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
  *      .mainView(your custom view)
  *      .show(supportFragmentManager, "tag")
  */
-internal class PopupContainerView : DialogFragment() {
+internal class PopupContainerView : DialogFragment(), ContainersContract {
 
     private var popUpMainView: View? = null
     private lateinit var popUpContainer: ConstraintLayout
@@ -58,6 +59,7 @@ internal class PopupContainerView : DialogFragment() {
 
     private var questionHandler: QuestionHandler? = null
     private var isLastItem = false
+    private var isSingleQuestion = false
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
 
@@ -71,9 +73,7 @@ internal class PopupContainerView : DialogFragment() {
         initViews(view)
         handleViewEvents()
 
-        isCancelable = true
         inflateView()
-
         return view
     }
 
@@ -111,12 +111,17 @@ internal class PopupContainerView : DialogFragment() {
         return this
     }
 
+    fun isSingleQuestion(singleQuestion: Boolean): PopupContainerView {
+        this.isSingleQuestion = singleQuestion
+        return this
+    }
+
     fun setWelcomeMessage(welcomeMessage: WelcomeMessage): PopupContainerView {
         this.welcomeMessage = welcomeMessage
         return this
     }
 
-    fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
+    override fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
         this.isLastItem = isLastItem
         if (navigationMode == NavigationMode.Modern)
             handleModernNavigation(isLastItem, isFirstItem)
@@ -195,6 +200,9 @@ internal class PopupContainerView : DialogFragment() {
         else
             enableClassicNavigationMode()
 
+        if(isSingleQuestion)
+            handleSingleQuestionMode()
+
         popUpContainer.apply {
             addView(popUpMainView)
         }
@@ -209,6 +217,45 @@ internal class PopupContainerView : DialogFragment() {
                 }
             }
         }, 150)
+    }
+
+    private fun handleSingleQuestionMode(){
+        if (navigationMode == NavigationMode.Modern) {
+            enableSingleQuestionModernNavigation()
+        } else {
+            enableSingleQuestionClassicNavigation()
+        }
+    }
+
+    private fun enableSingleQuestionModernNavigation(){
+        smallNextButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+        smallNextButton.imageTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+
+        bottomBackButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+        bottomBackButton.imageTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+
+        smallSubmitButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+        context?.let {
+            smallSubmitButton.setTextColor(
+                ContextCompat.getColor(it, R.color.white)
+            )
+        }
+    }
+
+    private fun enableSingleQuestionClassicNavigation(){
+        largeNextButton.text = getString(R.string.submit)
+        topBackButton.visibility = View.GONE
+    }
+
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        questionHandler?.onDismiss()
     }
 
     override fun onStart() {
@@ -226,7 +273,7 @@ internal class PopupContainerView : DialogFragment() {
 
     private fun handleViewEvents() {
         closeButton.setOnClickListener {
-            questionHandler?.onCloseClicked()
+            dismiss()
         }
         topBackButton.setOnClickListener {
             questionHandler?.onBackClicked()

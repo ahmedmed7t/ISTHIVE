@@ -1,5 +1,6 @@
 package com.isthive.ist.questionnaire.viewContainers
 
+import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,13 +23,14 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-internal class BottomSheetContainer : BottomSheetDialogFragment() {
+internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersContract {
 
     private var popUpMainView: View? = null
     private lateinit var bottomSheetContainer: ConstraintLayout
     private var questionHandler: QuestionHandler? = null
 
     private var isLastItem = false
+    private var isSingleQuestion = false
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
 
@@ -56,7 +58,6 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             .inflate(R.layout.bottom_sheet_container_view, container, false)
         initViews(view)
 
-        isCancelable = false
         inflateView()
         handleViewEvents()
 
@@ -85,7 +86,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
 
     private fun handleViewEvents() {
         closeButton.setOnClickListener {
-            questionHandler?.onCloseClicked()
+            dismiss()
         }
         topBackButton.setOnClickListener {
             questionHandler?.onBackClicked()
@@ -126,12 +127,17 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
         return this
     }
 
+    fun isSingleQuestion(singleQuestion: Boolean): BottomSheetContainer {
+        this.isSingleQuestion = singleQuestion
+        return this
+    }
+
     fun setWelcomeMessage(welcomeMessage: WelcomeMessage): BottomSheetContainer {
         this.welcomeMessage = welcomeMessage
         return this
     }
 
-    fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
+    override fun addView(popUpContent: View, isLastItem: Boolean, isFirstItem: Boolean) {
         this.isLastItem = isLastItem
         if (navigationMode == NavigationMode.Modern)
             handleModernNavigation(isLastItem, isFirstItem)
@@ -146,6 +152,11 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             addView(popUpContent)
             popUpMainView = popUpContent
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        questionHandler?.onDismiss()
     }
 
     private fun handleClassicNavigation(isLastItem: Boolean) {
@@ -212,6 +223,9 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
             handleClassicNavigation(false)
         }
 
+        if(isSingleQuestion)
+            handleSingleQuestionMode()
+
         bottomSheetContainer.apply {
             addView(popUpMainView)
         }
@@ -226,6 +240,39 @@ internal class BottomSheetContainer : BottomSheetDialogFragment() {
                 }
             }
         }, 150)
+    }
+
+    private fun handleSingleQuestionMode(){
+        if (navigationMode == NavigationMode.Modern) {
+            enableSingleQuestionModernNavigation()
+        } else {
+            enableSingleQuestionClassicNavigation()
+        }
+    }
+
+    private fun enableSingleQuestionModernNavigation(){
+        smallNextButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+        smallNextButton.imageTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+
+        bottomBackButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+        bottomBackButton.imageTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+
+        smallSubmitButton.backgroundTintList =
+            context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+        context?.let {
+            smallSubmitButton.setTextColor(
+                ContextCompat.getColor(it, R.color.white)
+            )
+        }
+    }
+
+    private fun enableSingleQuestionClassicNavigation(){
+        largeNextButton.text = getString(R.string.submit)
+        topBackButton.visibility = View.GONE
     }
 
     private fun enableClassicNavigationMode() {
