@@ -154,6 +154,10 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         }
     }
 
+    override fun dismissContainer() {
+        dismiss()
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
         questionHandler?.onDismiss()

@@ -16,5 +16,5 @@ internal interface QuestionnaireRepository {
     suspend fun saveSurvey(
         accessToken: String,
         saveSurveyRequest: SaveSurveyRequest
-    ): Response<GetQuestionnaireResponse>
+    ): Response<SaveSurveyResponse>
 }

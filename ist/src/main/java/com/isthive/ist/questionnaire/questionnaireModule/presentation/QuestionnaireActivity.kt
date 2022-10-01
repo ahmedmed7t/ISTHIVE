@@ -3,7 +3,7 @@ package com.isthive.ist.questionnaire.questionnaireModule.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.isthive.ist.R
@@ -17,7 +17,6 @@ import com.isthive.ist.questionnaire.viewContainers.ContainersContract
 import com.isthive.ist.questionnaire.viewContainers.PopupContainerView
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
-import kotlin.collections.HashMap
 
 @AndroidEntryPoint
 internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
@@ -45,7 +44,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     private fun listenToViewModelValues() {
         viewModel.questionnaireState.observe(this) {
             when (it) {
-                is QuestionnaireUiState.Success -> {
+                is QuestionnaireUiState.LoadSurveySuccess -> {
                     loading.visibility = View.GONE
                     questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
                     currentView = questionProvider.getNextQuestion(null, this)
@@ -90,6 +89,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
                             }
                         }
                     }
+                }
+                is QuestionnaireUiState.SaveSurveySuccess -> {
+                    loading.visibility = View.GONE
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    containerView?.dismissContainer()
                 }
             }
         }
@@ -144,7 +148,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
             for (item in answers)
                 viewModel.saveSurveyRequest.QuestionResponses.add(item.value)
         }
-        //TODO call submit survey api
+        loading.visibility = View.VISIBLE
+        viewModel.saveSurvey()
     }
 
     override fun onDismiss() {

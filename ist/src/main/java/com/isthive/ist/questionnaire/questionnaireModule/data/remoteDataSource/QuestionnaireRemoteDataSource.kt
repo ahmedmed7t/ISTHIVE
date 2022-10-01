@@ -13,5 +13,5 @@ internal interface QuestionnaireRemoteDataSource {
     suspend fun saveSurvey(
         accessToken: String,
         saveSurveyRequest: SaveSurveyRequest
-    ): Response<GetQuestionnaireResponse>
+    ): Response<SaveSurveyResponse>
 }

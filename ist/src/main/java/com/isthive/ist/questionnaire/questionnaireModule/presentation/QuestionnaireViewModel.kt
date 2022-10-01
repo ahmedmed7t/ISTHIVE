@@ -9,6 +9,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.SaveSurveyR
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.domain.models.GetQuestionnaireNetworkState
 import com.isthive.ist.questionnaire.questionnaireModule.domain.models.GetTokenNetworkState
+import com.isthive.ist.questionnaire.questionnaireModule.domain.models.SaveSurveyNetworkState
 import com.isthive.ist.questionnaire.questionnaireModule.domain.useCases.GetQuestionnaireUseCase
 import com.isthive.ist.questionnaire.questionnaireModule.domain.useCases.GetTokenUseCase
 import com.isthive.ist.questionnaire.questionnaireModule.domain.useCases.SaveSurveyUseCase
@@ -32,6 +33,7 @@ internal class QuestionnaireViewModel @Inject constructor(
     val questions = MutableLiveData<ArrayList<Question>>()
 
     val saveSurveyRequest = SaveSurveyRequest()
+    private var accessToken = ""
 
     fun generateToken(userName: String, password: String) {
         viewModelScope.launch {
@@ -48,6 +50,7 @@ internal class QuestionnaireViewModel @Inject constructor(
                                 refreshToken = response.refreshToken
                             )
                             loadQuestionnaire(response.accessToken)
+                            accessToken = response.accessToken
                         }
                     }
                 }
@@ -66,7 +69,20 @@ internal class QuestionnaireViewModel @Inject constructor(
                         saveSurveyRequest.SurveyID = it1.SurveyID
 
                         questions.value = it1.Questions
-                        QuestionnaireUiState.Success(it1)
+                        QuestionnaireUiState.LoadSurveySuccess(it1)
+                    }
+                }
+            }
+        }
+    }
+
+    fun saveSurvey(){
+        viewModelScope.launch {
+            saveSurveyUseCase.invoke(accessToken, saveSurveyRequest).let {
+                when(it){
+                    is SaveSurveyNetworkState.NetworkFail -> {}
+                    is SaveSurveyNetworkState.NetworkSuccess -> {
+                        QuestionnaireUiState.SaveSurveySuccess(it.saveSurveyResponse?.Message ?: "")
                     }
                 }
             }

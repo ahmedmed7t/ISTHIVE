@@ -30,6 +30,6 @@ internal interface ApiService {
     suspend fun saveSurvey(
         @Header("Authorization") accessToken: String,
         @Body saveSurveyRequest: SaveSurveyRequest
-    ): Response<GetQuestionnaireResponse>
+    ): Response<SaveSurveyResponse>
 
 }

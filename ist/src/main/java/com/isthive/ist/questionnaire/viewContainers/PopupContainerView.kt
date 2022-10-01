@@ -139,6 +139,10 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         }
     }
 
+    override fun dismissContainer() {
+        dismiss()
+    }
+
     private fun handleClassicNavigation(isLastItem: Boolean) {
         if (isLastItem) {
             largeNextButton.text = context?.resources?.getString(R.string.submit)

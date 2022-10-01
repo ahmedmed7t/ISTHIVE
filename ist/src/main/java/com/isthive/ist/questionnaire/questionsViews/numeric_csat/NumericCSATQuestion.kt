@@ -49,7 +49,7 @@ internal class NumericCSATQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.numericCsatQuestionTitle)
             questionRequired = findViewById(R.id.numericCsatQuestionRequired)
-            questionDescription = findViewById(R.id.numericCesQuestionDescription)
+            questionDescription = findViewById(R.id.numericCsatQuestionDescription)
             errorMessage = findViewById(R.id.numericCsatQuestionErrorMessage)
             scale10Container = findViewById(R.id.numericCsatQuestion10Container)
             scale5Container = findViewById(R.id.numericCsatQuestion5Container)

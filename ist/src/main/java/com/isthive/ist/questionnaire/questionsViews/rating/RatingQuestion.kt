@@ -62,7 +62,7 @@ internal class RatingQuestion internal constructor(
             questionTitle = findViewById(R.id.ratingQuestionTitle)
             questionDescription = findViewById(R.id.ratingQuestionDescription)
             errorMessage = findViewById(R.id.ratingQuestionErrorMessage)
-            questionRequired = findViewById(R.id.ratingQuestionRatesContainer)
+            questionRequired = findViewById(R.id.ratingQuestionRequired)
             rating1Text = findViewById(R.id.rating1Text)
             rating2Text = findViewById(R.id.rating2Text)
             rating3Text = findViewById(R.id.rating3Text)
