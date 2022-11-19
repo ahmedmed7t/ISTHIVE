@@ -144,6 +144,21 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     }
 
     override fun onSubmitClicked() {
+        if (currentView?.question?.IsRequired == true) {
+            if (currentView?.isAnswerValid == true) {
+                answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
+                submitSurvey()
+            } else {
+                currentView?.showError()
+            }
+        } else {
+            if (currentView?.getAnswer() != null)
+                answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
+            submitSurvey()
+        }
+    }
+
+    private fun submitSurvey(){
         if (answers.isNotEmpty()) {
             for (item in answers)
                 viewModel.saveSurveyRequest.QuestionResponses.add(item.value)

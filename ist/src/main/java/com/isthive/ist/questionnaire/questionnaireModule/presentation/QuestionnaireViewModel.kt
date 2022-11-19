@@ -82,7 +82,7 @@ internal class QuestionnaireViewModel @Inject constructor(
                 when(it){
                     is SaveSurveyNetworkState.NetworkFail -> {}
                     is SaveSurveyNetworkState.NetworkSuccess -> {
-                        QuestionnaireUiState.SaveSurveySuccess(it.saveSurveyResponse?.Message ?: "")
+                        _questionnaireState.value = QuestionnaireUiState.SaveSurveySuccess(it.saveSurveyResponse?.Message ?: "")
                     }
                 }
             }
