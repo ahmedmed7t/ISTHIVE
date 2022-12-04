@@ -158,7 +158,7 @@ internal class QuestionProvider(
         return 0
     }
 
-    private fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
+    fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
             QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(

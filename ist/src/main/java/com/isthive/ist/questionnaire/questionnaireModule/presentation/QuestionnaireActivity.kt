@@ -6,10 +6,12 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.DisplayMode
+import com.isthive.ist.questionnaire.questionnaireModule.presentation.adapter.FullScreenListAdapter
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
@@ -30,11 +32,16 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
     private var questionViews = Stack<BaseQuestionView>()
     private val answers: HashMap<String?, Answer?> = hashMapOf()
 
+    private lateinit var fullScreenRecyclerView: RecyclerView
+    private val fullScreenListAdapter: FullScreenListAdapter by lazy {
+        FullScreenListAdapter(arrayListOf())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questionare)
 
+        fullScreenRecyclerView = findViewById(R.id.fullScreenRecyclerView)
         loading = findViewById(R.id.surveyProgress)
         loading.visibility = View.VISIBLE
         listenToViewModelValues()
@@ -52,53 +59,35 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
                         questionViews.push(questionView)
                         when (it.survey.SurveyOptions.DisplayMode) {
                             DisplayMode.BottomCard -> {
-                                containerView = BottomSheetContainer()
-                                    .mainView(questionView)
-                                    .isSingleQuestion(it.survey.Questions.size == 1)
-                                    .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
-                                    .setWelcomeMessage(it.survey.SurveyOptions.Theme.WelcomeMessage)
-                                    .setHandler(this)
-                                (containerView as BottomSheetContainer).show(
-                                    supportFragmentManager,
-                                    "tag"
-                                )
+                                displayFullScreenView(it)
+//                                displayBottomSheetView(it, questionView)
                             }
                             DisplayMode.Popup -> {
-                                containerView = PopupContainerView()
-                                    .mainView(questionView)
-                                    .isSingleQuestion(it.survey.Questions.size == 1)
-                                    .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
-                                    .setWelcomeMessage(it.survey.SurveyOptions.Theme.WelcomeMessage)
-                                    .setHandler(this)
-                                (containerView as PopupContainerView).show(
-                                    supportFragmentManager,
-                                    "tag"
-                                )
+                                displayFullScreenView(it)
+//                                displayDialogView(it, questionView)
                             }
                             DisplayMode.FullScreen -> {
-                                containerView = BottomSheetContainer()
-                                    .mainView(questionView)
-                                    .isSingleQuestion(it.survey.Questions.size == 1)
-                                    .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
-                                    .setWelcomeMessage(it.survey.SurveyOptions.Theme.WelcomeMessage)
-                                    .setHandler(this)
-                                (containerView as BottomSheetContainer).show(
-                                    supportFragmentManager,
-                                    "tag"
-                                )
+                                displayFullScreenView(it)
+
+//                                containerView = BottomSheetContainer()
+//                                    .mainView(questionView)
+//                                    .isSingleQuestion(it.survey.Questions.size == 1)
+//                                    .setNavigationMode(it.survey.SurveyOptions.NavigationMode)
+//                                    .setWelcomeMessage(it.survey.SurveyOptions.Theme.WelcomeMessage)
+//                                    .setHandler(this)
+//                                (containerView as BottomSheetContainer).show(
+//                                    supportFragmentManager,
+//                                    "tag"
+//                                )
                             }
                         }
                     }
                 }
                 is QuestionnaireUiState.SaveSurveySuccess -> {
-                    loading.visibility = View.GONE
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    containerView?.dismissContainer()
+                    finishCallApiState(it.message)
                 }
                 is QuestionnaireUiState.SaveSurveyFail -> {
-                    loading.visibility = View.GONE
-                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    containerView?.dismissContainer()
+                    finishCallApiState(it.message)
                 }
             }
         }
@@ -176,9 +165,55 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
         onBackPressed()
     }
 
+    private fun displayDialogView(
+        questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess,
+        questionView: View
+    ) {
+        containerView = PopupContainerView()
+            .mainView(questionView)
+            .isSingleQuestion(questionnaireUiState.survey.Questions.size == 1)
+            .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
+            .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
+            .setHandler(this)
+        (containerView as PopupContainerView).show(
+            supportFragmentManager,
+            "tag"
+        )
+    }
+
+    private fun displayBottomSheetView(
+        questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess,
+        questionView: View
+    ) {
+        containerView = BottomSheetContainer()
+            .mainView(questionView)
+            .isSingleQuestion(questionnaireUiState.survey.Questions.size == 1)
+            .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
+            .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
+            .setHandler(this)
+        (containerView as BottomSheetContainer).show(
+            supportFragmentManager,
+            "tag"
+        )
+    }
+
+    private fun displayFullScreenView(questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess){
+        val questionViews = arrayListOf<BaseQuestionView>()
+        for (item in questionnaireUiState.survey.Questions)
+            questionViews.add(questionProvider.loadViewRelevantToQuestion(item, context = this))
+
+        fullScreenListAdapter.updateQuestionsList(questionViews)
+        fullScreenRecyclerView.adapter = fullScreenListAdapter
+    }
+
+    private fun finishCallApiState(message:String){
+        loading.visibility = View.GONE
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        containerView?.dismissContainer()
+    }
+
     internal companion object {
         const val QUESTIONNAIRE_USER_NAME = "QUESTIONNAIRE_USER_NAME"
         const val QUESTIONNAIRE_PASSWORD = "QUESTIONNAIRE_PASSWORD"
     }
-
 }

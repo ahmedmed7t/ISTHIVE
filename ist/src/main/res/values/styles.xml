@@ -34,6 +34,15 @@
         <item name="marginHorizontal">@dimen/_24sdp</item>
     </style>
 
+    <style name="WhiteSubmitButtonStyle" parent="Widget.MaterialComponents.TextView">
+        <item name="android:background">@drawable/rectangle_12_radius_white_round_corners</item>
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:paddingVertical">@dimen/_6sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="marginHorizontal">@dimen/_24sdp</item>
+    </style>
+
     <style name="SmallButtonStyle" parent="Widget.MaterialComponents.TextView">
         <item name="android:background">@drawable/rectangle_4_radius_white_round_corners</item>
         <item name="android:backgroundTint">@color/blue</item>

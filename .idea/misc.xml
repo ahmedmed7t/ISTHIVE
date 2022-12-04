@@ -47,8 +47,13 @@
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_list_item.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_question.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/sliding_question.xml" value="0.20416666666666666" />
-        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/activity_questionare.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable-mdpi/rectangle_8_radius_white_round_corners.xml" value="0.146" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable/bottom_sheet_background.xml" value="0.146" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable/correct_edit_text_background.xml" value="0.146" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/activity_questionare.xml" value="0.24087591240875914" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/bottom_sheet_container_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/fcr_question.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/full_screen_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/rating_question.xml" value="0.25416666666666665" />
       </map>
     </option>
