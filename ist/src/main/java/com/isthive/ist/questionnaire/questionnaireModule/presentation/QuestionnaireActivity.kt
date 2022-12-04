@@ -95,6 +95,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
                     Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
                     containerView?.dismissContainer()
                 }
+                is QuestionnaireUiState.SaveSurveyFail -> {
+                    loading.visibility = View.GONE
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                    containerView?.dismissContainer()
+                }
             }
         }
     }
@@ -158,7 +163,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
         }
     }
 
-    private fun submitSurvey(){
+    private fun submitSurvey() {
         if (answers.isNotEmpty()) {
             for (item in answers)
                 viewModel.saveSurveyRequest.QuestionResponses.add(item.value)

@@ -5,4 +5,5 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 internal sealed class QuestionnaireUiState{
     internal data class LoadSurveySuccess(val survey: Survey): QuestionnaireUiState()
     internal data class SaveSurveySuccess(val message: String): QuestionnaireUiState()
+    internal data class SaveSurveyFail(val message: String): QuestionnaireUiState()
 }

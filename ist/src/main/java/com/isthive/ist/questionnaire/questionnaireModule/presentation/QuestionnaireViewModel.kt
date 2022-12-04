@@ -80,7 +80,9 @@ internal class QuestionnaireViewModel @Inject constructor(
         viewModelScope.launch {
             saveSurveyUseCase.invoke(accessToken, saveSurveyRequest).let {
                 when(it){
-                    is SaveSurveyNetworkState.NetworkFail -> {}
+                    is SaveSurveyNetworkState.NetworkFail -> {
+                        _questionnaireState.value = QuestionnaireUiState.SaveSurveySuccess(it.message ?: "")
+                    }
                     is SaveSurveyNetworkState.NetworkSuccess -> {
                         _questionnaireState.value = QuestionnaireUiState.SaveSurveySuccess(it.saveSurveyResponse?.Message ?: "")
                     }

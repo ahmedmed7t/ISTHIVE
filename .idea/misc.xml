@@ -47,6 +47,9 @@
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_list_item.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/single_choice_question.xml" value="0.25" />
         <entry key="..\:/Android Studio Projects/ISTHiveApp/ist/src/main/res/layout/sliding_question.xml" value="0.20416666666666666" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/activity_questionare.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/bottom_sheet_container_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/rating_question.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
