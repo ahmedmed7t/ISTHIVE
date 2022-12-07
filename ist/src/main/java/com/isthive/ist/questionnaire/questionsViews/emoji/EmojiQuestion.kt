@@ -1,13 +1,9 @@
 package com.isthive.ist.questionnaire.questionsViews.emoji
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
@@ -68,7 +64,7 @@ internal class EmojiQuestion internal constructor(
     override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
-            if(IsRequired)
+            if (IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -98,9 +94,13 @@ internal class EmojiQuestion internal constructor(
         }
         neutralEmoji.setOnClickListener {
             question?.let {
-                when(it.Scale){
-                    3 -> { selectedEmoji = 2}
-                    5 -> { selectedEmoji = 3}
+                when (it.Scale) {
+                    3 -> {
+                        selectedEmoji = 2
+                    }
+                    5 -> {
+                        selectedEmoji = 3
+                    }
                 }
             }
             onEmojiClicked(neutralEmoji)
@@ -122,7 +122,7 @@ internal class EmojiQuestion internal constructor(
         errorMessage.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         isAnswerValid = true
         errorMessage.visibility = View.GONE
     }
@@ -150,6 +150,12 @@ internal class EmojiQuestion internal constructor(
             }
 
             lastEmojiClicked = emoji
+        }
+
+        question?.apply {
+            answerHandler?.onAnswerClicked(
+                Answer(QuestionGUID, QuestionID, null, selectedEmoji), question
+            )
         }
     }
 
@@ -268,6 +274,4 @@ internal class EmojiQuestion internal constructor(
         const val CLASSIC = "Normal"
         const val CLASSIC_II = "Bold"
     }
-
-
 }

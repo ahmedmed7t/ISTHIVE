@@ -10,6 +10,7 @@ import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
+import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.AnswerHandler
 
 abstract class BaseQuestionView internal constructor(
     context: Context,
@@ -21,6 +22,7 @@ abstract class BaseQuestionView internal constructor(
     internal var view: View? = null
     internal var question: Question? = null
     internal var isAnswerValid = false
+    internal var answerHandler: AnswerHandler? = null
 
     protected lateinit var questionDescription: TextView
 

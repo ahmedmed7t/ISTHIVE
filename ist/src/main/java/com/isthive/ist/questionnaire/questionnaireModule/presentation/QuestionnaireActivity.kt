@@ -8,10 +8,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.provider.FullScreenQuestionProvider
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.DisplayMode
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.adapter.FullScreenListAdapter
+import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.AnswerHandler
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 import com.isthive.ist.questionnaire.viewContainers.BottomSheetContainer
@@ -21,10 +24,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
+internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, AnswerHandler {
     private val viewModel: QuestionnaireViewModel by viewModels()
 
     private lateinit var questionProvider: QuestionProvider
+    private lateinit var fullScreenProvider: FullScreenQuestionProvider
     private lateinit var loading: ProgressBar
     private var containerView: ContainersContract? = null
     private var currentView: BaseQuestionView? = null
@@ -53,21 +57,32 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
             when (it) {
                 is QuestionnaireUiState.LoadSurveySuccess -> {
                     loading.visibility = View.GONE
-                    questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-                    currentView = questionProvider.getNextQuestion(null, this)
-                    currentView?.let { questionView ->
-                        questionViews.push(questionView)
-                        when (it.survey.SurveyOptions.DisplayMode) {
-                            DisplayMode.BottomCard -> {
-                                displayFullScreenView(it)
-//                                displayBottomSheetView(it, questionView)
-                            }
-                            DisplayMode.Popup -> {
-                                displayFullScreenView(it)
-//                                displayDialogView(it, questionView)
-                            }
-                            DisplayMode.FullScreen -> {
-                                displayFullScreenView(it)
+                    when (it.survey.SurveyOptions.DisplayMode) {
+                        DisplayMode.BottomCard -> {
+                            fullScreenProvider = FullScreenQuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+                            displayFullScreenView()
+
+//                            questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+//                            currentView = questionProvider.getNextQuestion(null, this)
+//                            currentView?.let { questionView ->
+//                                questionViews.push(questionView)
+//                            }
+//                            displayBottomSheetView(it, questionView)
+                        }
+                        DisplayMode.Popup -> {
+                            fullScreenProvider = FullScreenQuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+                            displayFullScreenView()
+
+//                            questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+//                            currentView = questionProvider.getNextQuestion(null, this)
+//                            currentView?.let { questionView ->
+//                                questionViews.push(questionView)
+//                            }
+//                           displayDialogView(it, questionView)
+                        }
+                        DisplayMode.FullScreen -> {
+                            fullScreenProvider = FullScreenQuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+                            displayFullScreenView()
 
 //                                containerView = BottomSheetContainer()
 //                                    .mainView(questionView)
@@ -79,7 +94,6 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
 //                                    supportFragmentManager,
 //                                    "tag"
 //                                )
-                            }
                         }
                     }
                 }
@@ -152,6 +166,14 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
         }
     }
 
+    override fun onAnswerClicked(answer: Answer, question: Question?) {
+        question?.let{
+            val nextQuestions = fullScreenProvider.getNextListOfQuestions(answer, question, this)
+            nextQuestions.last().answerHandler = this
+            fullScreenListAdapter.appendQuestions(nextQuestions, question)
+        }
+    }
+
     private fun submitSurvey() {
         if (answers.isNotEmpty()) {
             for (item in answers)
@@ -197,12 +219,10 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler {
         )
     }
 
-    private fun displayFullScreenView(questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess){
-        val questionViews = arrayListOf<BaseQuestionView>()
-        for (item in questionnaireUiState.survey.Questions)
-            questionViews.add(questionProvider.loadViewRelevantToQuestion(item, context = this))
-
-        fullScreenListAdapter.updateQuestionsList(questionViews)
+    private fun displayFullScreenView(){
+        val questionList = fullScreenProvider.getInitialList(this)
+        questionList.last().answerHandler = this
+        fullScreenListAdapter.updateQuestionsList(questionList)
         fullScreenRecyclerView.adapter = fullScreenListAdapter
     }
 

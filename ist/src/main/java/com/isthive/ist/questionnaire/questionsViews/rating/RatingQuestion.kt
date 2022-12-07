@@ -2,14 +2,11 @@ package com.isthive.ist.questionnaire.questionsViews.rating
 
 import android.content.Context
 import android.graphics.Color
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
-import androidx.core.view.doOnAttach
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
@@ -92,7 +89,7 @@ internal class RatingQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
-            if(it.IsRequired)
+            if (it.IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -161,7 +158,7 @@ internal class RatingQuestion internal constructor(
         errorMessage.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         isAnswerValid = true
         errorMessage.visibility = View.GONE
     }
@@ -169,7 +166,7 @@ internal class RatingQuestion internal constructor(
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
-                QuestionGUID, QuestionID,null, selectedRate, null
+                QuestionGUID, QuestionID, null, selectedRate, null
             )
         }
         return null
@@ -196,6 +193,8 @@ internal class RatingQuestion internal constructor(
         showNotSelectedIcon(rating4Icon)
         showNotSelectedData(rating5Text, rating5Line)
         showNotSelectedIcon(rating5Icon)
+
+        onRatingSelected()
     }
 
     private fun on2RatingClicked() {
@@ -211,6 +210,8 @@ internal class RatingQuestion internal constructor(
         showNotSelectedIcon(rating4Icon)
         showNotSelectedData(rating5Text, rating5Line)
         showNotSelectedIcon(rating5Icon)
+
+        onRatingSelected()
     }
 
     private fun on3RatingClicked() {
@@ -226,6 +227,8 @@ internal class RatingQuestion internal constructor(
         showNotSelectedIcon(rating4Icon)
         showNotSelectedData(rating5Text, rating5Line)
         showNotSelectedIcon(rating5Icon)
+
+        onRatingSelected()
     }
 
     private fun on4RatingClicked() {
@@ -241,6 +244,8 @@ internal class RatingQuestion internal constructor(
         showNotSelectedData(rating3Text, rating3Line)
         showNotSelectedData(rating5Text, rating5Line)
         showNotSelectedIcon(rating5Icon)
+
+        onRatingSelected()
     }
 
     private fun on5RatingClicked() {
@@ -256,6 +261,18 @@ internal class RatingQuestion internal constructor(
         showNotSelectedData(rating2Text, rating2Line)
         showNotSelectedData(rating3Text, rating3Line)
         showNotSelectedData(rating4Text, rating4Line)
+
+        onRatingSelected()
+    }
+
+    private fun onRatingSelected() {
+        question?.apply {
+            answerHandler?.onAnswerClicked(
+                Answer(
+                    QuestionGUID, QuestionID, null, selectedRate, null
+                ), question
+            )
+        }
     }
 
     private fun setLinesColor(fillColor: Int) {

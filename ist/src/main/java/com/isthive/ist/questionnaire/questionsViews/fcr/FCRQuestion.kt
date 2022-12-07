@@ -46,7 +46,7 @@ internal class FCRQuestion internal constructor(
         question?.apply {
             questionTitle.text = Title
             setOptionsStyle(TemplateID)
-            if(IsRequired)
+            if (IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -59,19 +59,19 @@ internal class FCRQuestion internal constructor(
     private fun setOptionsStyle(style: String) {
         option1.setMode(style)
         option2.setMode(style)
-        if(style.contains("horizontal", ignoreCase = true)){
+        if (style.contains("horizontal", ignoreCase = true)) {
             enableHorizontalMode()
-        }else{
+        } else {
             enableVerticalMode()
         }
     }
 
     override fun handleUiEvents() {
         option1.setOnClickListener {
-            onOptionClicked(option1,0)
+            onOptionClicked(option1, 0)
         }
         option2.setOnClickListener {
-            onOptionClicked(option2,1)
+            onOptionClicked(option2, 1)
         }
     }
 
@@ -80,7 +80,7 @@ internal class FCRQuestion internal constructor(
         errorMessage.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         isAnswerValid = true
         errorMessage.visibility = View.GONE
     }
@@ -102,25 +102,25 @@ internal class FCRQuestion internal constructor(
         return null
     }
 
-    private fun enableHorizontalMode(){
+    private fun enableHorizontalMode() {
         optionsContainer.orientation = LinearLayout.HORIZONTAL
         changeWidthToMatchConstraints(option1)
         changeWidthToMatchConstraints(option2)
     }
 
-    private fun enableVerticalMode(){
+    private fun enableVerticalMode() {
         optionsContainer.orientation = LinearLayout.VERTICAL
         changeWidthToMatchParent(option1)
         changeWidthToMatchParent(option2)
     }
 
-    private fun changeWidthToMatchParent(option: RadioButtonListItem){
+    private fun changeWidthToMatchParent(option: RadioButtonListItem) {
         val param = option.layoutParams
         param.width = ConstraintLayout.LayoutParams.MATCH_PARENT
         option.layoutParams = param
     }
 
-    private fun changeWidthToMatchConstraints(option: RadioButtonListItem){
+    private fun changeWidthToMatchConstraints(option: RadioButtonListItem) {
         val param = option.layoutParams
         param.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
         option.layoutParams = param
@@ -132,6 +132,22 @@ internal class FCRQuestion internal constructor(
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)
         lastSelectedItem = selectedItem
+
+        lastSelectedIndex?.let { lastIndex ->
+            question?.apply {
+                answerHandler?.onAnswerClicked(
+                    Answer(
+                        QuestionGUID, QuestionID, arrayListOf(
+                            AnswerChoice(
+                                Choices!![lastIndex].ChoiceGUID,
+                                Choices[lastIndex].ChoiceID,
+                                null
+                            )
+                        )
+                    ), question
+                )
+            }
+        }
     }
 
     private fun showChoices(choices: ArrayList<Choice>) {

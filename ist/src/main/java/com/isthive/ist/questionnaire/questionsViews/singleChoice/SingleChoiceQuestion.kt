@@ -1,11 +1,8 @@
 package com.isthive.ist.questionnaire.questionsViews.singleChoice
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.view.doOnAttach
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
@@ -45,12 +42,16 @@ internal class SingleChoiceQuestion internal constructor(
     override fun viewQuestionData() {
         question?.apply {
             questionTitle.text = Title
-            if(IsRequired)
+            if (IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
             Choices?.let { choices ->
-                choicesAdapter = SingleChoiceAdapter(choices, TemplateID == MODEREN_STYLE, this@SingleChoiceQuestion)
+                choicesAdapter = SingleChoiceAdapter(
+                    choices,
+                    TemplateID == MODEREN_STYLE,
+                    this@SingleChoiceQuestion
+                )
                 choicesRecyclerView.adapter = choicesAdapter
             }
         }
@@ -86,5 +87,19 @@ internal class SingleChoiceQuestion internal constructor(
         isAnswerValid = true
         errorMessage.visibility = View.GONE
         selectedChoice = position
+
+        question?.apply {
+            selectedChoice?.let { choice ->
+                answerHandler?.onAnswerClicked(Answer(
+                    QuestionGUID, QuestionID, arrayListOf(
+                        AnswerChoice(
+                            Choices!![choice].ChoiceGUID,
+                            Choices[choice].ChoiceID,
+                            choicesAdapter.otherText.ifBlank { null }
+                        )
+                    ), null
+                ), question)
+            }
+        }
     }
 }

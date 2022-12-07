@@ -52,7 +52,7 @@ internal class CSATQuestion internal constructor(
         question?.apply {
             questionTitle.text = Title
             setOptionsStyle(TemplateID)
-            if(IsRequired)
+            if (IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -93,25 +93,25 @@ internal class CSATQuestion internal constructor(
 
     override fun handleUiEvents() {
         option1.setOnClickListener {
-            onOptionClicked(option1,0)
+            onOptionClicked(option1, 0)
         }
         option2.setOnClickListener {
-            onOptionClicked(option2,1)
+            onOptionClicked(option2, 1)
         }
         option3.setOnClickListener {
-            onOptionClicked(option3,2)
+            onOptionClicked(option3, 2)
         }
         option4.setOnClickListener {
-            onOptionClicked(option4,3)
+            onOptionClicked(option4, 3)
         }
         option5.setOnClickListener {
-            onOptionClicked(option5,4)
+            onOptionClicked(option5, 4)
         }
         option6.setOnClickListener {
-            onOptionClicked(option6,5)
+            onOptionClicked(option6, 5)
         }
         option7.setOnClickListener {
-            onOptionClicked(option7,6)
+            onOptionClicked(option7, 6)
         }
     }
 
@@ -120,7 +120,7 @@ internal class CSATQuestion internal constructor(
         errorMessage.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         isAnswerValid = true
         errorMessage.visibility = View.GONE
     }
@@ -148,6 +148,21 @@ internal class CSATQuestion internal constructor(
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)
         lastSelectedItem = selectedItem
+
+        lastSelectedIndex?.let { lastIndex ->
+            question?.apply {
+                answerHandler?.onAnswerClicked(
+                    Answer(QuestionGUID, QuestionID, arrayListOf(
+                            AnswerChoice(
+                                Choices!![lastIndex].ChoiceGUID,
+                                Choices[lastIndex].ChoiceID,
+                                null
+                            )
+                        )
+                    ), question
+                )
+            }
+        }
     }
 
     private fun showChoices(choices: ArrayList<Choice>) {

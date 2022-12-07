@@ -5,17 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.allViews
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
-class FullScreenListAdapter(
+internal class FullScreenListAdapter(
     private var questions: ArrayList<BaseQuestionView>
 ) : RecyclerView.Adapter<FullScreenListAdapter.FullScreenViewHolder>() {
 
-    inner class FullScreenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val container = itemView.findViewById<ConstraintLayout>(R.id.fullScreenItemContainer)
+    internal inner class FullScreenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val container: ConstraintLayout = itemView.findViewById(R.id.fullScreenItemContainer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FullScreenViewHolder {
@@ -31,15 +31,37 @@ class FullScreenListAdapter(
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         holder.container.apply {
-            for (item in allViews)
-                removeView(item)
+            removeAllViews()
+            if ((questions[position]).parent != null)
+                ((questions[position]).parent as ViewGroup).removeAllViews()
             addView(questions[position])
         }
     }
 
     override fun getItemCount() = questions.size
 
-    fun updateQuestionsList(questions: ArrayList<BaseQuestionView>){
+    fun updateQuestionsList(questions: ArrayList<BaseQuestionView>) {
         this.questions = questions
+    }
+
+    fun appendQuestions(newQuestions: ArrayList<BaseQuestionView>, question: Question) {
+        val questionIndex = getQuestionIndex(question)
+        if (questionIndex == questions.size - 1) {
+            questions.addAll(newQuestions)
+        } else {
+            for (count in questionIndex + 1 until questions.size) {
+                questions.removeLast()
+            }
+            questions.addAll(newQuestions)
+        }
+        notifyDataSetChanged()
+    }
+
+    private fun getQuestionIndex(question: Question): Int {
+        for ((index, item) in questions.withIndex()) {
+            if (item.question?.QuestionGUID == question.QuestionGUID)
+                return index
+        }
+        return 0
     }
 }

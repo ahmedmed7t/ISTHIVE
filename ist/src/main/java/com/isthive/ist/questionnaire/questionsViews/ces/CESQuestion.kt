@@ -141,6 +141,20 @@ internal class CESQuestion internal constructor(
         lastSelectedItem?.setOptionSelected(false)
         selectedItem.setOptionSelected(true)
         lastSelectedItem = selectedItem
+
+        lastSelectedIndex?.let { lastIndex ->
+            question?.apply {
+                answerHandler?.onAnswerClicked(Answer(
+                    QuestionGUID, QuestionID, arrayListOf(
+                        AnswerChoice(
+                            Choices!![lastIndex].ChoiceGUID,
+                            Choices[lastIndex].ChoiceID,
+                            null
+                        )
+                    )
+                ), question)
+            }
+        }
     }
 
     private fun showChoices(choices: ArrayList<Choice>) {

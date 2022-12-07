@@ -1,13 +1,8 @@
 package com.isthive.ist.questionnaire.questionsViews.sliding
 
 import android.content.Context
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.doOnAttach
 import com.google.android.material.slider.Slider
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
@@ -38,7 +33,7 @@ internal class SlidingQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
-            if(it.IsRequired)
+            if (it.IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -46,7 +41,15 @@ internal class SlidingQuestion internal constructor(
     }
 
     override fun handleUiEvents() {
-
+        slider.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
+            question?.apply {
+                answerHandler?.onAnswerClicked(
+                    Answer(
+                        QuestionGUID, QuestionID, null, value.toInt(), null
+                    ), question
+                )
+            }
+        })
     }
 
     override fun showError() {
@@ -55,7 +58,7 @@ internal class SlidingQuestion internal constructor(
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
-                QuestionGUID, QuestionID,null, slider.value.toInt(), null
+                QuestionGUID, QuestionID, null, slider.value.toInt(), null
             )
         }
         return null

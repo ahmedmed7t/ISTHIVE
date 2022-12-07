@@ -72,7 +72,7 @@ internal class NumericCESQuestion internal constructor(
     override fun viewQuestionData() {
         question?.let {
             questionTitle.text = it.Title
-            if(it.IsRequired)
+            if (it.IsRequired)
                 questionRequired.visibility = View.VISIBLE
             else
                 questionRequired.visibility = View.GONE
@@ -142,7 +142,7 @@ internal class NumericCESQuestion internal constructor(
     override fun getAnswer(): Answer? {
         question?.apply {
             return Answer(
-                QuestionGUID, QuestionID,null, selectedNumber, null
+                QuestionGUID, QuestionID, null, selectedNumber, null
             )
         }
         return null
@@ -157,6 +157,14 @@ internal class NumericCESQuestion internal constructor(
             minimizeNumber(it)
         }
         lastSelectedNumber = selectedView
+
+        question?.apply {
+            answerHandler?.onAnswerClicked(
+                Answer(
+                    QuestionGUID, QuestionID, null, selectedNumber, null
+                ), question
+            )
+        }
     }
 
     private fun maximizeSelectedNumber(selectedView: TextView) {

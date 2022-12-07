@@ -1,7 +1,6 @@
 package com.isthive.ist.questionnaire.provider
 
 import android.content.Context
-import android.util.Log
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.QuestionType
@@ -20,67 +19,45 @@ import com.isthive.ist.questionnaire.questionsViews.rating.RatingQuestion
 import com.isthive.ist.questionnaire.questionsViews.singleChoice.SingleChoiceQuestion
 import com.isthive.ist.questionnaire.questionsViews.sliding.SlidingQuestion
 
-internal class QuestionProvider(
+internal class FullScreenQuestionProvider(
     var questions: ArrayList<Question>,
     var skipLogic: ArrayList<SkipLogic>?
 ) {
 
-    var questionIndex = -1
-
-    fun getNextQuestion(answer: Answer?, context: Context): BaseQuestionView? {
-        while (questionIndex < questions.count()) {
-            if (questionIndex == -1) {
-                questionIndex += 1
-                return loadViewRelevantToQuestion(questions[questionIndex], context)
-            }
-            val question = questions[questionIndex]
-            if (isQuestionHaveSkipLogic(question.QuestionGUID)) {
-                questionIndex = getNextQuestionIndexFromSkipLogic(question, answer)
-                break
-            } else {
-                questionIndex += 1
-                break
+    fun getInitialList(context: Context):  ArrayList<BaseQuestionView>{
+        val initialQuestionsViews = arrayListOf<BaseQuestionView>()
+        for (item in questions) {
+            initialQuestionsViews.add(loadViewRelevantToQuestion(item, context))
+            if (isQuestionHaveSkipLogic(item.QuestionGUID)) {
+                return initialQuestionsViews
             }
         }
-        if (questionIndex == questions.size)
-            return null
-        return loadViewRelevantToQuestion(questions[questionIndex], context)
+        return initialQuestionsViews
     }
 
-    fun isLastQuestion(question: Question?): Boolean {
-        var indexOfQuestion = -1
-        for ((index, item) in questions.withIndex()) {
-            if (question?.QuestionGUID == item.QuestionGUID) {
-                indexOfQuestion = index
-                break
+    fun getNextListOfQuestions(answer: Answer, question: Question, context: Context): ArrayList<BaseQuestionView>{
+        var currentIndex  = getNextQuestionIndexFromSkipLogic(question, answer)
+        val firstQuestion = loadViewRelevantToQuestion(questions[currentIndex], context)
+        val nextList = arrayListOf(firstQuestion)
+
+        if(!isQuestionHaveSkipLogic(questions[currentIndex].QuestionGUID)) {
+            for (i in currentIndex + 1 until questions.size) {
+                nextList.add(loadViewRelevantToQuestion(questions[i], context))
+                if (isQuestionHaveSkipLogic(questions[i].QuestionGUID)) {
+                    return nextList
+                }
             }
         }
-        Log.v("Medhat", "last index is $indexOfQuestion of questions size ${questions.size}")
-        return indexOfQuestion == questions.size - 1
+        return nextList
     }
 
-    fun isFirstQuestion(question: Question?): Boolean {
-        Log.v("Medhat", "first index is question $question ")
-        Log.v("Medhat", "first index is question GUID ${question?.QuestionGUID} ")
-        var indexOfQuestion = -1
-        for ((index, item) in questions.withIndex()) {
-            if (question?.QuestionGUID == item.QuestionGUID) {
-                indexOfQuestion = index
-                break
+    fun getQuestionIndex(question: Question): Int{
+        for((index, item) in questions.withIndex()){
+            if(item.QuestionGUID == question.QuestionGUID){
+                return index
             }
         }
-
-        Log.v("Medhat", "first index is $indexOfQuestion of questions size ${questions.size}")
-        return indexOfQuestion == 0
-    }
-
-    fun updateQuestionIndex(question: Question?) {
-        for ((index, item) in questions.withIndex()) {
-            if (question?.QuestionGUID == item.QuestionGUID) {
-                questionIndex = index
-                break
-            }
-        }
+        return 0
     }
 
     private fun isQuestionHaveSkipLogic(questionGUID: String): Boolean {
@@ -158,7 +135,7 @@ internal class QuestionProvider(
         return 0
     }
 
-    fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
+    private fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
             QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(
@@ -194,21 +171,5 @@ internal class QuestionProvider(
             QuestionType.Numeric_CSAT -> NumericCSATQuestion(context.applicationContext, question)
             QuestionType.Numeric_CES -> NumericCESQuestion(context.applicationContext, question)
         }
-    }
-
-    //? full screen functions
-    fun getInitialList(context: Context):  ArrayList<BaseQuestionView>{
-        val initialQuestionsViews = arrayListOf<BaseQuestionView>()
-        for (item in questions) {
-            initialQuestionsViews.add(loadViewRelevantToQuestion(item, context))
-            if (isQuestionHaveSkipLogic(item.QuestionGUID)) {
-                return initialQuestionsViews
-            }
-        }
-        return initialQuestionsViews
-    }
-
-    fun getNextListOfQuestions(answer: Answer, context: Context){
-
     }
 }
