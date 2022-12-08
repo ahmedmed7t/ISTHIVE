@@ -143,7 +143,7 @@ internal class QuestionProvider(
                 }
             }
         }
-        return 0
+        return questionIndex+1
     }
 
     private fun nextQuestionGuidIsNull(question: Question, nextQuestionGuid: String?): Int {

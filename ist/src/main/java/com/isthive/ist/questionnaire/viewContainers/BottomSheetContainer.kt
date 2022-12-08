@@ -132,7 +132,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         return this
     }
 
-    fun setWelcomeMessage(welcomeMessage: WelcomeMessage): BottomSheetContainer {
+    fun setWelcomeMessage(welcomeMessage: WelcomeMessage?): BottomSheetContainer {
         this.welcomeMessage = welcomeMessage
         return this
     }

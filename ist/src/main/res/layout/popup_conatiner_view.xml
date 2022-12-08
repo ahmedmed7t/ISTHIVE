@@ -76,10 +76,11 @@
                 android:layout_weight="1"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                android:tint="@color/white"
                 android:visibility="visible"
+                app:backgroundTint="@color/white_blue"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="@color/fade_gray" />
 
             <TextView
                 android:id="@+id/popUpSmallSubmitButton"
@@ -89,7 +90,9 @@
                 android:layout_marginHorizontal="@dimen/_22sdp"
                 android:layout_weight="4"
                 android:background="@drawable/rectangle_8_radius_white_round_corners"
+                android:backgroundTint="@color/white_blue"
                 android:text="@string/submit"
+                android:textColor="@color/fade_gray"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
