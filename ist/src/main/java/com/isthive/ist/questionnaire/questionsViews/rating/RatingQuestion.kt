@@ -15,7 +15,7 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class RatingQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceLayout: Int = R.layout.rating_question
 ) :
     BaseQuestionView(context, question, resourceLayout) {
@@ -25,34 +25,34 @@ internal class RatingQuestion internal constructor(
     private var normalColor: Int? = null
     private var selectedColor: Int? = null
 
-    private lateinit var questionTitle: TextView
-    private lateinit var questionRequired: TextView
-    private lateinit var errorMessage: TextView
-    private var selectedRate: Int = 0
+    private var questionTitle: TextView? = null
+    private var questionRequired: TextView? = null
+    private var errorMessage: TextView? = null
+    private var selectedRate: Int? = null
 
-    private lateinit var rating1Text: TextView
-    private lateinit var rating2Text: TextView
-    private lateinit var rating3Text: TextView
-    private lateinit var rating4Text: TextView
-    private lateinit var rating5Text: TextView
+    private var rating1Text: TextView? = null
+    private var rating2Text: TextView? = null
+    private var rating3Text: TextView? = null
+    private var rating4Text: TextView? = null
+    private var rating5Text: TextView? = null
 
-    private lateinit var rating1Icon: AppCompatImageView
-    private lateinit var rating2Icon: AppCompatImageView
-    private lateinit var rating3Icon: AppCompatImageView
-    private lateinit var rating4Icon: AppCompatImageView
-    private lateinit var rating5Icon: AppCompatImageView
+    private var rating1Icon: AppCompatImageView? = null
+    private var rating2Icon: AppCompatImageView? = null
+    private var rating3Icon: AppCompatImageView? = null
+    private var rating4Icon: AppCompatImageView? = null
+    private var rating5Icon: AppCompatImageView? = null
 
-    private lateinit var rating1Line: View
-    private lateinit var rating2Line: View
-    private lateinit var rating3Line: View
-    private lateinit var rating4Line: View
-    private lateinit var rating5Line: View
+    private var rating1Line: View? = null
+    private var rating2Line: View? = null
+    private var rating3Line: View? = null
+    private var rating4Line: View? = null
+    private var rating5Line: View? = null
 
-    private lateinit var rating1Container: LinearLayout
-    private lateinit var rating2Container: LinearLayout
-    private lateinit var rating3Container: LinearLayout
-    private lateinit var rating4Container: LinearLayout
-    private lateinit var rating5Container: LinearLayout
+    private var rating1Container: LinearLayout? = null
+    private var rating2Container: LinearLayout? = null
+    private var rating3Container: LinearLayout? = null
+    private var rating4Container: LinearLayout? = null
+    private var rating5Container: LinearLayout? = null
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -87,12 +87,12 @@ internal class RatingQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.let {
-            questionTitle.text = it.Title
+        question.let {
+            questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             when (it.StarOption?.Shape) {
                 StarShape.STAR -> {
                     normalRatingIcon = R.drawable.ic_star
@@ -131,23 +131,23 @@ internal class RatingQuestion internal constructor(
     }
 
     override fun handleUiEvents() {
-        rating1Container.setOnClickListener {
+        rating1Container?.setOnClickListener {
             hideError()
             on1RatingClicked()
         }
-        rating2Container.setOnClickListener {
+        rating2Container?.setOnClickListener {
             hideError()
             on2RatingClicked()
         }
-        rating3Container.setOnClickListener {
+        rating3Container?.setOnClickListener {
             hideError()
             on3RatingClicked()
         }
-        rating4Container.setOnClickListener {
+        rating4Container?.setOnClickListener {
             hideError()
             on4RatingClicked()
         }
-        rating5Container.setOnClickListener {
+        rating5Container?.setOnClickListener {
             hideError()
             on5RatingClicked()
         }
@@ -155,21 +155,20 @@ internal class RatingQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer? {
-        question?.apply {
+    override fun getAnswer(): Answer {
+        question.apply {
             return Answer(
                 QuestionGUID, QuestionID, null, selectedRate, null
             )
         }
-        return null
     }
 
     private fun viewInitialIcons() {
@@ -266,7 +265,7 @@ internal class RatingQuestion internal constructor(
     }
 
     private fun onRatingSelected() {
-        question?.apply {
+        question.apply {
             answerHandler?.onAnswerClicked(
                 Answer(
                     QuestionGUID, QuestionID, null, selectedRate, null
@@ -276,47 +275,47 @@ internal class RatingQuestion internal constructor(
     }
 
     private fun setLinesColor(fillColor: Int) {
-        rating1Line.setBackgroundColor(fillColor)
-        rating2Line.setBackgroundColor(fillColor)
-        rating3Line.setBackgroundColor(fillColor)
-        rating4Line.setBackgroundColor(fillColor)
-        rating5Line.setBackgroundColor(fillColor)
+        rating1Line?.setBackgroundColor(fillColor)
+        rating2Line?.setBackgroundColor(fillColor)
+        rating3Line?.setBackgroundColor(fillColor)
+        rating4Line?.setBackgroundColor(fillColor)
+        rating5Line?.setBackgroundColor(fillColor)
     }
 
-    private fun showSelectedIcon(ratingIcon: AppCompatImageView) {
+    private fun showSelectedIcon(ratingIcon: AppCompatImageView?) {
         selectedRatingIcon?.let {
-            ratingIcon.setImageResource(it)
+            ratingIcon?.setImageResource(it)
             if (selectedColor != null)
-                ratingIcon.setColorFilter(
+                ratingIcon?.setColorFilter(
                     selectedColor!!,
                     android.graphics.PorterDuff.Mode.SRC_IN
                 )
         }
     }
 
-    private fun showNotSelectedIcon(ratingIcon: AppCompatImageView) {
+    private fun showNotSelectedIcon(ratingIcon: AppCompatImageView?) {
         normalRatingIcon?.let {
-            ratingIcon.setImageResource(it)
+            ratingIcon?.setImageResource(it)
             if (normalColor != null)
-                ratingIcon.setColorFilter(normalColor!!, android.graphics.PorterDuff.Mode.SRC_IN)
+                ratingIcon?.setColorFilter(normalColor!!, android.graphics.PorterDuff.Mode.SRC_IN)
         }
     }
 
-    private fun showNotSelectedData(ratingNumber: TextView, ratingLine: View) {
+    private fun showNotSelectedData(ratingNumber: TextView?, ratingLine: View?) {
         if (normalColor != null) {
-            ratingNumber.setTextColor(normalColor!!)
+            ratingNumber?.setTextColor(normalColor!!)
         } else {
-            ratingNumber.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            ratingNumber?.setTextColor(ContextCompat.getColor(context, R.color.gray))
         }
-        ratingLine.visibility = View.GONE
+        ratingLine?.visibility = View.GONE
     }
 
-    private fun showSelectedData(ratingNumber: TextView, ratingLine: View) {
+    private fun showSelectedData(ratingNumber: TextView?, ratingLine: View?) {
         if (selectedColor != null) {
-            ratingNumber.setTextColor(selectedColor!!)
+            ratingNumber?.setTextColor(selectedColor!!)
         } else {
-            ratingNumber.setTextColor(ContextCompat.getColor(context, R.color.gray))
+            ratingNumber?.setTextColor(ContextCompat.getColor(context, R.color.gray))
         }
-        ratingLine.visibility = View.VISIBLE
+        ratingLine?.visibility = View.VISIBLE
     }
 }

@@ -10,6 +10,7 @@
         android:id="@+id/fullScreenListContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:background="@color/transparent_black">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -20,7 +21,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <TextView
-            android:id="@+id/bottomSheetSmallSubmitButton"
+            android:id="@+id/fullScreenSubmitButton"
             style="@style/WhiteSubmitButtonStyle"
             android:layout_width="0dp"
             android:layout_height="@dimen/_28sdp"

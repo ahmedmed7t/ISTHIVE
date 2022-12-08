@@ -11,14 +11,14 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class SlidingQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceLayout: Int = R.layout.sliding_question
 ) :
     BaseQuestionView(context, question, resourceLayout) {
 
-    private lateinit var questionTitle: TextView
-    private lateinit var questionRequired: TextView
-    private lateinit var slider: Slider
+    private var questionTitle: TextView? = null
+    private var questionRequired: TextView? = null
+    private var slider: Slider? = null
 
     override fun initViews(view: View?) {
         isAnswerValid = true
@@ -31,18 +31,18 @@ internal class SlidingQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.let {
-            questionTitle.text = it.Title
+        question.let {
+            questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
         }
     }
 
     override fun handleUiEvents() {
-        slider.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
-            question?.apply {
+        slider?.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
+            question.apply {
                 answerHandler?.onAnswerClicked(
                     Answer(
                         QuestionGUID, QuestionID, null, value.toInt(), null
@@ -55,12 +55,11 @@ internal class SlidingQuestion internal constructor(
     override fun showError() {
     }
 
-    override fun getAnswer(): Answer? {
-        question?.apply {
+    override fun getAnswer(): Answer {
+        question.apply {
             return Answer(
-                QuestionGUID, QuestionID, null, slider.value.toInt(), null
+                QuestionGUID, QuestionID, null, slider?.value?.toInt(), null
             )
         }
-        return null
     }
 }

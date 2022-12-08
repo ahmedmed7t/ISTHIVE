@@ -15,17 +15,17 @@ import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
 internal class FCRQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceLayout: Int = R.layout.fcr_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
-    private lateinit var questionTitle: TextView
-    private lateinit var errorMessage: TextView
+    private var questionTitle: TextView? = null
+    private var errorMessage: TextView? = null
 
-    private lateinit var option1: RadioButtonListItem
-    private lateinit var option2: RadioButtonListItem
-    private lateinit var optionsContainer: LinearLayout
-    private lateinit var questionRequired: TextView
+    private var option1: RadioButtonListItem? = null
+    private var option2: RadioButtonListItem? = null
+    private var optionsContainer: LinearLayout? = null
+    private var questionRequired: TextView? = null
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -43,13 +43,13 @@ internal class FCRQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.apply {
-            questionTitle.text = Title
+        question.apply {
+            questionTitle?.text = Title
             setOptionsStyle(TemplateID)
             if (IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             Choices?.let { choices ->
                 showChoices(choices)
             }
@@ -57,8 +57,8 @@ internal class FCRQuestion internal constructor(
     }
 
     private fun setOptionsStyle(style: String) {
-        option1.setMode(style)
-        option2.setMode(style)
+        option1?.setMode(style)
+        option2?.setMode(style)
         if (style.contains("horizontal", ignoreCase = true)) {
             enableHorizontalMode()
         } else {
@@ -67,70 +67,67 @@ internal class FCRQuestion internal constructor(
     }
 
     override fun handleUiEvents() {
-        option1.setOnClickListener {
+        option1?.setOnClickListener {
             onOptionClicked(option1, 0)
         }
-        option2.setOnClickListener {
+        option2?.setOnClickListener {
             onOptionClicked(option2, 1)
         }
     }
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer? {
+    override fun getAnswer(): Answer {
+        val answer = Answer(question.QuestionGUID, question.QuestionID)
+
         lastSelectedIndex?.let { lastIndex ->
-            question?.apply {
-                return Answer(
-                    QuestionGUID, QuestionID, arrayListOf(
-                        AnswerChoice(
-                            Choices!![lastIndex].ChoiceGUID,
-                            Choices[lastIndex].ChoiceID,
-                            null
-                        )
-                    )
+            answer.SelectedChoices = arrayListOf(
+                AnswerChoice(
+                    question.Choices?.get(lastIndex)?.ChoiceGUID ?: "",
+                    question.Choices?.get(lastIndex)?.ChoiceID ?: 0, null
                 )
-            }
+            )
         }
-        return null
+        return answer
     }
 
     private fun enableHorizontalMode() {
-        optionsContainer.orientation = LinearLayout.HORIZONTAL
+        optionsContainer?.orientation = LinearLayout.HORIZONTAL
         changeWidthToMatchConstraints(option1)
         changeWidthToMatchConstraints(option2)
     }
 
     private fun enableVerticalMode() {
-        optionsContainer.orientation = LinearLayout.VERTICAL
+        optionsContainer?.orientation = LinearLayout.VERTICAL
         changeWidthToMatchParent(option1)
         changeWidthToMatchParent(option2)
     }
 
-    private fun changeWidthToMatchParent(option: RadioButtonListItem) {
-        val param = option.layoutParams
-        param.width = ConstraintLayout.LayoutParams.MATCH_PARENT
-        option.layoutParams = param
+    private fun changeWidthToMatchParent(option: RadioButtonListItem?) {
+        val param = option?.layoutParams
+        param?.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        option?.layoutParams = param
     }
 
-    private fun changeWidthToMatchConstraints(option: RadioButtonListItem) {
-        val param = option.layoutParams
-        param.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-        option.layoutParams = param
+    private fun changeWidthToMatchConstraints(option: RadioButtonListItem?) {
+        val param = option?.layoutParams
+        param?.width = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+        option?.layoutParams = param
     }
 
-    private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+    private fun onOptionClicked(selectedItem: RadioButtonListItem?, index: Int) {
         hideError()
         lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
-        selectedItem.setOptionSelected(true)
+        selectedItem?.setOptionSelected(true)
         lastSelectedItem = selectedItem
 
         lastSelectedIndex?.let { lastIndex ->
@@ -151,7 +148,7 @@ internal class FCRQuestion internal constructor(
     }
 
     private fun showChoices(choices: ArrayList<Choice>) {
-        option1.setOptionTitle(choices[0].Title)
-        option2.setOptionTitle(choices[1].Title)
+        option1?.setOptionTitle(choices[0].Title)
+        option2?.setOptionTitle(choices[1].Title)
     }
 }

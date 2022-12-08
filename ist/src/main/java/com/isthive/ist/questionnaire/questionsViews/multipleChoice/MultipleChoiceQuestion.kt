@@ -12,17 +12,17 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class MultipleChoiceQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceFile: Int = R.layout.multiple_choice_question
 ) :
     BaseQuestionView(context, question, resourceFile), MultipleChoiceAdapterHandler {
 
     private val MODERN_STYLE = "Modern"
 
-    private lateinit var questionTitle: TextView
-    private lateinit var choicesRecyclerView: RecyclerView
-    private lateinit var questionRequired: TextView
-    private lateinit var errorMessage: TextView
+    private var questionTitle: TextView? = null
+    private var choicesRecyclerView: RecyclerView? = null
+    private var questionRequired: TextView? = null
+    private var errorMessage: TextView? = null
 
     private lateinit var choicesAdapter: MultipleChoiceAdapter
     private val selectedItems = arrayListOf<Int>()
@@ -34,25 +34,25 @@ internal class MultipleChoiceQuestion internal constructor(
             choicesRecyclerView = findViewById(R.id.MultipleChoiceQuestionRecyclerView)
             errorMessage = findViewById(R.id.MultipleChoiceQuestionErrorMessage)
             questionRequired = findViewById(R.id.MultipleChoiceQuestionRequired)
-            choicesRecyclerView.setHasFixedSize(true)
-            choicesRecyclerView.isNestedScrollingEnabled = false
+            choicesRecyclerView?.setHasFixedSize(true)
+            choicesRecyclerView?.isNestedScrollingEnabled = false
         }
     }
 
     override fun viewQuestionData() {
-        question?.apply {
-            questionTitle.text = Title
-            if(IsRequired)
-                questionRequired.visibility = View.VISIBLE
+        question.apply {
+            questionTitle?.text = Title
+            if (IsRequired)
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             Choices?.let { choices ->
                 choicesAdapter = MultipleChoiceAdapter(
                     choices,
                     TemplateID == MODERN_STYLE,
                     this@MultipleChoiceQuestion
                 )
-                choicesRecyclerView.adapter = choicesAdapter
+                choicesRecyclerView?.adapter = choicesAdapter
             }
         }
     }
@@ -62,17 +62,17 @@ internal class MultipleChoiceQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
-    private fun hideError(){
+    private fun hideError() {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer? {
+    override fun getAnswer(): Answer {
         val selectedChoices = arrayListOf<AnswerChoice>()
-        question?.apply {
+        question.apply {
             for (item in selectedItems) {
                 if (item == choicesAdapter.otherIndex) {
                     selectedChoices.add(
@@ -82,7 +82,8 @@ internal class MultipleChoiceQuestion internal constructor(
                             choicesAdapter.otherText.ifBlank { null }
                         )
                     )
-                } else {
+                }
+                else {
                     selectedChoices.add(
                         AnswerChoice(
                             Choices!![item].ChoiceGUID,
@@ -92,12 +93,15 @@ internal class MultipleChoiceQuestion internal constructor(
                     )
                 }
             }
-            return Answer(
-                QuestionGUID, QuestionID, selectedChoices, null
-            )
+            return if (selectedChoices.isNotEmpty())
+                Answer(
+                    QuestionGUID, QuestionID, selectedChoices, null
+                )
+            else
+                Answer(
+                    QuestionGUID, QuestionID, null, null
+                )
         }
-
-        return null
     }
 
     override fun onChoiceSelected(position: Int) {
@@ -107,9 +111,9 @@ internal class MultipleChoiceQuestion internal constructor(
 
     override fun onChoiceUnSelected(position: Int) {
         selectedItems.remove(position)
-        if(selectedItems.isEmpty()){
+        if (selectedItems.isEmpty()) {
             showError()
-        }else{
+        } else {
             hideError()
         }
     }

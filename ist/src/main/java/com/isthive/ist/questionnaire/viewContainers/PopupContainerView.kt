@@ -1,6 +1,7 @@
 package com.isthive.ist.questionnaire.viewContainers
 
 import android.content.DialogInterface
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,6 +23,7 @@ import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnai
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.WelcomeMode
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.QuestionHandler
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
+
 
 /**
  * This view is just a container that is designed to hold a view inside
@@ -106,8 +108,10 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         return this
     }
 
-    fun setNavigationMode(navigationMode: NavigationMode): PopupContainerView {
-        this.navigationMode = navigationMode
+    fun setNavigationMode(navigationMode: NavigationMode?): PopupContainerView {
+        navigationMode?.let {
+            this.navigationMode = navigationMode
+        }
         return this
     }
 
@@ -116,7 +120,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         return this
     }
 
-    fun setWelcomeMessage(welcomeMessage: WelcomeMessage): PopupContainerView {
+    fun setWelcomeMessage(welcomeMessage: WelcomeMessage?): PopupContainerView {
         this.welcomeMessage = welcomeMessage
         return this
     }
@@ -204,7 +208,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         else
             enableClassicNavigationMode()
 
-        if(isSingleQuestion)
+        if (isSingleQuestion)
             handleSingleQuestionMode()
 
         popUpContainer.apply {
@@ -214,16 +218,16 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         Handler(Looper.getMainLooper()).postDelayed({
             hideWelcomeMessage()
             welcomeMessage?.let {
-                if(it.Mode == WelcomeMode.Separate_View){
+                if (it.Mode == WelcomeMode.Separate_View) {
                     viewWelcomeMessage(it.Title, it.SubTitle)
-                }else if(it.Mode == WelcomeMode.First_Question){
+                } else if (it.Mode == WelcomeMode.First_Question) {
                     (popUpMainView as BaseQuestionView).showWelcomeMessage(it.SubTitle)
                 }
             }
         }, 150)
     }
 
-    private fun handleSingleQuestionMode(){
+    private fun handleSingleQuestionMode() {
         if (navigationMode == NavigationMode.Modern) {
             enableSingleQuestionModernNavigation()
         } else {
@@ -231,7 +235,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         }
     }
 
-    private fun enableSingleQuestionModernNavigation(){
+    private fun enableSingleQuestionModernNavigation() {
         smallNextButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
         smallNextButton.imageTintList =
@@ -251,7 +255,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         }
     }
 
-    private fun enableSingleQuestionClassicNavigation(){
+    private fun enableSingleQuestionClassicNavigation() {
         largeNextButton.text = getString(R.string.submit)
         topBackButton.visibility = View.GONE
     }
@@ -269,6 +273,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
+            attributes.width = (getScreenWidth()*.97).toInt()
             setBackgroundDrawable(
                 ColorDrawable(Color.TRANSPARENT)
             )
@@ -313,7 +318,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         smallActionsContainer.visibility = View.VISIBLE
     }
 
-    private fun viewWelcomeMessage(title: String, description: String){
+    private fun viewWelcomeMessage(title: String, description: String) {
         welcomeTitle.text = title
         welcomeDescription.text = description
         welcomeContainer.visibility = View.VISIBLE
@@ -321,10 +326,12 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         topBackButton.visibility = View.GONE
     }
 
-    private fun hideWelcomeMessage(){
+    private fun hideWelcomeMessage() {
         welcomeContainer.visibility = View.GONE
         allActionsContainer.visibility = View.VISIBLE
         if (navigationMode == NavigationMode.Classic)
             topBackButton.visibility = View.VISIBLE
     }
+
+    private fun getScreenWidth() = Resources.getSystem().displayMetrics.widthPixels
 }

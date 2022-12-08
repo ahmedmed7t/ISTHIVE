@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
@@ -59,9 +60,28 @@ internal class FullScreenListAdapter(
 
     private fun getQuestionIndex(question: Question): Int {
         for ((index, item) in questions.withIndex()) {
-            if (item.question?.QuestionGUID == question.QuestionGUID)
+            if (item.question.QuestionGUID == question.QuestionGUID)
                 return index
         }
         return 0
+    }
+
+    fun checkAnswersAvailability(): Boolean{
+        var allQuestionsValid = true
+        for(item in questions){
+            if(item.question.IsRequired && !item.isAnswerValid) {
+                allQuestionsValid = false
+                item.showError()
+            }
+        }
+        return allQuestionsValid
+    }
+
+    fun collectAnswers(): ArrayList<Answer> {
+        val answers = arrayListOf<Answer>()
+        for(item in questions){
+            answers.add(item.getAnswer())
+        }
+        return answers
     }
 }

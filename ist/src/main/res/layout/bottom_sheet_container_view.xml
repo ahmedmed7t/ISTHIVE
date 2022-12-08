@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/rectangle_8_radius_white_round_corners">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bottomSheetContainerClose"
@@ -123,11 +124,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center"
             android:textColor="@color/light_black"
             android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Hello Title" />
 
@@ -145,20 +146,19 @@
 
         <TextView
             android:id="@+id/bottomSheetWelcomeTakeSurvey"
+            style="@style/SmallButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            style="@style/SmallButtonStyle"
-            android:backgroundTint="@color/blue"
-            android:text="@string/take_survey"
-            android:paddingHorizontal="@dimen/_20sdp"
-            android:textSize="@dimen/_14sdp"
-            app:layout_constraintTop_toBottomOf="@id/bottomSheetWelcomeMessage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="@dimen/_40sdp"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_34sdp"
-            />
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:backgroundTint="@color/blue"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:text="@string/take_survey"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottomSheetWelcomeMessage" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -16,15 +16,15 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class InputQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceLayout: Int = R.layout.input_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
-    private lateinit var questionTitle: TextView
-    private lateinit var questionLabel: TextView
-    private lateinit var questionError: TextView
-    private lateinit var requiredLabel: TextView
-    private lateinit var questionInput: EditText
+    private var questionTitle: TextView? = null
+    private var questionLabel: TextView? = null
+    private var questionError: TextView? = null
+    private var requiredLabel: TextView? = null
+    private var questionInput: EditText? = null
 
     private lateinit var questionType: QuestionType
 
@@ -40,90 +40,90 @@ internal class InputQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.apply {
-            questionTitle.text = Title
+        question.apply {
+            questionTitle?.text = Title
             this@InputQuestion.questionType = QuestionType
             handleInputType()
-            if(IsRequired)
-                requiredLabel.visibility = View.VISIBLE
+            if (IsRequired)
+                requiredLabel?.visibility = View.VISIBLE
             else
-                requiredLabel.visibility = View.GONE
+                requiredLabel?.visibility = View.GONE
         }
     }
 
     override fun handleUiEvents() {
-        questionInput.addTextChangedListener {
-            if(isTextValid(it.toString().trim())){
+        questionInput?.addTextChangedListener {
+            if (isTextValid(it.toString().trim())) {
                 showSuccess()
-            }else{
+            } else {
                 showError()
             }
         }
     }
 
-    override fun showError(){
+    override fun showError() {
         isAnswerValid = false
-        questionError.visibility = View.VISIBLE
-        questionInput.background = ContextCompat.getDrawable(context, R.drawable.error_edit_text_background)
+        questionError?.visibility = View.VISIBLE
+        questionInput?.background =
+            ContextCompat.getDrawable(context, R.drawable.error_edit_text_background)
     }
 
-    private fun showSuccess(){
+    private fun showSuccess() {
         isAnswerValid = true
-        questionError.visibility = View.GONE
-        questionInput.background = ContextCompat.getDrawable(context, R.drawable.correct_edit_text_background)
+        questionError?.visibility = View.GONE
+        questionInput?.background =
+            ContextCompat.getDrawable(context, R.drawable.correct_edit_text_background)
     }
 
-    override fun getAnswer(): Answer? {
-        question?.apply {
-            return Answer(
-                QuestionGUID, QuestionID, null, null, questionInput.text.toString()
-            )
-        }
-        return null
+    override fun getAnswer(): Answer {
+        return Answer(
+            question.QuestionGUID, question.QuestionID, null,
+            null, questionInput?.text.toString()
+        )
     }
 
     private fun handleInputType() {
-        questionInput.inputType = when (questionType) {
+        questionInput?.inputType = when (questionType) {
             QuestionType.Text_input -> {
-                questionLabel.text = context.getString(R.string.text)
-                questionError.text = context.getString(R.string.please_enter_valid_text)
+                questionLabel?.text = context.getString(R.string.text)
+                questionError?.text = context.getString(R.string.please_enter_valid_text)
                 InputType.TYPE_CLASS_TEXT
             }
             QuestionType.Number_input -> {
-                questionLabel.text = context.getString(R.string.number)
-                questionError.text = context.getString(R.string.please_enter_valid_number)
+                questionLabel?.text = context.getString(R.string.number)
+                questionError?.text = context.getString(R.string.please_enter_valid_number)
                 InputType.TYPE_CLASS_NUMBER
             }
             QuestionType.Email_input -> {
-                questionLabel.text = context.getString(R.string.email)
-                questionError.text = context.getString(R.string.please_enter_valid_email)
+                questionLabel?.text = context.getString(R.string.email)
+                questionError?.text = context.getString(R.string.please_enter_valid_email)
                 InputType.TYPE_CLASS_TEXT
             }
             QuestionType.Phone_number_input -> {
-                questionLabel.text = context.getString(R.string.telephone)
-                questionError.text = context.getString(R.string.please_enter_valid_telephone)
+                questionLabel?.text = context.getString(R.string.telephone)
+                questionError?.text = context.getString(R.string.please_enter_valid_telephone)
                 InputType.TYPE_CLASS_PHONE
             }
             QuestionType.Postal_code_input -> {
-                questionLabel.text = context.getString(R.string.postal_code)
-                questionError.text = context.getString(R.string.please_enter_valid_postal_code)
+                questionLabel?.text = context.getString(R.string.postal_code)
+                questionError?.text = context.getString(R.string.please_enter_valid_postal_code)
                 InputType.TYPE_CLASS_NUMBER
             }
             QuestionType.URL_input -> {
-                questionLabel.text = context.getString(R.string.url)
-                questionError.text = context.getString(R.string.please_enter_valid_url)
+                questionLabel?.text = context.getString(R.string.url)
+                questionError?.text = context.getString(R.string.please_enter_valid_url)
                 InputType.TYPE_CLASS_TEXT
             }
             else -> {
-                questionLabel.text = context.getString(R.string.text)
-                questionError.text = context.getString(R.string.please_enter_valid_text)
+                questionLabel?.text = context.getString(R.string.text)
+                questionError?.text = context.getString(R.string.please_enter_valid_text)
                 InputType.TYPE_CLASS_TEXT
             }
         }
     }
 
-    private fun isTextValid(text: String): Boolean{
-        return when (questionType){
+    private fun isTextValid(text: String): Boolean {
+        return when (questionType) {
             QuestionType.Text_input -> {
                 text.isNotBlank()
             }
@@ -143,7 +143,7 @@ internal class InputQuestion internal constructor(
                 text.isNotBlank() && android.util.Patterns.WEB_URL.matcher(text).matches()
             }
             else -> {
-               false
+                false
             }
         }
     }

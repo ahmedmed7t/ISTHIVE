@@ -14,13 +14,13 @@ import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.A
 
 abstract class BaseQuestionView internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceFile: Int
 ) :
     FrameLayout(context) {
 
     internal var view: View? = null
-    internal var question: Question? = null
+    internal var question: Question
     internal var isAnswerValid = false
     internal var answerHandler: AnswerHandler? = null
 
@@ -55,7 +55,7 @@ abstract class BaseQuestionView internal constructor(
         questionDescription.text = welcomeSubtitle
     }
 
-    internal abstract fun getAnswer(): Answer?
+    internal abstract fun getAnswer(): Answer
     internal fun canSkip(): Boolean {
         question?.let {
             return !it.IsRequired

@@ -11,36 +11,36 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class NumericCSATQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceFile: Int = R.layout.numeric_csat_question
 ) :
     BaseQuestionView(context, question, resourceFile) {
 
-    private var selectedNumber = -1
+    private var selectedNumber: Int? = null
     private var lastSelectedNumber: TextView? = null
 
-    private lateinit var questionTitle: TextView
-    private lateinit var questionRequired: TextView
-    private lateinit var errorMessage: TextView
-    private lateinit var scale10Container: ConstraintLayout
-    private lateinit var scale5Container: ConstraintLayout
+    private var questionTitle: TextView? = null
+    private var questionRequired: TextView? = null
+    private var errorMessage: TextView? = null
+    private var scale10Container: ConstraintLayout? = null
+    private var scale5Container: ConstraintLayout? = null
 
-    private lateinit var number1_10: TextView
-    private lateinit var number2_10: TextView
-    private lateinit var number3_10: TextView
-    private lateinit var number4_10: TextView
-    private lateinit var number5_10: TextView
-    private lateinit var number6_10: TextView
-    private lateinit var number7_10: TextView
-    private lateinit var number8_10: TextView
-    private lateinit var number9_10: TextView
-    private lateinit var number10_10: TextView
+    private var number1_10: TextView? = null
+    private var number2_10: TextView? = null
+    private var number3_10: TextView? = null
+    private var number4_10: TextView? = null
+    private var number5_10: TextView? = null
+    private var number6_10: TextView? = null
+    private var number7_10: TextView? = null
+    private var number8_10: TextView? = null
+    private var number9_10: TextView? = null
+    private var number10_10: TextView? = null
 
-    private lateinit var number1_5: TextView
-    private lateinit var number2_5: TextView
-    private lateinit var number3_5: TextView
-    private lateinit var number4_5: TextView
-    private lateinit var number5_5: TextView
+    private var number1_5: TextView? = null
+    private var number2_5: TextView? = null
+    private var number3_5: TextView? = null
+    private var number4_5: TextView? = null
+    private var number5_5: TextView? = null
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -71,66 +71,66 @@ internal class NumericCSATQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.let {
-            questionTitle.text = it.Title
+        question.let {
+            questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             if (it.Scale == 10) {
-                scale10Container.visibility = View.VISIBLE
-                scale5Container.visibility = View.GONE
+                scale10Container?.visibility = View.VISIBLE
+                scale5Container?.visibility = View.GONE
             } else {
-                scale10Container.visibility = View.GONE
-                scale5Container.visibility = View.VISIBLE
+                scale10Container?.visibility = View.GONE
+                scale5Container?.visibility = View.VISIBLE
             }
         }
     }
 
     override fun handleUiEvents() {
-        number1_10.setOnClickListener {
+        number1_10?.setOnClickListener {
             onNumberClicked(1, number1_10)
         }
-        number2_10.setOnClickListener {
+        number2_10?.setOnClickListener {
             onNumberClicked(2, number2_10)
         }
-        number3_10.setOnClickListener {
+        number3_10?.setOnClickListener {
             onNumberClicked(3, number3_10)
         }
-        number4_10.setOnClickListener {
+        number4_10?.setOnClickListener {
             onNumberClicked(4, number4_10)
         }
-        number5_10.setOnClickListener {
+        number5_10?.setOnClickListener {
             onNumberClicked(5, number5_10)
         }
-        number6_10.setOnClickListener {
+        number6_10?.setOnClickListener {
             onNumberClicked(6, number6_10)
         }
-        number7_10.setOnClickListener {
+        number7_10?.setOnClickListener {
             onNumberClicked(7, number7_10)
         }
-        number8_10.setOnClickListener {
+        number8_10?.setOnClickListener {
             onNumberClicked(8, number8_10)
         }
-        number9_10.setOnClickListener {
+        number9_10?.setOnClickListener {
             onNumberClicked(9, number9_10)
         }
-        number10_10.setOnClickListener {
+        number10_10?.setOnClickListener {
             onNumberClicked(10, number10_10)
         }
-        number1_5.setOnClickListener {
+        number1_5?.setOnClickListener {
             onNumberClicked(1, number1_5)
         }
-        number2_5.setOnClickListener {
+        number2_5?.setOnClickListener {
             onNumberClicked(2, number2_5)
         }
-        number3_5.setOnClickListener {
+        number3_5?.setOnClickListener {
             onNumberClicked(3, number3_5)
         }
-        number4_5.setOnClickListener {
+        number4_5?.setOnClickListener {
             onNumberClicked(4, number4_5)
         }
-        number5_5.setOnClickListener {
+        number5_5?.setOnClickListener {
             onNumberClicked(5, number5_5)
         }
 
@@ -138,21 +138,20 @@ internal class NumericCSATQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
-    override fun getAnswer(): Answer? {
-        question?.apply {
+    override fun getAnswer(): Answer {
+        question.apply {
             return Answer(
                 QuestionGUID, QuestionID, null, selectedNumber, null
             )
         }
-        return null
     }
 
-    private fun onNumberClicked(value: Int, selectedView: TextView) {
+    private fun onNumberClicked(value: Int, selectedView: TextView?) {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
 
         selectedNumber = value
         maximizeSelectedNumber(selectedView)
@@ -161,7 +160,7 @@ internal class NumericCSATQuestion internal constructor(
         }
         lastSelectedNumber = selectedView
 
-        question?.apply {
+        question.apply {
             answerHandler?.onAnswerClicked(
                 Answer(
                     QuestionGUID, QuestionID, null, selectedNumber, null
@@ -170,13 +169,13 @@ internal class NumericCSATQuestion internal constructor(
         }
     }
 
-    private fun maximizeSelectedNumber(selectedView: TextView) {
-        val params = selectedView.layoutParams
+    private fun maximizeSelectedNumber(selectedView: TextView?) {
+        val params = selectedView?.layoutParams
         context?.resources?.apply {
-            params.height = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
-            params.width = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
+            params?.height = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
+            params?.width = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
         }
-        selectedView.layoutParams = params
+        selectedView?.layoutParams = params
     }
 
     private fun minimizeNumber(unSelectedView: TextView) {

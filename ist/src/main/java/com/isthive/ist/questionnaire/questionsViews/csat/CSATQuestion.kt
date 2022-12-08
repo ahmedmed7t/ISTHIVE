@@ -13,21 +13,21 @@ import com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
 
 internal class CSATQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceLayout: Int = R.layout.csat_question
 ) : BaseQuestionView(context, question, resourceLayout) {
 
-    private lateinit var questionTitle: TextView
-    private lateinit var errorMessage: TextView
+    private var questionTitle: TextView? = null
+    private var errorMessage: TextView? = null
 
-    private lateinit var option1: RadioButtonListItem
-    private lateinit var option2: RadioButtonListItem
-    private lateinit var option3: RadioButtonListItem
-    private lateinit var option4: RadioButtonListItem
-    private lateinit var option5: RadioButtonListItem
-    private lateinit var option6: RadioButtonListItem
-    private lateinit var option7: RadioButtonListItem
-    private lateinit var questionRequired: TextView
+    private var option1: RadioButtonListItem? = null
+    private var option2: RadioButtonListItem? = null
+    private var option3: RadioButtonListItem? = null
+    private var option4: RadioButtonListItem? = null
+    private var option5: RadioButtonListItem? = null
+    private var option6: RadioButtonListItem? = null
+    private var option7: RadioButtonListItem? = null
+    private var questionRequired: TextView? = null
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -49,30 +49,30 @@ internal class CSATQuestion internal constructor(
     }
 
     override fun viewQuestionData() {
-        question?.apply {
-            questionTitle.text = Title
+        question.apply {
+            questionTitle?.text = Title
             setOptionsStyle(TemplateID)
             if (IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             when (Scale) {
                 2 -> {
-                    option3.visibility = View.GONE
-                    option4.visibility = View.GONE
-                    option5.visibility = View.GONE
-                    option6.visibility = View.GONE
-                    option7.visibility = View.GONE
+                    option3?.visibility = View.GONE
+                    option4?.visibility = View.GONE
+                    option5?.visibility = View.GONE
+                    option6?.visibility = View.GONE
+                    option7?.visibility = View.GONE
                 }
                 3 -> {
-                    option4.visibility = View.GONE
-                    option5.visibility = View.GONE
-                    option6.visibility = View.GONE
-                    option7.visibility = View.GONE
+                    option4?.visibility = View.GONE
+                    option5?.visibility = View.GONE
+                    option6?.visibility = View.GONE
+                    option7?.visibility = View.GONE
                 }
                 5 -> {
-                    option6.visibility = View.GONE
-                    option7.visibility = View.GONE
+                    option6?.visibility = View.GONE
+                    option7?.visibility = View.GONE
                 }
             }
             Choices?.let { choices ->
@@ -82,77 +82,80 @@ internal class CSATQuestion internal constructor(
     }
 
     private fun setOptionsStyle(style: String) {
-        option1.setMode(style)
-        option2.setMode(style)
-        option3.setMode(style)
-        option4.setMode(style)
-        option5.setMode(style)
-        option6.setMode(style)
-        option7.setMode(style)
+        option1?.setMode(style)
+        option2?.setMode(style)
+        option3?.setMode(style)
+        option4?.setMode(style)
+        option5?.setMode(style)
+        option6?.setMode(style)
+        option7?.setMode(style)
     }
 
     override fun handleUiEvents() {
-        option1.setOnClickListener {
+        option1?.setOnClickListener {
             onOptionClicked(option1, 0)
         }
-        option2.setOnClickListener {
+        option2?.setOnClickListener {
             onOptionClicked(option2, 1)
         }
-        option3.setOnClickListener {
+        option3?.setOnClickListener {
             onOptionClicked(option3, 2)
         }
-        option4.setOnClickListener {
+        option4?.setOnClickListener {
             onOptionClicked(option4, 3)
         }
-        option5.setOnClickListener {
+        option5?.setOnClickListener {
             onOptionClicked(option5, 4)
         }
-        option6.setOnClickListener {
+        option6?.setOnClickListener {
             onOptionClicked(option6, 5)
         }
-        option7.setOnClickListener {
+        option7?.setOnClickListener {
             onOptionClicked(option7, 6)
         }
     }
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer? {
+    override fun getAnswer(): Answer {
+        val answer = Answer(
+            question.QuestionGUID, question.QuestionID
+        )
+
         lastSelectedIndex?.let { lastIndex ->
-            question?.apply {
-                return Answer(
-                    QuestionGUID, QuestionID, arrayListOf(
-                        AnswerChoice(
-                            Choices!![lastIndex].ChoiceGUID,
-                            Choices[lastIndex].ChoiceID,
-                            null
-                        )
+            question.apply {
+                answer.SelectedChoices = arrayListOf(
+                    AnswerChoice(
+                        Choices?.get(lastIndex)?.ChoiceGUID ?: "",
+                        Choices?.get(lastIndex)?.ChoiceID ?: 0,
+                        null
                     )
                 )
             }
         }
-        return null
+        return answer
     }
 
-    private fun onOptionClicked(selectedItem: RadioButtonListItem, index: Int) {
+    private fun onOptionClicked(selectedItem: RadioButtonListItem?, index: Int) {
         hideError()
         lastSelectedIndex = index
         lastSelectedItem?.setOptionSelected(false)
-        selectedItem.setOptionSelected(true)
+        selectedItem?.setOptionSelected(true)
         lastSelectedItem = selectedItem
 
         lastSelectedIndex?.let { lastIndex ->
-            question?.apply {
+            question.apply {
                 answerHandler?.onAnswerClicked(
-                    Answer(QuestionGUID, QuestionID, arrayListOf(
+                    Answer(
+                        QuestionGUID, QuestionID, arrayListOf(
                             AnswerChoice(
                                 Choices!![lastIndex].ChoiceGUID,
                                 Choices[lastIndex].ChoiceID,
@@ -168,29 +171,29 @@ internal class CSATQuestion internal constructor(
     private fun showChoices(choices: ArrayList<Choice>) {
         when (choices.size) {
             2 -> {
-                option1.setOptionTitle(choices[0].Title)
-                option2.setOptionTitle(choices[1].Title)
+                option1?.setOptionTitle(choices[0].Title)
+                option2?.setOptionTitle(choices[1].Title)
             }
             3 -> {
-                option1.setOptionTitle(choices[0].Title)
-                option2.setOptionTitle(choices[1].Title)
-                option3.setOptionTitle(choices[2].Title)
+                option1?.setOptionTitle(choices[0].Title)
+                option2?.setOptionTitle(choices[1].Title)
+                option3?.setOptionTitle(choices[2].Title)
             }
             5 -> {
-                option1.setOptionTitle(choices[0].Title)
-                option2.setOptionTitle(choices[1].Title)
-                option3.setOptionTitle(choices[2].Title)
-                option4.setOptionTitle(choices[3].Title)
-                option5.setOptionTitle(choices[4].Title)
+                option1?.setOptionTitle(choices[0].Title)
+                option2?.setOptionTitle(choices[1].Title)
+                option3?.setOptionTitle(choices[2].Title)
+                option4?.setOptionTitle(choices[3].Title)
+                option5?.setOptionTitle(choices[4].Title)
             }
             7 -> {
-                option1.setOptionTitle(choices[0].Title)
-                option2.setOptionTitle(choices[1].Title)
-                option3.setOptionTitle(choices[2].Title)
-                option4.setOptionTitle(choices[3].Title)
-                option5.setOptionTitle(choices[4].Title)
-                option6.setOptionTitle(choices[5].Title)
-                option7.setOptionTitle(choices[6].Title)
+                option1?.setOptionTitle(choices[0].Title)
+                option2?.setOptionTitle(choices[1].Title)
+                option3?.setOptionTitle(choices[2].Title)
+                option4?.setOptionTitle(choices[3].Title)
+                option5?.setOptionTitle(choices[4].Title)
+                option6?.setOptionTitle(choices[5].Title)
+                option7?.setOptionTitle(choices[6].Title)
             }
         }
     }

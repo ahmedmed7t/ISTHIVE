@@ -12,17 +12,17 @@ import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
 
 internal class SingleChoiceQuestion internal constructor(
     context: Context,
-    question: Question?,
+    question: Question,
     resourceFile: Int = R.layout.single_choice_question
 ) :
     BaseQuestionView(context, question, resourceFile), SingleChoiceAdapterHandler {
 
     private val MODEREN_STYLE = "Modern"
 
-    private lateinit var questionTitle: TextView
-    private lateinit var choicesRecyclerView: RecyclerView
-    private lateinit var questionRequired: TextView
-    private lateinit var errorMessage: TextView
+    private var questionTitle: TextView? = null
+    private var choicesRecyclerView: RecyclerView? = null
+    private var questionRequired: TextView? = null
+    private var errorMessage: TextView? = null
 
     private lateinit var choicesAdapter: SingleChoiceAdapter
     private var selectedChoice: Int? = null
@@ -34,25 +34,25 @@ internal class SingleChoiceQuestion internal constructor(
             questionDescription = findViewById(R.id.singleChoiceQuestionDescription)
             choicesRecyclerView = findViewById(R.id.singleChoiceQuestionRecyclerView)
             errorMessage = findViewById(R.id.singleChoiceQuestionErrorMessage)
-            choicesRecyclerView.setHasFixedSize(true)
-            choicesRecyclerView.isNestedScrollingEnabled = false
+            choicesRecyclerView?.setHasFixedSize(true)
+            choicesRecyclerView?.isNestedScrollingEnabled = false
         }
     }
 
     override fun viewQuestionData() {
-        question?.apply {
-            questionTitle.text = Title
+        question.apply {
+            questionTitle?.text = Title
             if (IsRequired)
-                questionRequired.visibility = View.VISIBLE
+                questionRequired?.visibility = View.VISIBLE
             else
-                questionRequired.visibility = View.GONE
+                questionRequired?.visibility = View.GONE
             Choices?.let { choices ->
                 choicesAdapter = SingleChoiceAdapter(
                     choices,
                     TemplateID == MODEREN_STYLE,
                     this@SingleChoiceQuestion
                 )
-                choicesRecyclerView.adapter = choicesAdapter
+                choicesRecyclerView?.adapter = choicesAdapter
             }
         }
     }
@@ -63,32 +63,31 @@ internal class SingleChoiceQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage.visibility = View.VISIBLE
+        errorMessage?.visibility = View.VISIBLE
     }
 
-    override fun getAnswer(): Answer? {
-        question?.apply {
-            selectedChoice?.let { choice ->
-                return Answer(
-                    QuestionGUID, QuestionID, arrayListOf(
-                        AnswerChoice(
-                            Choices!![choice].ChoiceGUID,
-                            Choices[choice].ChoiceID,
-                            choicesAdapter.otherText.ifBlank { null }
-                        )
-                    ), null
+    override fun getAnswer(): Answer {
+        val answer = Answer(
+            question.QuestionGUID, question.QuestionID, NumberResponse = null
+        )
+        selectedChoice?.let { choice ->
+            answer.SelectedChoices = arrayListOf(
+                AnswerChoice(
+                    question.Choices?.get(choice)?.ChoiceGUID ?: "",
+                    question.Choices?.get(choice)?.ChoiceID ?: 0,
+                    choicesAdapter.otherText.ifBlank { null }
                 )
-            }
+            )
         }
-        return null
+        return answer
     }
 
     override fun onChoiceSelected(position: Int) {
         isAnswerValid = true
-        errorMessage.visibility = View.GONE
+        errorMessage?.visibility = View.GONE
         selectedChoice = position
 
-        question?.apply {
+        question.apply {
             selectedChoice?.let { choice ->
                 answerHandler?.onAnswerClicked(Answer(
                     QuestionGUID, QuestionID, arrayListOf(
