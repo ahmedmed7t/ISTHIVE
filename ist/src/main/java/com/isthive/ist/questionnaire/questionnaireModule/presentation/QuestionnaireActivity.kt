@@ -29,7 +29,7 @@ import java.util.*
 internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, AnswerHandler {
     private val viewModel: QuestionnaireViewModel by viewModels()
 
-    private lateinit var questionProvider: QuestionProvider
+    private var questionProvider: QuestionProvider? = null
     private lateinit var fullScreenProvider: FullScreenQuestionProvider
     private lateinit var loading: ProgressBar
     private var containerView: ContainersContract? = null
@@ -66,7 +66,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                     when (it.survey.SurveyOptions.DisplayMode) {
                         DisplayMode.BottomCard -> {
                             questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-                            currentView = questionProvider.getNextQuestion(null, this)
+                            currentView = questionProvider?.getNextQuestion(null, this)
                             currentView?.let { questionView ->
                                 questionViews.push(questionView)
                                 displayBottomSheetView(it, questionView)
@@ -74,27 +74,19 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                         }
                         DisplayMode.Popup -> {
                             questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-                            currentView = questionProvider.getNextQuestion(null, this)
+                            currentView = questionProvider?.getNextQuestion(null, this)
                             currentView?.let { questionView ->
                                 questionViews.push(questionView)
                                 displayDialogView(it, questionView)
                             }
                         }
                         DisplayMode.FullScreen -> {
-
-                            questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-                            currentView = questionProvider.getNextQuestion(null, this)
-                            currentView?.let { questionView ->
-                                questionViews.push(questionView)
-                                displayDialogView(it, questionView)
-                            }
-
-//                            fullScreenLayout.visibility = View.VISIBLE
-//                            fullScreenProvider = FullScreenQuestionProvider(
-//                                it.survey.Questions,
-//                                it.survey.SkipLogics
-//                            )
-//                            displayFullScreenView()
+                            fullScreenLayout.visibility = View.VISIBLE
+                            fullScreenProvider = FullScreenQuestionProvider(
+                                it.survey.Questions,
+                                it.survey.SkipLogics
+                            )
+                            displayFullScreenView()
                         }
                     }
                 }
@@ -125,16 +117,17 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
 
     private fun goToNextStep() {
         if (questionViews.size < viewModel.questions.value?.size!!) {
-            val nextView = questionProvider.getNextQuestion(currentView?.getAnswer(), this)
+            val nextView = questionProvider?.getNextQuestion(currentView?.getAnswer(), this)
             nextView?.let {
                 containerView?.addView(
                     it,
-                    isFirstItem = questionProvider.isFirstQuestion(nextView.question),
-                    isLastItem = questionProvider.isLastQuestion(nextView.question)
+                    isFirstItem = questionProvider?.isFirstQuestion(nextView.question) ?: false,
+                    isLastItem = questionProvider?.isLastQuestion(nextView.question) ?: false
                 )
                 questionViews.push(it)
                 currentView = it
             }
+            containerView?.updateProgressBar(questionProvider?.getProgressPercentage() ?: 0)
         }
     }
 
@@ -144,11 +137,12 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             questionViews.lastElement()
             containerView?.addView(
                 questionViews.lastElement(),
-                isFirstItem = questionProvider.isFirstQuestion(questionViews.lastElement().question),
-                isLastItem = questionProvider.isLastQuestion(questionViews.lastElement().question)
+                isFirstItem = questionProvider?.isFirstQuestion(questionViews.lastElement().question) ?: false,
+                isLastItem = questionProvider?.isLastQuestion(questionViews.lastElement().question) ?: false
             )
             currentView = questionViews.lastElement()
-            questionProvider.updateQuestionIndex((currentView as BaseQuestionView).question)
+            questionProvider?.updateQuestionIndex((currentView as BaseQuestionView).question)
+            containerView?.updateProgressBar(questionProvider?.getProgressPercentage() ?: 0)
         }
     }
 
@@ -197,6 +191,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             .isSingleQuestion(questionnaireUiState.survey.Questions.size == 1)
             .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
             .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
+            .setHasCloseButton(questionnaireUiState.survey.SurveyOptions.EnableCloseButton)
+            .setHasProgressBar(questionnaireUiState.survey.SurveyOptions.HasProgressBar)
             .setHandler(this)
         (containerView as PopupContainerView).show(
             supportFragmentManager,
@@ -213,6 +209,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             .isSingleQuestion(questionnaireUiState.survey.Questions.size == 1)
             .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
             .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
+            .setHasCloseButton(questionnaireUiState.survey.SurveyOptions.EnableCloseButton)
+            .setHasProgressBar(questionnaireUiState.survey.SurveyOptions.HasProgressBar)
             .setHandler(this)
         (containerView as BottomSheetContainer).show(
             supportFragmentManager,

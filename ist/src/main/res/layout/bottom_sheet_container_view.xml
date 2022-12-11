@@ -15,8 +15,24 @@
         android:src="@drawable/ic_baseline_close_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/blue" />
+        app:tint="@color/blue"
+        android:visibility="gone"
+        />
 
+    <ProgressBar
+        android:id="@+id/bottomSheetContainerProgress"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_2sdp"
+        style="?android:attr/progressBarStyleHorizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:progressTint="@color/blue"
+        android:progress="0"
+        android:visibility="gone"
+        />
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bottomSheetContainerBack"
         android:layout_width="wrap_content"

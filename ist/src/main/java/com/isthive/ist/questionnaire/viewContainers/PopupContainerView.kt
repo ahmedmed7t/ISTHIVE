@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -53,6 +54,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private lateinit var allActionsContainer: ConstraintLayout
 
     private lateinit var closeButton: AppCompatImageView
+    private lateinit var progressBar: ProgressBar
 
     private lateinit var welcomeContainer: ConstraintLayout
     private lateinit var welcomeTitle: TextView
@@ -64,6 +66,8 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private var isSingleQuestion = false
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
+    private var hasCloseButton: Boolean = false
+    private var hasProgressBar: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,6 +93,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
             smallSubmitButton = findViewById(R.id.popUpSmallSubmitButton)
             smallActionsContainer = findViewById(R.id.popUp3ActionsContainer)
             closeButton = findViewById(R.id.popUpContainerClose)
+            progressBar = findViewById(R.id.popUpContainerProgress)
             allActionsContainer = findViewById(R.id.popUpActionContainer)
 
             welcomeContainer = findViewById(R.id.popUpWelcomeContainer)
@@ -120,6 +125,16 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         return this
     }
 
+    fun setHasCloseButton(hasCloseButton: Boolean): PopupContainerView {
+        this.hasCloseButton = hasCloseButton
+        return this
+    }
+
+    fun setHasProgressBar(hasProgressBar: Boolean): PopupContainerView {
+        this.hasProgressBar = hasProgressBar
+        return this
+    }
+
     fun setWelcomeMessage(welcomeMessage: WelcomeMessage?): PopupContainerView {
         this.welcomeMessage = welcomeMessage
         return this
@@ -145,6 +160,10 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
 
     override fun dismissContainer() {
         dismiss()
+    }
+
+    override fun updateProgressBar(progress: Int) {
+        progressBar.progress = progress
     }
 
     private fun handleClassicNavigation(isLastItem: Boolean) {
@@ -210,6 +229,12 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
 
         if (isSingleQuestion)
             handleSingleQuestionMode()
+
+        if(hasCloseButton)
+            closeButton.visibility = View.VISIBLE
+
+        if(hasProgressBar)
+            progressBar.visibility = View.VISIBLE
 
         popUpContainer.apply {
             addView(popUpMainView)

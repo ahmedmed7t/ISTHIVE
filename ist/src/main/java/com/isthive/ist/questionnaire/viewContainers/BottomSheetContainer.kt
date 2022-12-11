@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +34,8 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private var isSingleQuestion = false
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
+    private var hasCloseButton: Boolean = false
+    private var hasProgressBar: Boolean = false
 
     private lateinit var topBackButton: AppCompatImageView
     private lateinit var bottomBackButton: AppCompatImageView
@@ -48,6 +51,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private lateinit var takeSurveyButton: TextView
 
     private lateinit var closeButton: AppCompatImageView
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +79,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             smallActionsContainer = findViewById(R.id.bottomSheet3ActionsContainer)
             allActionsContainer = findViewById(R.id.bottomSheetActionContainer)
             closeButton = findViewById(R.id.bottomSheetContainerClose)
+            progressBar = findViewById(R.id.bottomSheetContainerProgress)
 
             welcomeContainer = findViewById(R.id.bottomSheetWelcomeContainer)
             welcomeTitle = findViewById(R.id.bottomSheetWelcomeTitle)
@@ -132,6 +137,16 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         return this
     }
 
+    fun setHasCloseButton(hasCloseButton: Boolean): BottomSheetContainer {
+        this.hasCloseButton = hasCloseButton
+        return this
+    }
+
+    fun setHasProgressBar(hasProgressBar: Boolean): BottomSheetContainer {
+        this.hasProgressBar = hasProgressBar
+        return this
+    }
+
     fun setWelcomeMessage(welcomeMessage: WelcomeMessage?): BottomSheetContainer {
         this.welcomeMessage = welcomeMessage
         return this
@@ -156,6 +171,10 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
 
     override fun dismissContainer() {
         dismiss()
+    }
+
+    override fun updateProgressBar(progress: Int) {
+        progressBar.progress = progress
     }
 
     override fun onDismiss(dialog: DialogInterface) {
@@ -229,6 +248,12 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
 
         if(isSingleQuestion)
             handleSingleQuestionMode()
+
+        if(hasCloseButton)
+            closeButton.visibility = View.VISIBLE
+
+        if(hasProgressBar)
+            progressBar.visibility = View.VISIBLE
 
         bottomSheetContainer.apply {
             addView(popUpMainView)

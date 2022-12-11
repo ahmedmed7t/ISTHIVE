@@ -143,7 +143,7 @@ internal class QuestionProvider(
                 }
             }
         }
-        return questionIndex+1
+        return questionIndex + 1
     }
 
     private fun nextQuestionGuidIsNull(question: Question, nextQuestionGuid: String?): Int {
@@ -158,7 +158,7 @@ internal class QuestionProvider(
         return 0
     }
 
-    fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
+    private fun loadViewRelevantToQuestion(question: Question, context: Context): BaseQuestionView {
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
             QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(
@@ -196,19 +196,11 @@ internal class QuestionProvider(
         }
     }
 
-    //? full screen functions
-    fun getInitialList(context: Context):  ArrayList<BaseQuestionView>{
-        val initialQuestionsViews = arrayListOf<BaseQuestionView>()
-        for (item in questions) {
-            initialQuestionsViews.add(loadViewRelevantToQuestion(item, context))
-            if (isQuestionHaveSkipLogic(item.QuestionGUID)) {
-                return initialQuestionsViews
-            }
-        }
-        return initialQuestionsViews
-    }
+    fun getProgressPercentage(): Int {
+        var currentIndex = 0
+        if (questionIndex > 0)
+            currentIndex = questionIndex
 
-    fun getNextListOfQuestions(answer: Answer, context: Context){
-
+        return (currentIndex + 1) / (questions.size) * 100
     }
 }
