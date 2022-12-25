@@ -1,6 +1,7 @@
 package com.isthive.ist.questionnaire.questionsViews
 
 import android.content.Context
+import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.doOnAttach
 import com.isthive.ist.R
+import com.isthive.ist.app.helper.LocaleHelper
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.AnswerHandler
@@ -57,9 +59,8 @@ abstract class BaseQuestionView internal constructor(
 
     internal abstract fun getAnswer(): Answer
     internal fun canSkip(): Boolean {
-        question?.let {
+        question.let {
             return !it.IsRequired
         }
-        return true
     }
 }

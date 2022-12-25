@@ -1,5 +1,6 @@
 package com.isthive.ist.questionnaire.questionnaireModule.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
+import com.isthive.ist.app.helper.LocaleHelper
 import com.isthive.ist.questionnaire.provider.FullScreenQuestionProvider
 import com.isthive.ist.questionnaire.provider.QuestionProvider
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
@@ -221,6 +223,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private fun displayFullScreenView() {
         val questionList = fullScreenProvider.getInitialList(this)
         questionList.last().answerHandler = this
+
         fullScreenListAdapter.updateQuestionsList(questionList)
         fullScreenRecyclerView.adapter = fullScreenListAdapter
 
@@ -245,5 +248,9 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     internal companion object {
         const val QUESTIONNAIRE_USER_NAME = "QUESTIONNAIRE_USER_NAME"
         const val QUESTIONNAIRE_PASSWORD = "QUESTIONNAIRE_PASSWORD"
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase))
     }
 }

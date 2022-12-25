@@ -60,7 +60,6 @@
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/fcrOption1"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:focusable="true"
@@ -74,7 +73,6 @@
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/fcrOption2"
             android:layout_width="match_parent"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
             android:focusable="true"

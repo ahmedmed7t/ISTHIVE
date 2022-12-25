@@ -20,4 +20,21 @@
     <string name="required">(Required)</string>
     <string name="please_answer_this_question">Please Answer this question</string>
     <string name="take_survey">Take Survey</string>
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_10">10</string>
+    <string name="not_at_all_likely">Not at all likely</string>
+    <string name="highly_likely">Highly likely</string>
+    <string name="very_difficult">Very Difficult</string>
+    <string name="very_easy">Very Easy</string>
+    <string name="very_dissatisfied">Very Dissatisfied</string>
+    <string name="very_satisfied">Very satisfied</string>
 </resources>

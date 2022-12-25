@@ -2,6 +2,7 @@ package com.isthive.ist
 
 import android.app.Activity
 import android.content.Intent
+import com.isthive.ist.app.helper.LocaleHelper
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.QuestionnaireActivity
 
 class QuestionnaireBuilder {
@@ -20,6 +21,7 @@ class QuestionnaireBuilder {
     }
 
     fun openQuestionnaire(activity: Activity){
+        LocaleHelper.defaultLanguage = "en"
         val intent = Intent(activity, QuestionnaireActivity::class.java)
         if(userName.isNotBlank())
             intent.putExtra(QuestionnaireActivity.QUESTIONNAIRE_USER_NAME, userName)

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/numericCesQuestionTitle"
@@ -40,13 +40,12 @@
         android:id="@+id/numericCesQuestionRequired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_12sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@id/numericCesQuestionDescription" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numericCesQuestionsNumbersContainer"
@@ -77,10 +76,11 @@
                     android:id="@+id/numericCesQuestion5_1"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/pink"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="@string/_1"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -93,10 +93,11 @@
                     android:id="@+id/numericCesQuestion5_2"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/mustard"
                     android:gravity="center"
-                    android:text="2"
+                    android:text="@string/_2"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -109,10 +110,11 @@
                     android:id="@+id/numericCesQuestion5_3"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/yellow"
                     android:gravity="center"
-                    android:text="3"
+                    android:text="@string/_3"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -125,10 +127,11 @@
                     android:id="@+id/numericCesQuestion5_4"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/lemon_green"
                     android:gravity="center"
-                    android:text="4"
+                    android:text="@string/_4"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -141,10 +144,11 @@
                     android:id="@+id/numericCesQuestion5_5"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_green"
                     android:gravity="center"
-                    android:text="5"
+                    android:text="@string/_5"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
@@ -153,7 +157,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:text="Very Difficult"
+                android:text="@string/very_difficult"
                 android:textColor="@color/light_pink"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintStart_toStartOf="@id/numericCesQuestions5NumbersContainer"
@@ -163,7 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:text="Very Easy"
+                android:text="@string/very_easy"
                 android:textColor="@color/dark_green"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@id/numericCesQuestions5NumbersContainer"
@@ -181,7 +185,7 @@
                 android:id="@+id/numericCesQuestion10LeftText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Very Difficult"
+                android:text="@string/very_difficult"
                 android:textColor="@color/light_pink"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -190,7 +194,7 @@
                 android:id="@+id/numericCesQuestion10RightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Very Easy"
+                android:text="@string/very_easy"
                 android:textColor="@color/dark_green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -208,10 +212,11 @@
                     android:id="@+id/numericCesQuestion10_1"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/pink"
                     android:gravity="center"
-                    android:text="1"
+                    android:text="@string/_1"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -224,10 +229,11 @@
                     android:id="@+id/numericCesQuestion10_2"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_orange"
                     android:gravity="center"
-                    android:text="2"
+                    android:text="@string/_2"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -240,10 +246,11 @@
                     android:id="@+id/numericCesQuestion10_3"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/light_orange"
                     android:gravity="center"
-                    android:text="3"
+                    android:text="@string/_3"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -256,10 +263,11 @@
                     android:id="@+id/numericCesQuestion10_4"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/light_orange"
                     android:gravity="center"
-                    android:text="4"
+                    android:text="@string/_4"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -272,10 +280,11 @@
                     android:id="@+id/numericCesQuestion10_5"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/yellow"
                     android:gravity="center"
-                    android:text="5"
+                    android:text="@string/_5"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
@@ -298,10 +307,11 @@
                     android:id="@+id/numericCesQuestion10_6"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/lemon"
                     android:gravity="center"
-                    android:text="6"
+                    android:text="@string/_6"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -314,10 +324,11 @@
                     android:id="@+id/numericCesQuestion10_7"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/lemon_green"
                     android:gravity="center"
-                    android:text="7"
+                    android:text="@string/_7"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -330,10 +341,11 @@
                     android:id="@+id/numericCesQuestion10_8"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/light_green"
                     android:gravity="center"
-                    android:text="8"
+                    android:text="@string/_8"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -346,10 +358,11 @@
                     android:id="@+id/numericCesQuestion10_9"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/green"
                     android:gravity="center"
-                    android:text="9"
+                    android:text="@string/_9"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 
@@ -362,10 +375,11 @@
                     android:id="@+id/numericCesQuestion10_10"
                     android:layout_width="@dimen/_32sdp"
                     android:layout_height="@dimen/_32sdp"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_green"
                     android:gravity="center"
-                    android:text="10"
+                    android:text="@string/_10"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="whatever_your_choice_was_we_could_do_better_we_want_to_know">مهما كان اختيارك ، يمكننا أن نفعل ما هو أفضل نريد أن نعرفه</string>
+    <string name="submit">إرسال</string>
+    <string name="next">التالى</string>
+    <string name="back">السابق</string>
+    <string name="text">نص</string>
+    <string name="number">رقم</string>
+    <string name="email">بريد الكترونى</string>
+    <string name="telephone">رقم هاتف</string>
+    <string name="postal_code">رقم بريد</string>
+    <string name="url">رابط</string>
+    <string name="please_enter_valid_text">الرجاء إدخال نص صحيح</string>
+    <string name="please_enter_valid_number">الرجاء إدخال رقم صحيح</string>
+    <string name="please_enter_valid_url">الرجاء إدخال رابط صحيح</string>
+    <string name="please_enter_valid_postal_code">الرجاء إدخال رقم بريد صحيح</string>
+    <string name="please_enter_valid_telephone">الرجاء إدخال رقم هاتف صحيح</string>
+    <string name="please_enter_valid_email">الرجاء إدخال بريد الكترونى صحيح</string>
+    <string name="required">(مطلوب)</string>
+    <string name="please_answer_this_question">الرجاء الإجابه على هذا السؤال</string>
+    <string name="take_survey">شارك في الاستطلاع</string>
+    <string name="_0">٠</string>
+    <string name="_1">١</string>
+    <string name="_2">٢</string>
+    <string name="_3">٣</string>
+    <string name="_4">٤</string>
+    <string name="_5">٥</string>
+    <string name="_6">٦</string>
+    <string name="_7">٧</string>
+    <string name="_8">٨</string>
+    <string name="_9">٩</string>
+    <string name="_10">١٠</string>
+    <string name="not_at_all_likely">غير محتمل على الإطلاق</string>
+    <string name="highly_likely">من المرجح جدا</string>
+    <string name="very_difficult">صعب جدا</string>
+    <string name="very_easy">سهل جدا</string>
+    <string name="very_dissatisfied">مستاء جدا</string>
+    <string name="very_satisfied">راضٍ جدًا</string>
+</resources>

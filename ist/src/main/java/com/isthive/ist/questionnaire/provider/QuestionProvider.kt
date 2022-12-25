@@ -162,37 +162,37 @@ internal class QuestionProvider(
         // TODO check all NumericCESQuestion(context, question) to be removed from wrong cases
         return when (question.QuestionType) {
             QuestionType.Multiple_choice_question -> MultipleChoiceQuestion(
-                context.applicationContext,
+                context,
                 question
             )
-            QuestionType.List_question -> NumericCESQuestion(context.applicationContext, question)
-            QuestionType.Date_question -> NumericCESQuestion(context.applicationContext, question)
-            QuestionType.Slide_question -> SlidingQuestion(context.applicationContext, question)
-            QuestionType.Star_question -> RatingQuestion(context.applicationContext, question)
-            QuestionType.NPS -> NPSQuestion(context.applicationContext, question)
-            QuestionType.Text_input -> InputQuestion(context.applicationContext, question)
-            QuestionType.Number_input -> InputQuestion(context.applicationContext, question)
-            QuestionType.Email_input -> InputQuestion(context.applicationContext, question)
+            QuestionType.List_question -> NumericCESQuestion(context, question)
+            QuestionType.Date_question -> NumericCESQuestion(context, question)
+            QuestionType.Slide_question -> SlidingQuestion(context, question)
+            QuestionType.Star_question -> RatingQuestion(context, question)
+            QuestionType.NPS -> NPSQuestion(context, question)
+            QuestionType.Text_input -> InputQuestion(context, question)
+            QuestionType.Number_input -> InputQuestion(context, question)
+            QuestionType.Email_input -> InputQuestion(context, question)
             QuestionType.Phone_number_input -> InputQuestion(
-                context.applicationContext, question
+                context, question
             )
             QuestionType.Postal_code_input -> InputQuestion(
-                context.applicationContext, question
+                context, question
             )
-            QuestionType.URL_input -> InputQuestion(context.applicationContext, question)
-            QuestionType.Single_choice -> SingleChoiceQuestion(context.applicationContext, question)
+            QuestionType.URL_input -> InputQuestion(context, question)
+            QuestionType.Single_choice -> SingleChoiceQuestion(context, question)
             QuestionType.EmojiHiveCFM_Mobile_API -> EmojiQuestion(
-                context.applicationContext, question
+                context, question
             )
-            QuestionType.Image_MCQ -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.Image_MCQ -> NumericCESQuestion(context, question)
             QuestionType.Image_Single_Choice -> NumericCESQuestion(
-                context.applicationContext, question
+                context, question
             )
-            QuestionType.CSAT -> CSATQuestion(context.applicationContext, question)
-            QuestionType.FCR -> FCRQuestion(context.applicationContext, question)
-            QuestionType.CES -> CESQuestion(context.applicationContext, question)
-            QuestionType.Numeric_CSAT -> NumericCSATQuestion(context.applicationContext, question)
-            QuestionType.Numeric_CES -> NumericCESQuestion(context.applicationContext, question)
+            QuestionType.CSAT -> CSATQuestion(context, question)
+            QuestionType.FCR -> FCRQuestion(context, question)
+            QuestionType.CES -> CESQuestion(context, question)
+            QuestionType.Numeric_CSAT -> NumericCSATQuestion(context, question)
+            QuestionType.Numeric_CES -> NumericCESQuestion(context, question)
         }
     }
 

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/cesQuestionTitle"
@@ -40,13 +40,12 @@
         android:id="@+id/cesQuestionRequired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cesQuestionDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@id/cesQuestionDescription" />
 
     <LinearLayout
         android:id="@+id/cesOptionsContainer"
@@ -62,63 +61,56 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/cesOption7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
             android:clickable="true"
-            />
+            android:focusable="true" />
     </LinearLayout>
 
     <TextView

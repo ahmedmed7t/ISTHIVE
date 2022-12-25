@@ -5,6 +5,7 @@
     android:id="@+id/multipleChoiceListItemContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:clickable="true"
     android:focusable="true">
 
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
+        android:animateLayoutChanges="true"
         android:background="@drawable/rounded_solid"
         android:backgroundTint="@color/white_blue"
         android:paddingVertical="@dimen/_8sdp"
@@ -44,13 +46,13 @@
             android:id="@+id/multipleChoiceListItemRightMark"
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/_12sdp"
             android:src="@drawable/selected_choice_icon"
-            />
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText

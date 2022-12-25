@@ -50,6 +50,7 @@
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable-mdpi/rectangle_8_radius_white_round_corners.xml" value="0.146" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable/bottom_sheet_background.xml" value="0.146" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable/correct_edit_text_background.xml" value="0.146" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/drawable/selected_choice_icon.xml" value="0.1" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/activity_questionare.xml" value="0.24087591240875914" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/bottom_sheet_container_view.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/ces_question.xml" value="0.25416666666666665" />
@@ -57,11 +58,16 @@
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/emoji_question.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/fcr_question.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/full_screen_list_item.xml" value="0.25416666666666665" />
-        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/input_question.xml" value="0.13333333333333333" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/input_question.xml" value="0.536" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/multiple_choice_list_item.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/multiple_choice_question.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/nps_question.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/numeric_ces_question.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/numeric_csat_question.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/popup_conatiner_view.xml" value="0.13333333333333333" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/radio_button_list_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/rating_question.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/single_choice_list_item.xml" value="0.15677083333333333" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/single_choice_question.xml" value="0.1" />
         <entry key="..\:/Projects/ISTHIVE/ist/src/main/res/layout/sliding_question.xml" value="0.25416666666666665" />
       </map>
