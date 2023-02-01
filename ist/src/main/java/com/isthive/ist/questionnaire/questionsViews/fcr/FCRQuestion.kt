@@ -131,7 +131,7 @@ internal class FCRQuestion internal constructor(
         lastSelectedItem = selectedItem
 
         lastSelectedIndex?.let { lastIndex ->
-            question?.apply {
+            question.apply {
                 answerHandler?.onAnswerClicked(
                     Answer(
                         QuestionGUID, QuestionID, arrayListOf(

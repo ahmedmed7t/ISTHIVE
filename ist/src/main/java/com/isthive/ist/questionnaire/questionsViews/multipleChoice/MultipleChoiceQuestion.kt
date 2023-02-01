@@ -111,7 +111,7 @@ internal class MultipleChoiceQuestion internal constructor(
 
     override fun onChoiceUnSelected(position: Int) {
         selectedItems.remove(position)
-        if (selectedItems.isEmpty()) {
+        if (selectedItems.isEmpty() && question.IsRequired) {
             showError()
         } else {
             hideError()

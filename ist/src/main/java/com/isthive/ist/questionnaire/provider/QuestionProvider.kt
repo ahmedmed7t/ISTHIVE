@@ -201,6 +201,7 @@ internal class QuestionProvider(
         if (questionIndex > 0)
             currentIndex = questionIndex
 
-        return (currentIndex + 1) / (questions.size) * 100
+        val result: Double = ((currentIndex + 1).toDouble() / (questions.size).toDouble()) * 100
+        return result.toInt()
     }
 }

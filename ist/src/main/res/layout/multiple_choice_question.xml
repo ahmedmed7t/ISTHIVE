@@ -15,7 +15,7 @@
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,11 +51,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MultipleChoiceQuestionRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_250sdp"
+        android:layout_height="@dimen/_218sdp"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionRequired"
         tools:itemCount="8"
         tools:listitem="@layout/multiple_choice_list_item" />

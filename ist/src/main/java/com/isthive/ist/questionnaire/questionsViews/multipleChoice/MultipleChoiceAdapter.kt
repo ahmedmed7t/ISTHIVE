@@ -58,6 +58,7 @@ internal class MultipleChoiceAdapter constructor(
         }
         holder.choiceCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
+                holder.otherEditText.setText("")
                 holder.otherEditText.visibility = View.GONE
             }
         }
@@ -81,6 +82,7 @@ internal class MultipleChoiceAdapter constructor(
         holder.choiceCheckBox.visibility = View.GONE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
+        holder.otherEditText.setText("")
         holder.choiceDataContainer.background =
             ContextCompat.getDrawable(holder.itemView.context, R.drawable.rounded_solid)
 
@@ -112,6 +114,7 @@ internal class MultipleChoiceAdapter constructor(
         holder.choiceCheckBox.visibility = View.VISIBLE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
+        holder.otherEditText.setText("")
         holder.choiceDataContainer.background = null
 
         holder.choiceCheckBox.isChecked = choices[position].isSelected

@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/fcrQuestionTitle"
@@ -40,13 +40,12 @@
         android:id="@+id/fcrQuestionRequired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fcrQuestionDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@id/fcrQuestionDescription" />
 
     <LinearLayout
         android:id="@+id/fcrOptionsContainer"
@@ -54,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/fcrQuestionRequired">
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
@@ -62,22 +61,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:focusable="true"
+            android:layout_weight="1"
             android:clickable="true"
-            />
+            android:focusable="true" />
 
         <View
             android:layout_width="@dimen/_4sdp"
-            android:layout_height="@dimen/_4sdp"
-            />
+            android:layout_height="@dimen/_4sdp" />
+
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/fcrOption2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:focusable="true"
+            android:layout_weight="1"
             android:clickable="true"
-            />
+            android:focusable="true" />
     </LinearLayout>
 
     <TextView

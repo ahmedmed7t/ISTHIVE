@@ -139,8 +139,10 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             questionViews.lastElement()
             containerView?.addView(
                 questionViews.lastElement(),
-                isFirstItem = questionProvider?.isFirstQuestion(questionViews.lastElement().question) ?: false,
-                isLastItem = questionProvider?.isLastQuestion(questionViews.lastElement().question) ?: false
+                isFirstItem = questionProvider?.isFirstQuestion(questionViews.lastElement().question)
+                    ?: false,
+                isLastItem = questionProvider?.isLastQuestion(questionViews.lastElement().question)
+                    ?: false
             )
             currentView = questionViews.lastElement()
             questionProvider?.updateQuestionIndex((currentView as BaseQuestionView).question)
@@ -242,6 +244,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private fun finishCallApiState(message: String) {
         loading.visibility = View.GONE
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        fullScreenLayout.visibility = View.GONE
         containerView?.dismissContainer()
     }
 

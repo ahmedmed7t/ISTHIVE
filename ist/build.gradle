@@ -14,8 +14,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-
-        buildConfigField 'String', 'BASE_URL', "\"http://13.69.99.146:7050\""
+//                                                  https://dev.hivecfm.online/api/Authentication/GenerateToken
+        buildConfigField 'String', 'BASE_URL', "\"https://dev.hivecfm.online/\""
     }
 
     buildTypes {

@@ -47,9 +47,9 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/_12sdp"
+            android:animateLayoutChanges="true"
             android:src="@drawable/selected_choice_icon"
             android:visibility="gone"
-            android:animateLayoutChanges="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,10 +58,17 @@
     <EditText
         android:id="@+id/multipleChoiceListItemOtherEditText"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_60sdp"
+        android:layout_height="@dimen/_75sdp"
         android:layout_marginHorizontal="@dimen/_6sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_border"
+        android:gravity="top"
+        android:hint="@string/please_enter_your_answer"
+        android:inputType="textMultiLine"
+        android:isScrollContainer="true"
+        android:maxLines="5"
+        android:padding="@dimen/_6sdp"
+        android:scrollbars="vertical"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/multipleChoiceListItemChoiceContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

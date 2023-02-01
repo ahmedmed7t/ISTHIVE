@@ -57,6 +57,7 @@ internal class SingleChoiceAdapter constructor(
         }
         holder.choiceRadioButton.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
+                holder.otherEditText.setText("")
                 holder.otherEditText.visibility = View.GONE
             }
         }
@@ -79,6 +80,7 @@ internal class SingleChoiceAdapter constructor(
         holder.choiceRadioButton.visibility = View.GONE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
+        holder.otherEditText.setText("")
         holder.choiceDataContainer.background =
             ContextCompat.getDrawable(holder.itemView.context, R.drawable.rounded_solid)
 
@@ -110,6 +112,7 @@ internal class SingleChoiceAdapter constructor(
         holder.choiceRadioButton.visibility = View.VISIBLE
         holder.choiceRightIcon.visibility = View.GONE
         holder.otherEditText.visibility = View.GONE
+        holder.otherEditText.setText("")
         holder.choiceDataContainer.background = null
 
         holder.choiceRadioButton.isChecked = choices[position].isSelected

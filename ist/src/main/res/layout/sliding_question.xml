@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
-        android:gravity="center"
+        android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
@@ -61,6 +61,7 @@
         app:labelBehavior="gone"
         app:layout_constraintTop_toBottomOf="@id/slidingQuestionRequired"
         app:thumbColor="@color/white"
+        app:tickVisible="false"
         app:trackColorActive="@color/blue"
         app:trackColorInactive="@color/fade_blue" />
 

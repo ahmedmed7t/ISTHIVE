@@ -9,7 +9,7 @@ internal data class Survey(
     val SkipLogics: ArrayList<SkipLogic>?,
     val SurveyGuid: String,
     val SurveyID: Int,
-    val SurveyLanguage: Int,
+    val SurveyLanguage: String,
     val SurveyOptions: SurveyOptions,
     val Title: String
 )

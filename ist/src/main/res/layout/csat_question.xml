@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/csatQuestionTitle"
@@ -40,86 +40,84 @@
         android:id="@+id/csatQuestionRequired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/required"
+        android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/csatQuestionDescription"
-        />
+        app:layout_constraintTop_toBottomOf="@id/csatQuestionDescription" />
 
-    <LinearLayout
-        android:id="@+id/csatQuestionOptionsContainer"
+    <ScrollView
+        android:id="@+id/csatQuestionOptionsContainerScroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/csatQuestionRequired">
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption1"
+        <LinearLayout
+            android:id="@+id/csatQuestionOptionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            android:orientation="vertical">
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
-            android:id="@+id/csatOption7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:focusable="true"
-            android:clickable="true"
-            />
-    </LinearLayout>
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
+                android:id="@+id/csatOption7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/csatQuestionErrorMessage"
@@ -129,6 +127,6 @@
         android:text="@string/please_answer_this_question"
         android:textColor="@color/red"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@id/csatQuestionOptionsContainer"
-        app:layout_constraintTop_toBottomOf="@id/csatQuestionOptionsContainer" />
+        app:layout_constraintStart_toStartOf="@id/csatQuestionOptionsContainerScroll"
+        app:layout_constraintTop_toBottomOf="@id/csatQuestionOptionsContainerScroll" />
 </androidx.constraintlayout.widget.ConstraintLayout>

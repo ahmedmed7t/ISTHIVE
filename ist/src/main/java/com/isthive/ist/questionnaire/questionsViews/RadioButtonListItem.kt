@@ -40,7 +40,7 @@ internal class RadioButtonListItem(context: Context, attrs: AttributeSet?) :
 
     fun setMode(mode: String) {
         style = mode
-        if (mode == MODERN_STYLE) {
+        if (mode.contains(MODERN_STYLE, true)) {
             viewModernStyle()
         } else {
             viewClassicStyle()
@@ -71,8 +71,7 @@ internal class RadioButtonListItem(context: Context, attrs: AttributeSet?) :
     }
 
     private fun selectOption() {
-        Log.v("Medhat","selectOption called")
-        if (style == MODERN_STYLE) {
+        if (style.contains(MODERN_STYLE, ignoreCase = true)) {
             optionContainer.backgroundTintList = ContextCompat.getColorStateList(context, R.color.blue)
             optionTitle.setTextColor(ContextCompat.getColor(context, R.color.white))
             optionMark.visibility = View.VISIBLE
@@ -82,7 +81,7 @@ internal class RadioButtonListItem(context: Context, attrs: AttributeSet?) :
     }
 
     private fun unSelectOption() {
-        if (style == MODERN_STYLE) {
+        if (style.contains(MODERN_STYLE, ignoreCase = true)) {
             optionContainer.backgroundTintList = ContextCompat.getColorStateList(context, R.color.white_blue)
             optionTitle.setTextColor(ContextCompat.getColor(context, R.color.blue))
             optionMark.visibility = View.GONE

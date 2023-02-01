@@ -31,10 +31,11 @@
     <string name="_8">٨</string>
     <string name="_9">٩</string>
     <string name="_10">١٠</string>
-    <string name="not_at_all_likely">غير محتمل على الإطلاق</string>
-    <string name="highly_likely">من المرجح جدا</string>
+    <string name="not_likely">غير محتمل على الإطلاق</string>
+    <string name="extremely_likely">من المرجح جدا</string>
     <string name="very_difficult">صعب جدا</string>
     <string name="very_easy">سهل جدا</string>
     <string name="very_dissatisfied">مستاء جدا</string>
     <string name="very_satisfied">راضٍ جدًا</string>
+    <string name="please_enter_your_answer">الرجاء إدخال إجابتك</string>
 </resources>

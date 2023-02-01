@@ -56,7 +56,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private lateinit var closeButton: AppCompatImageView
     private lateinit var progressBar: ProgressBar
 
-    private lateinit var welcomeContainer: ConstraintLayout
+    private lateinit var welcomeContainer: LinearLayout
     private lateinit var welcomeTitle: TextView
     private lateinit var welcomeDescription: TextView
     private lateinit var takeSurveyButton: TextView
@@ -326,6 +326,9 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
                 questionHandler?.onSubmitClicked()
             else
                 questionHandler?.onNextClicked()
+        }
+        takeSurveyButton.setOnClickListener {
+            hideWelcomeMessage()
         }
     }
 

@@ -53,7 +53,7 @@ internal class InputQuestion internal constructor(
 
     override fun handleUiEvents() {
         questionInput?.addTextChangedListener {
-            if (isTextValid(it.toString().trim())) {
+            if (isTextValid(it.toString().trim()) || (!question.IsRequired && it.toString().isEmpty())) {
                 showSuccess()
             } else {
                 showError()

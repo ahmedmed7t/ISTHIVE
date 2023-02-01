@@ -45,7 +45,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private lateinit var smallActionsContainer: LinearLayout
     private lateinit var allActionsContainer: ConstraintLayout
 
-    private lateinit var welcomeContainer: ConstraintLayout
+    private lateinit var welcomeContainer: LinearLayout
     private lateinit var welcomeTitle: TextView
     private lateinit var welcomeDescription: TextView
     private lateinit var takeSurveyButton: TextView
