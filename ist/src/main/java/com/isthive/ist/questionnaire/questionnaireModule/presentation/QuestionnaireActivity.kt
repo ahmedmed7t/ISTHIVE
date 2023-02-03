@@ -2,7 +2,10 @@ package com.isthive.ist.questionnaire.questionnaireModule.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -14,8 +17,8 @@ import com.isthive.ist.R
 import com.isthive.ist.app.helper.LocaleHelper
 import com.isthive.ist.questionnaire.provider.FullScreenQuestionProvider
 import com.isthive.ist.questionnaire.provider.QuestionProvider
+import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.*
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
-import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.DisplayMode
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.adapter.FullScreenListAdapter
 import com.isthive.ist.questionnaire.questionnaireModule.presentation.handlers.AnswerHandler
@@ -40,6 +43,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private var questionViews = Stack<BaseQuestionView>()
     private val answers: HashMap<String?, Answer?> = hashMapOf()
 
+    private lateinit var welcomeContainer: LinearLayout
+    private lateinit var welcomeTitle: TextView
+    private lateinit var welcomeDescription: TextView
+    private lateinit var takeSurveyButton: TextView
+
     private lateinit var fullScreenRecyclerView: RecyclerView
     private lateinit var fullScreenSubmitButton: TextView
     private lateinit var fullScreenLayout: ConstraintLayout
@@ -50,6 +58,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questionare)
+
+        welcomeContainer = findViewById(R.id.fullScreenWelcomeContainer)
+        welcomeTitle = findViewById(R.id.fullScreenWelcomeTitle)
+        welcomeDescription = findViewById(R.id.fullScreenWelcomeMessage)
+        takeSurveyButton = findViewById(R.id.fullScreenWelcomeTakeSurvey)
 
         fullScreenRecyclerView = findViewById(R.id.fullScreenRecyclerView)
         fullScreenSubmitButton = findViewById(R.id.fullScreenSubmitButton)
@@ -88,7 +101,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                                 it.survey.Questions,
                                 it.survey.SkipLogics
                             )
-                            displayFullScreenView()
+                            displayFullScreenView(it)
                         }
                     }
                 }
@@ -222,7 +235,9 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
         )
     }
 
-    private fun displayFullScreenView() {
+    private fun displayFullScreenView(
+        questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess
+    ) {
         val questionList = fullScreenProvider.getInitialList(this)
         questionList.last().answerHandler = this
 
@@ -239,6 +254,33 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                 viewModel.saveSurvey()
             }
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            hideWelcomeMessage()
+            questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage.let {
+                if (it.Mode == WelcomeMode.Separate_View) {
+                    viewWelcomeMessage(it.Title, it.SubTitle)
+                } else if (it.Mode == WelcomeMode.First_Question) {
+                    (fullScreenRecyclerView.getChildAt(0)as BaseQuestionView).showWelcomeMessage(it.SubTitle)
+                }
+            }
+        }, 150)
+
+    }
+
+    private fun viewWelcomeMessage(title: String, description: String) {
+        welcomeTitle.text = title
+        welcomeDescription.text = description
+        welcomeContainer.visibility = View.VISIBLE
+        fullScreenLayout.visibility = View.GONE
+        takeSurveyButton.setOnClickListener {
+            hideWelcomeMessage()
+        }
+    }
+
+    private fun hideWelcomeMessage() {
+        welcomeContainer.visibility = View.GONE
+        fullScreenLayout.visibility = View.VISIBLE
     }
 
     private fun finishCallApiState(message: String) {

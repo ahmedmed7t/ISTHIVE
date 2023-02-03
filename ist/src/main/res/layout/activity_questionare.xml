@@ -10,8 +10,8 @@
         android:id="@+id/fullScreenListContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@color/transparent_black">
+        android:background="@color/transparent_black"
+        android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fullScreenRecyclerView"
@@ -33,6 +33,54 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/fullScreenWelcomeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/fullScreenWelcomeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold"
+            tools:text="Hello Title" />
+
+        <TextView
+            android:id="@+id/fullScreenWelcomeMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_16sdp"
+            tools:text="Hello Title" />
+
+        <TextView
+            android:id="@+id/fullScreenWelcomeTakeSurvey"
+            style="@style/SmallButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_34sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:backgroundTint="@color/blue"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingHorizontal="@dimen/_20sdp"
+            android:text="@string/take_survey"
+            android:textSize="@dimen/_14sdp" />
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/surveyProgress"

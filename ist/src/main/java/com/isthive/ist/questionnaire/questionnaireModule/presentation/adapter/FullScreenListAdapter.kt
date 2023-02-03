@@ -84,4 +84,8 @@ internal class FullScreenListAdapter(
         }
         return answers
     }
+
+    fun showWelcomeMessageForFirstItem(){
+
+    }
 }

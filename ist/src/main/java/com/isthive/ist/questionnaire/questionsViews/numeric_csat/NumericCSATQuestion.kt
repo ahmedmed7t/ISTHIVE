@@ -150,22 +150,33 @@ internal class NumericCSATQuestion internal constructor(
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView?) {
-        isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+        if(selectedView == lastSelectedNumber){
+            // deselect option
+            isAnswerValid = false
+            if (question.IsRequired){
+                showError()
+            }
+            lastSelectedNumber = null
+            selectedNumber = null
+            selectedView?.let { minimizeNumber(it) }
+        }else {
+            // select option
+            isAnswerValid = true
+            errorMessage?.visibility = View.GONE
+            selectedNumber = value
+            maximizeSelectedNumber(selectedView)
+            lastSelectedNumber?.let {
+                minimizeNumber(it)
+            }
+            lastSelectedNumber = selectedView
 
-        selectedNumber = value
-        maximizeSelectedNumber(selectedView)
-        lastSelectedNumber?.let {
-            minimizeNumber(it)
-        }
-        lastSelectedNumber = selectedView
-
-        question.apply {
-            answerHandler?.onAnswerClicked(
-                Answer(
-                    QuestionGUID, QuestionID, null, selectedNumber, null
-                ), question
-            )
+            question.apply {
+                answerHandler?.onAnswerClicked(
+                    Answer(
+                        QuestionGUID, QuestionID, null, selectedNumber, null
+                    ), question
+                )
+            }
         }
     }
 
