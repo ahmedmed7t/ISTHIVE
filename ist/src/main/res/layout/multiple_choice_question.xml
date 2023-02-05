@@ -7,25 +7,10 @@
     android:paddingBottom="@dimen/_22sdp">
 
     <TextView
-        android:id="@+id/MultipleChoiceQuestionTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
-        android:gravity="start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Ahmed Medhat Mohamed" />
-
-    <TextView
         android:id="@+id/MultipleChoiceQuestionDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_24sdp"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
@@ -34,7 +19,22 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/MultipleChoiceQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/MultipleChoiceQuestionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_14sdp"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        android:gravity="start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionDescription"
+        tools:text="Ahmed Medhat Mohamed" />
 
     <TextView
         android:id="@+id/MultipleChoiceQuestionRequired"
@@ -45,7 +45,7 @@
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionDescription"
+        app:layout_constraintTop_toBottomOf="@id/MultipleChoiceQuestionTitle"
         />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -177,6 +177,11 @@ internal class RatingQuestion internal constructor(
         showNotSelectedIcon(rating3Icon)
         showNotSelectedIcon(rating4Icon)
         showNotSelectedIcon(rating5Icon)
+        showNotSelectedData(rating1Text, rating1Line)
+        showNotSelectedData(rating2Text, rating2Line)
+        showNotSelectedData(rating3Text, rating3Line)
+        showNotSelectedData(rating4Text, rating4Line)
+        showNotSelectedData(rating5Text, rating5Line)
     }
 
     private fun on1RatingClicked() {

@@ -7,21 +7,6 @@
     android:paddingBottom="@dimen/_22sdp">
 
     <TextView
-        android:id="@+id/numericCsatQuestionTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:gravity="start"
-        android:textColor="@color/dark_gray"
-        android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Ahmed Medhat Mohamed" />
-
-    <TextView
         android:id="@+id/numericCsatQuestionDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,7 +19,22 @@
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/numericCsatQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/numericCsatQuestionTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:gravity="start"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/_18ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionDescription"
+        tools:text="Ahmed Medhat Mohamed" />
 
     <TextView
         android:id="@+id/numericCsatQuestionRequired"
@@ -45,7 +45,7 @@
         android:text="@string/required"
         android:textColor="@color/fade_gray"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionDescription" />
+        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionTitle" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numericCsatQuestionsNumbersContainer"

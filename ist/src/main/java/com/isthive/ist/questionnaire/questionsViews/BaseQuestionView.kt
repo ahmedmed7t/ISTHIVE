@@ -24,6 +24,7 @@ abstract class BaseQuestionView internal constructor(
     internal var view: View? = null
     internal var question: Question
     internal var isAnswerValid = false
+    internal var canGoNext = true
     internal var answerHandler: AnswerHandler? = null
 
     protected lateinit var questionDescription: TextView

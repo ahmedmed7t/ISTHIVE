@@ -15,6 +15,8 @@ internal class FullScreenListAdapter(
     private var questions: ArrayList<BaseQuestionView>
 ) : RecyclerView.Adapter<FullScreenListAdapter.FullScreenViewHolder>() {
 
+    var welcomeMessage: String? = null
+
     internal inner class FullScreenViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val container: ConstraintLayout = itemView.findViewById(R.id.fullScreenItemContainer)
     }
@@ -36,6 +38,12 @@ internal class FullScreenListAdapter(
             if ((questions[position]).parent != null)
                 ((questions[position]).parent as ViewGroup).removeAllViews()
             addView(questions[position])
+
+            welcomeMessage?.let {
+                if(position == 0 ){
+                    questions[position].showWelcomeMessage(it)
+                }
+            }
         }
     }
 
@@ -85,7 +93,8 @@ internal class FullScreenListAdapter(
         return answers
     }
 
-    fun showWelcomeMessageForFirstItem(){
-
+    fun showWelcomeMessageForFirstItem(title: String?){
+        welcomeMessage = title
+        notifyItemChanged(0)
     }
 }

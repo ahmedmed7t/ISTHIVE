@@ -55,7 +55,9 @@ internal class InputQuestion internal constructor(
         questionInput?.addTextChangedListener {
             if (isTextValid(it.toString().trim()) || (!question.IsRequired && it.toString().isEmpty())) {
                 showSuccess()
+                canGoNext = true
             } else {
+                canGoNext = false
                 showError()
             }
         }

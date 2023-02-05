@@ -80,7 +80,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                     loading.visibility = View.GONE
                     when (it.survey.SurveyOptions.DisplayMode) {
                         DisplayMode.BottomCard -> {
-                            questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+                            questionProvider =
+                                QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
                             currentView = questionProvider?.getNextQuestion(null, this)
                             currentView?.let { questionView ->
                                 questionViews.push(questionView)
@@ -88,12 +89,19 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                             }
                         }
                         DisplayMode.Popup -> {
-                            questionProvider = QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-                            currentView = questionProvider?.getNextQuestion(null, this)
-                            currentView?.let { questionView ->
-                                questionViews.push(questionView)
-                                displayDialogView(it, questionView)
-                            }
+                            fullScreenLayout.visibility = View.VISIBLE
+                            fullScreenProvider = FullScreenQuestionProvider(
+                                it.survey.Questions,
+                                it.survey.SkipLogics
+                            )
+                            displayFullScreenView(it)
+//                            questionProvider =
+//                                QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+//                            currentView = questionProvider?.getNextQuestion(null, this)
+//                            currentView?.let { questionView ->
+//                                questionViews.push(questionView)
+//                                displayDialogView(it, questionView)
+//                            }
                         }
                         DisplayMode.FullScreen -> {
                             fullScreenLayout.visibility = View.VISIBLE
@@ -124,9 +132,11 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                 currentView?.showError()
             }
         } else {
-            if (currentView?.getAnswer() != null)
-                answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
-            goToNextStep()
+            if (currentView?.canGoNext == true) {
+                if (currentView?.getAnswer() != null)
+                    answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
+                goToNextStep()
+            }
         }
     }
 
@@ -255,17 +265,21 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             }
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            hideWelcomeMessage()
-            questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage.let {
-                if (it.Mode == WelcomeMode.Separate_View) {
+        questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage?.let {
+            when (it.Mode) {
+                WelcomeMode.Separate_View -> {
                     viewWelcomeMessage(it.Title, it.SubTitle)
-                } else if (it.Mode == WelcomeMode.First_Question) {
-                    (fullScreenRecyclerView.getChildAt(0)as BaseQuestionView).showWelcomeMessage(it.SubTitle)
+                }
+                WelcomeMode.First_Question -> {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        fullScreenListAdapter.showWelcomeMessageForFirstItem(it.Title)
+                    }, 50)
+                }
+                else -> {
+                    hideWelcomeMessage()
                 }
             }
-        }, 150)
-
+        }
     }
 
     private fun viewWelcomeMessage(title: String, description: String) {

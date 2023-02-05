@@ -22,5 +22,5 @@ internal data class Theme(
     val ThankyouCloseButton: ThankyouCloseButton,
     val ThankyouMessage: ThankyouMessage,
     val TitleOrientation: String,
-    val WelcomeMessage: WelcomeMessage
+    val WelcomeMessage: WelcomeMessage?
 )

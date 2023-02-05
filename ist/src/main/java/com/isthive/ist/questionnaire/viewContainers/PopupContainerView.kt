@@ -246,7 +246,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
                 if (it.Mode == WelcomeMode.Separate_View) {
                     viewWelcomeMessage(it.Title, it.SubTitle)
                 } else if (it.Mode == WelcomeMode.First_Question) {
-                    (popUpMainView as BaseQuestionView).showWelcomeMessage(it.SubTitle)
+                    (popUpMainView as BaseQuestionView).showWelcomeMessage(it.Title)
                 }
             }
         }, 150)
@@ -282,6 +282,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
 
     private fun enableSingleQuestionClassicNavigation() {
         largeNextButton.text = getString(R.string.submit)
+        topBackButton.visibility = View.GONE
         topBackButton.visibility = View.GONE
     }
 
