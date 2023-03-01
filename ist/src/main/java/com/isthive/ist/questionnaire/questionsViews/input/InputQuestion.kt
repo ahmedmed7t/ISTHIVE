@@ -21,7 +21,6 @@ internal class InputQuestion internal constructor(
 ) : BaseQuestionView(context, question, resourceLayout) {
 
     private var questionTitle: TextView? = null
-    private var questionLabel: TextView? = null
     private var questionError: TextView? = null
     private var requiredLabel: TextView? = null
     private var questionInput: EditText? = null
@@ -32,7 +31,6 @@ internal class InputQuestion internal constructor(
         view?.apply {
             questionTitle = findViewById(R.id.inputQuestionTitle)
             questionDescription = findViewById(R.id.inputQuestionDescription)
-            questionLabel = findViewById(R.id.inputQuestionLabel)
             questionError = findViewById(R.id.inputQuestionErrorMessage)
             questionInput = findViewById(R.id.inputQuestionEditText)
             requiredLabel = findViewById(R.id.inputQuestionRequired)
@@ -87,37 +85,30 @@ internal class InputQuestion internal constructor(
     private fun handleInputType() {
         questionInput?.inputType = when (questionType) {
             QuestionType.Text_input -> {
-                questionLabel?.text = context.getString(R.string.text)
                 questionError?.text = context.getString(R.string.please_enter_valid_text)
                 InputType.TYPE_CLASS_TEXT
             }
             QuestionType.Number_input -> {
-                questionLabel?.text = context.getString(R.string.number)
                 questionError?.text = context.getString(R.string.please_enter_valid_number)
                 InputType.TYPE_CLASS_NUMBER
             }
             QuestionType.Email_input -> {
-                questionLabel?.text = context.getString(R.string.email)
                 questionError?.text = context.getString(R.string.please_enter_valid_email)
                 InputType.TYPE_CLASS_TEXT
             }
             QuestionType.Phone_number_input -> {
-                questionLabel?.text = context.getString(R.string.telephone)
                 questionError?.text = context.getString(R.string.please_enter_valid_telephone)
                 InputType.TYPE_CLASS_PHONE
             }
             QuestionType.Postal_code_input -> {
-                questionLabel?.text = context.getString(R.string.postal_code)
                 questionError?.text = context.getString(R.string.please_enter_valid_postal_code)
                 InputType.TYPE_CLASS_NUMBER
             }
             QuestionType.URL_input -> {
-                questionLabel?.text = context.getString(R.string.url)
                 questionError?.text = context.getString(R.string.please_enter_valid_url)
                 InputType.TYPE_CLASS_TEXT
             }
             else -> {
-                questionLabel?.text = context.getString(R.string.text)
                 questionError?.text = context.getString(R.string.please_enter_valid_text)
                 InputType.TYPE_CLASS_TEXT
             }

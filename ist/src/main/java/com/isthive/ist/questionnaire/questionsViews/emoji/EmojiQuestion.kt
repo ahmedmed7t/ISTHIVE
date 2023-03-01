@@ -26,6 +26,14 @@ internal class EmojiQuestion internal constructor(
     private var smileEmoji: AppCompatImageView? = null
     private var happyEmoji: AppCompatImageView? = null
 
+    private var angryEmojiLine: AppCompatImageView? = null
+    private var frownEmojiLine: AppCompatImageView? = null
+    private var neutralEmojiLine: AppCompatImageView? = null
+    private var smileEmojiLine: AppCompatImageView? = null
+    private var happyEmojiLine: AppCompatImageView? = null
+
+    private var lastSelectedLine: AppCompatImageView? = null
+
     private var firstSpace: View? = null
     private var secondSpace: View? = null
     private var thirdSpace: View? = null
@@ -48,6 +56,12 @@ internal class EmojiQuestion internal constructor(
             neutralEmoji = findViewById(R.id.emojiQuestionNeutralEmoji)
             smileEmoji = findViewById(R.id.emojiQuestionSmileEmoji)
             happyEmoji = findViewById(R.id.emojiQuestionHappyEmoji)
+
+            angryEmojiLine = findViewById(R.id.emojiQuestionAngryEmojiLine)
+            frownEmojiLine = findViewById(R.id.emojiQuestionFrownEmojiLine)
+            neutralEmojiLine = findViewById(R.id.emojiQuestionNeutralEmojiLine)
+            smileEmojiLine = findViewById(R.id.emojiQuestionSmileEmojiLine)
+            happyEmojiLine = findViewById(R.id.emojiQuestionHappyEmojiLine)
 
             firstSpace = findViewById(R.id.emojiQuestionFirstSpace)
             secondSpace = findViewById(R.id.emojiQuestionSecondSpace)
@@ -138,6 +152,7 @@ internal class EmojiQuestion internal constructor(
 
     private fun onEmojiClicked(emoji: AppCompatImageView?) {
         hideError()
+        showEmojiLine(emoji)
         context?.resources?.apply {
             var normalSize = getDimension(com.intuit.sdp.R.dimen._40sdp).toInt()
             var clickedSize = getDimension(com.intuit.sdp.R.dimen._45sdp).toInt()
@@ -158,6 +173,32 @@ internal class EmojiQuestion internal constructor(
             answerHandler?.onAnswerClicked(
                 Answer(QuestionGUID, QuestionID, null, selectedEmoji), question
             )
+        }
+    }
+
+    private fun showEmojiLine(emoji: AppCompatImageView?){
+        lastSelectedLine?.visibility = View.INVISIBLE
+        when(emoji){
+            angryEmoji -> {
+                angryEmojiLine?.visibility = View.VISIBLE
+                lastSelectedLine = angryEmojiLine
+            }
+            frownEmoji -> {
+                frownEmojiLine?.visibility = View.VISIBLE
+                lastSelectedLine = frownEmojiLine
+            }
+            neutralEmoji -> {
+                neutralEmojiLine?.visibility = View.VISIBLE
+                lastSelectedLine = neutralEmojiLine
+            }
+            smileEmoji -> {
+                smileEmojiLine?.visibility = View.VISIBLE
+                lastSelectedLine = smileEmojiLine
+            }
+            happyEmoji -> {
+                happyEmojiLine?.visibility = View.VISIBLE
+                lastSelectedLine = happyEmojiLine
+            }
         }
     }
 

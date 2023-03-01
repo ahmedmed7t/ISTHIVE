@@ -3,6 +3,7 @@ package com.isthive.ist.questionnaire.questionsViews.sliding
 import android.content.Context
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.google.android.material.slider.Slider
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
@@ -19,6 +20,15 @@ internal class SlidingQuestion internal constructor(
     private var questionTitle: TextView? = null
     private var questionRequired: TextView? = null
     private var slider: Slider? = null
+    private var selectedValue: Int? = null
+
+    private var lastSelectedNumber: TextView? = null
+
+    private lateinit var number1: TextView
+    private lateinit var number2: TextView
+    private lateinit var number3: TextView
+    private lateinit var number4: TextView
+    private lateinit var number5: TextView
 
     override fun initViews(view: View?) {
         isAnswerValid = true
@@ -27,6 +37,11 @@ internal class SlidingQuestion internal constructor(
             questionDescription = findViewById(R.id.slidingQuestionDescription)
             questionRequired = findViewById(R.id.slidingQuestionRequired)
             slider = findViewById(R.id.slidingQuestionSlider)
+            number1 = findViewById(R.id.slidingNumber1)
+            number2 = findViewById(R.id.slidingNumber2)
+            number3 = findViewById(R.id.slidingNumber3)
+            number4 = findViewById(R.id.slidingNumber4)
+            number5 = findViewById(R.id.slidingNumber5)
         }
     }
 
@@ -42,10 +57,12 @@ internal class SlidingQuestion internal constructor(
 
     override fun handleUiEvents() {
         slider?.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
+            selectedValue = value.toInt()
+            onNumberSelected()
             question.apply {
                 answerHandler?.onAnswerClicked(
                     Answer(
-                        QuestionGUID, QuestionID, null, value.toInt(), null
+                        QuestionGUID, QuestionID, null, selectedValue, null
                     ), question
                 )
             }
@@ -55,10 +72,36 @@ internal class SlidingQuestion internal constructor(
     override fun showError() {
     }
 
+    private fun onNumberSelected(){
+        lastSelectedNumber?.setTextColor(ContextCompat.getColor(context, R.color.gray))
+        when(selectedValue){
+            1 ->{
+                number1.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                lastSelectedNumber = number1
+            }
+            2 ->{
+                number2.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                lastSelectedNumber = number2
+            }
+            3 ->{
+                number3.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                lastSelectedNumber = number3
+            }
+            4 ->{
+                number4.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                lastSelectedNumber = number4
+            }
+            5 ->{
+                number5.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                lastSelectedNumber = number5
+            }
+        }
+    }
+
     override fun getAnswer(): Answer {
         question.apply {
             return Answer(
-                QuestionGUID, QuestionID, null, slider?.value?.toInt(), null
+                QuestionGUID, QuestionID, null, selectedValue, null
             )
         }
     }

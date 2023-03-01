@@ -38,4 +38,5 @@
     <string name="very_dissatisfied">مستاء جدا</string>
     <string name="very_satisfied">راضٍ جدًا</string>
     <string name="please_enter_your_answer">الرجاء إدخال إجابتك</string>
+    <string name="prev">Prev</string>
 </resources>

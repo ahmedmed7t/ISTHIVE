@@ -46,9 +46,9 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private var popUpMainView: View? = null
     private lateinit var popUpContainer: ConstraintLayout
     private lateinit var topBackButton: AppCompatImageView
-    private lateinit var bottomBackButton: AppCompatImageView
+    private lateinit var bottomBackButton: TextView
     private lateinit var largeNextButton: TextView
-    private lateinit var smallNextButton: AppCompatImageView
+    private lateinit var smallNextButton: TextView
     private lateinit var smallSubmitButton: TextView
     private lateinit var smallActionsContainer: LinearLayout
     private lateinit var allActionsContainer: ConstraintLayout
@@ -186,20 +186,27 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         if (isFirstItem) {
             bottomBackButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-            bottomBackButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+            context?.let {
+                bottomBackButton.setTextColor(
+                    ContextCompat.getColorStateList(it, R.color.fade_gray)
+                )
+            }
         } else {
             bottomBackButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
-            bottomBackButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+            context?.let {
+                bottomBackButton.setTextColor(ContextCompat.getColorStateList(it, R.color.white))
+            }
         }
 
         if (isLastItem) {
             smallNextButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-            smallNextButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+            context?.let {
+                smallNextButton.setTextColor(
+                    ContextCompat.getColorStateList(it, R.color.fade_gray)
+                )
+            }
 
             smallSubmitButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
@@ -212,8 +219,9 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         } else {
             smallNextButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
-            smallNextButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+            context?.let {
+                smallNextButton.setTextColor(ContextCompat.getColorStateList(it, R.color.white))
+            }
         }
     }
 
@@ -230,10 +238,10 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         if (isSingleQuestion)
             handleSingleQuestionMode()
 
-        if(hasCloseButton)
+        if (hasCloseButton)
             closeButton.visibility = View.VISIBLE
 
-        if(hasProgressBar)
+        if (hasProgressBar)
             progressBar.visibility = View.VISIBLE
 
         popUpContainer.apply {
@@ -263,13 +271,15 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private fun enableSingleQuestionModernNavigation() {
         smallNextButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-        smallNextButton.imageTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+        context?.let {
+            smallNextButton.setTextColor(ContextCompat.getColorStateList(it, R.color.fade_gray))
+        }
 
         bottomBackButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-        bottomBackButton.imageTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+        context?.let {
+            bottomBackButton.setTextColor(ContextCompat.getColorStateList(it, R.color.fade_gray))
+        }
 
         smallSubmitButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
@@ -299,7 +309,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.WRAP_CONTENT
             )
-            attributes.width = (getScreenWidth()*.97).toInt()
+            attributes.width = (getScreenWidth() * .97).toInt()
             setBackgroundDrawable(
                 ColorDrawable(Color.TRANSPARENT)
             )

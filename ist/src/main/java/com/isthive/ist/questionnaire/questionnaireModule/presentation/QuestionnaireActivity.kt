@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
@@ -40,6 +41,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private var containerView: ContainersContract? = null
     private var currentView: BaseQuestionView? = null
 
+    private var isFullScreenMode = false
+
     private var questionViews = Stack<BaseQuestionView>()
     private val answers: HashMap<String?, Answer?> = hashMapOf()
 
@@ -51,6 +54,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private lateinit var fullScreenRecyclerView: RecyclerView
     private lateinit var fullScreenSubmitButton: TextView
     private lateinit var fullScreenLayout: ConstraintLayout
+    private lateinit var fullScreenCloseButton: AppCompatImageView
+    private lateinit var sendIcon: AppCompatImageView
     private val fullScreenListAdapter: FullScreenListAdapter by lazy {
         FullScreenListAdapter(arrayListOf())
     }
@@ -67,6 +72,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
         fullScreenRecyclerView = findViewById(R.id.fullScreenRecyclerView)
         fullScreenSubmitButton = findViewById(R.id.fullScreenSubmitButton)
         fullScreenLayout = findViewById(R.id.fullScreenListContainer)
+        fullScreenCloseButton = findViewById(R.id.fullScreenContainerClose)
+        sendIcon = findViewById(R.id.fullScreenSubmitButtonIcon)
         loading = findViewById(R.id.surveyProgress)
         loading.visibility = View.VISIBLE
         listenToViewModelValues()
@@ -89,19 +96,13 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                             }
                         }
                         DisplayMode.Popup -> {
-                            fullScreenLayout.visibility = View.VISIBLE
-                            fullScreenProvider = FullScreenQuestionProvider(
-                                it.survey.Questions,
-                                it.survey.SkipLogics
-                            )
-                            displayFullScreenView(it)
-//                            questionProvider =
-//                                QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
-//                            currentView = questionProvider?.getNextQuestion(null, this)
-//                            currentView?.let { questionView ->
-//                                questionViews.push(questionView)
-//                                displayDialogView(it, questionView)
-//                            }
+                            questionProvider =
+                                QuestionProvider(it.survey.Questions, it.survey.SkipLogics)
+                            currentView = questionProvider?.getNextQuestion(null, this)
+                            currentView?.let { questionView ->
+                                questionViews.push(questionView)
+                                displayDialogView(it, questionView)
+                            }
                         }
                         DisplayMode.FullScreen -> {
                             fullScreenLayout.visibility = View.VISIBLE
@@ -248,11 +249,22 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private fun displayFullScreenView(
         questionnaireUiState: QuestionnaireUiState.LoadSurveySuccess
     ) {
+        isFullScreenMode = true
         val questionList = fullScreenProvider.getInitialList(this)
         questionList.last().answerHandler = this
 
         fullScreenListAdapter.updateQuestionsList(questionList)
         fullScreenRecyclerView.adapter = fullScreenListAdapter
+        if(questionnaireUiState.survey.SurveyOptions.EnableCloseButton){
+            fullScreenCloseButton.visibility = View.VISIBLE
+        }else{
+            fullScreenCloseButton.visibility = View.GONE
+        }
+
+        when(questionnaireUiState.survey.SurveyOptions.NavigationMode){
+            NavigationMode.Modern -> sendIcon.visibility = View.GONE
+            NavigationMode.Classic -> sendIcon.visibility = View.VISIBLE
+        }
 
         fullScreenSubmitButton.setOnClickListener {
             if (fullScreenListAdapter.checkAnswersAvailability()) {
@@ -302,6 +314,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         fullScreenLayout.visibility = View.GONE
         containerView?.dismissContainer()
+        if(isFullScreenMode)
+            onBackPressed()
     }
 
     internal companion object {

@@ -124,16 +124,18 @@ internal class SingleChoiceAdapter constructor(
     override fun getItemCount() = choices.size
 
     private fun selectChoice(position: Int) {
-        handler.onChoiceSelected(position)
-        choices.forEachIndexed { index, element ->
-            element.isSelected = position == index
-        }
-        android.os.Handler(Looper.getMainLooper()).post {
-            notifyItemChanged(position)
-            lastSelectedPosition?.let {
-                notifyItemChanged(it)
+        if(lastSelectedPosition != position) {
+            handler.onChoiceSelected(position)
+            choices.forEachIndexed { index, element ->
+                element.isSelected = position == index
             }
-            lastSelectedPosition = position
+            android.os.Handler(Looper.getMainLooper()).post {
+                notifyItemChanged(position)
+                lastSelectedPosition?.let {
+                    notifyItemChanged(it)
+                }
+                lastSelectedPosition = position
+            }
         }
     }
 }

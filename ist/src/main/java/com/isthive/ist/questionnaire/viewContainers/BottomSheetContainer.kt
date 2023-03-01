@@ -38,9 +38,9 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private var hasProgressBar: Boolean = false
 
     private lateinit var topBackButton: AppCompatImageView
-    private lateinit var bottomBackButton: AppCompatImageView
+    private lateinit var bottomBackButton: TextView
     private lateinit var largeNextButton: TextView
-    private lateinit var smallNextButton: AppCompatImageView
+    private lateinit var smallNextButton: TextView
     private lateinit var smallSubmitButton: TextView
     private lateinit var smallActionsContainer: LinearLayout
     private lateinit var allActionsContainer: ConstraintLayout
@@ -200,22 +200,36 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         }
 
         if (isFirstItem) {
-            bottomBackButton.backgroundTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-            bottomBackButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+            bottomBackButton.visibility = View.INVISIBLE
+//            bottomBackButton.backgroundTintList =
+//                context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+//            context?.let {
+//                bottomBackButton.setTextColor(
+//                    ContextCompat.getColorStateList(
+//                        it,
+//                        R.color.fade_gray
+//                    )
+//                )
+//            }
         } else {
-            bottomBackButton.backgroundTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
-            bottomBackButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+            bottomBackButton.visibility = View.VISIBLE
+//            bottomBackButton.backgroundTintList =
+//                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
+//            context?.let {
+//                bottomBackButton.setTextColor(
+//                    ContextCompat.getColorStateList(it, R.color.white)
+//                )
+//            }
         }
 
         if (isLastItem) {
             smallNextButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-            smallNextButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+            context?.let {
+                smallNextButton.setTextColor(
+                    ContextCompat.getColorStateList(it, R.color.fade_gray)
+                )
+            }
 
             smallSubmitButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
@@ -228,8 +242,11 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         } else {
             smallNextButton.backgroundTintList =
                 context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
-            smallNextButton.imageTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white) }
+            context?.let {
+                smallNextButton.setTextColor(
+                    ContextCompat.getColorStateList(it, R.color.white)
+                )
+            }
         }
     }
 
@@ -246,13 +263,13 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             handleClassicNavigation(false)
         }
 
-        if(isSingleQuestion)
+        if (isSingleQuestion)
             handleSingleQuestionMode()
 
-        if(hasCloseButton)
+        if (hasCloseButton)
             closeButton.visibility = View.VISIBLE
 
-        if(hasProgressBar)
+        if (hasProgressBar)
             progressBar.visibility = View.VISIBLE
 
         bottomSheetContainer.apply {
@@ -262,16 +279,16 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         Handler(Looper.getMainLooper()).postDelayed({
             hideWelcomeMessage()
             welcomeMessage?.let {
-                if(it.Mode == WelcomeMode.Separate_View){
+                if (it.Mode == WelcomeMode.Separate_View) {
                     viewWelcomeMessage(it.Title, it.SubTitle)
-                }else if(it.Mode == WelcomeMode.First_Question){
+                } else if (it.Mode == WelcomeMode.First_Question) {
                     (popUpMainView as BaseQuestionView).showWelcomeMessage(it.SubTitle)
                 }
             }
         }, 150)
     }
 
-    private fun handleSingleQuestionMode(){
+    private fun handleSingleQuestionMode() {
         if (navigationMode == NavigationMode.Modern) {
             enableSingleQuestionModernNavigation()
         } else {
@@ -279,16 +296,23 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         }
     }
 
-    private fun enableSingleQuestionModernNavigation(){
+    private fun enableSingleQuestionModernNavigation() {
         smallNextButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-        smallNextButton.imageTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+        context?.let {
+            smallNextButton.setTextColor(
+                ContextCompat.getColorStateList(it, R.color.fade_gray)
+            )
+        }
 
-        bottomBackButton.backgroundTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-        bottomBackButton.imageTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.fade_gray) }
+        bottomBackButton.visibility = View.INVISIBLE
+//        bottomBackButton.backgroundTintList =
+//            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
+//        context?.let {
+//            bottomBackButton.setTextColor(
+//                ContextCompat.getColorStateList(it, R.color.fade_gray)
+//            )
+//        }
 
         smallSubmitButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
@@ -299,7 +323,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         }
     }
 
-    private fun enableSingleQuestionClassicNavigation(){
+    private fun enableSingleQuestionClassicNavigation() {
         largeNextButton.text = getString(R.string.submit)
         topBackButton.visibility = View.GONE
     }
@@ -318,7 +342,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         smallActionsContainer.visibility = View.VISIBLE
     }
 
-    private fun viewWelcomeMessage(title: String, description: String){
+    private fun viewWelcomeMessage(title: String, description: String) {
         welcomeTitle.text = title
         welcomeDescription.text = description
         welcomeContainer.visibility = View.VISIBLE
@@ -326,7 +350,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         topBackButton.visibility = View.GONE
     }
 
-    private fun hideWelcomeMessage(){
+    private fun hideWelcomeMessage() {
         welcomeContainer.visibility = View.GONE
         allActionsContainer.visibility = View.VISIBLE
         if (navigationMode == NavigationMode.Classic)

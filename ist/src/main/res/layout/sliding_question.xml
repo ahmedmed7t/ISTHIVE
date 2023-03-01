@@ -76,6 +76,7 @@
         app:layout_constraintTop_toBottomOf="@id/slidingQuestionSlider">
 
         <TextView
+            android:id="@+id/slidingNumber1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_1"
@@ -87,6 +88,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/slidingNumber2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_2"
@@ -98,6 +100,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/slidingNumber3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_3"
@@ -109,6 +112,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/slidingNumber4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_4"
@@ -120,6 +124,7 @@
             android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/slidingNumber5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_5"
