@@ -1,6 +1,8 @@
 package com.isthive.ist.questionnaire.questionsViews.singleChoice
 
+import android.annotation.SuppressLint
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,11 +46,17 @@ internal class SingleChoiceAdapter constructor(
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
         holder.choiceTitle.text = choices[position].Title
         holder.choiceRightIcon.visibility = View.GONE
         holder.choiceRadioButton.isChecked = false
 
+        holder.otherEditText.movementMethod = ScrollingMovementMethod()
+        holder.otherEditText.setOnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            v.parent.requestDisallowInterceptTouchEvent(true)
+            false
+        }
         holder.choiceContainer.setOnClickListener {
             selectChoice(position)
         }

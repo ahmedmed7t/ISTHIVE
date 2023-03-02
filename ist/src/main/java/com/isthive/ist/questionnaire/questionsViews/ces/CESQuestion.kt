@@ -27,7 +27,6 @@ internal class CESQuestion internal constructor(
     private var option5: RadioButtonListItem? = null
     private var option6: RadioButtonListItem? = null
     private var option7: RadioButtonListItem? = null
-    private var questionRequired: TextView? = null
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -44,7 +43,6 @@ internal class CESQuestion internal constructor(
             option5 = findViewById(R.id.cesOption5)
             option6 = findViewById(R.id.cesOption6)
             option7 = findViewById(R.id.cesOption7)
-            questionRequired = findViewById(R.id.cesQuestionRequired)
         }
     }
 
@@ -53,9 +51,9 @@ internal class CESQuestion internal constructor(
             questionTitle?.text = Title
             setOptionsStyle(TemplateID)
             if (IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = Title
             when (Scale) {
                 3 -> {
                     option4?.visibility = View.GONE
@@ -110,12 +108,12 @@ internal class CESQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+//        errorMessage?.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer {

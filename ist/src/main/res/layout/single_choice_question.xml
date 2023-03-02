@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_24sdp"
+        android:gravity="center"
         android:text="@string/whatever_your_choice_was_we_could_do_better_we_want_to_know"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_14ssp"
-        android:gravity="center"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/singleChoiceQuestionTitle"
@@ -27,26 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_14sdp"
+        android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
-        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionDescription"
         tools:text="Ahmed Medhat Mohamed" />
-
-    <TextView
-        android:id="@+id/singleChoiceQuestionRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_14sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionTitle"
-        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/singleChoiceQuestionRecyclerView"
@@ -54,9 +42,19 @@
         android:layout_height="@dimen/_218sdp"
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_8sdp"
+        android:clickable="true"
+        android:fastScrollEnabled="true"
+        android:focusable="true"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="never"
         android:paddingBottom="@dimen/_4sdp"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:splitMotionEvents="false"
+        android:verticalScrollbarPosition="right"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionRequired"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionTitle"
         tools:itemCount="7"
         tools:listitem="@layout/single_choice_list_item" />
 
@@ -65,9 +63,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_6sdp"
+        android:text="@string/please_answer_this_question"
         android:textColor="@color/red"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/singleChoiceQuestionRecyclerView"
-        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionRecyclerView"
-        android:text="@string/please_answer_this_question" />
+        app:layout_constraintTop_toBottomOf="@id/singleChoiceQuestionRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

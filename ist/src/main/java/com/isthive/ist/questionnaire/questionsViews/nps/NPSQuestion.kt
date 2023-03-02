@@ -42,12 +42,9 @@ internal class NPSQuestion internal constructor(
     private var number4_5: TextView? = null
     private var number5_5: TextView? = null
 
-    private var questionRequired: TextView? = null
-
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.npsQuestionTitle)
-            questionRequired = findViewById(R.id.npsQuestionRequired)
             questionDescription = findViewById(R.id.npsQuestionDescription)
             errorMessage = findViewById(R.id.npsQuestionErrorMessage)
             scale10Container = findViewById(R.id.npsQuestion10Container)
@@ -76,9 +73,9 @@ internal class NPSQuestion internal constructor(
         question.let {
             questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = it.Title
             if (it.Scale == 10) {
                 scale10Container?.visibility = View.VISIBLE
                 scale5Container?.visibility = View.GONE
@@ -142,7 +139,7 @@ internal class NPSQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): Answer {
@@ -154,16 +151,7 @@ internal class NPSQuestion internal constructor(
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView?) {
-        if(selectedView == lastSelectedNumber){
-            // deselect option
-            isAnswerValid = false
-            if (question.IsRequired){
-                showError()
-            }
-            lastSelectedNumber = null
-            selectedNumber = null
-            selectedView?.let { minimizeNumber(it) }
-        }else{
+        if(selectedView != lastSelectedNumber) {
             // select option
             isAnswerValid = true
             errorMessage?.visibility = View.GONE

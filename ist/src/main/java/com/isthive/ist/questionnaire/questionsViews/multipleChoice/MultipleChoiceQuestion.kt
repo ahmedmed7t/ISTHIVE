@@ -1,14 +1,17 @@
 package com.isthive.ist.questionnaire.questionsViews.multipleChoice
 
 import android.content.Context
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnItemTouchListener
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Answer
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.AnswerChoice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Question
 import com.isthive.ist.questionnaire.questionsViews.BaseQuestionView
+
 
 internal class MultipleChoiceQuestion internal constructor(
     context: Context,
@@ -21,8 +24,13 @@ internal class MultipleChoiceQuestion internal constructor(
 
     private var questionTitle: TextView? = null
     private var choicesRecyclerView: RecyclerView? = null
-    private var questionRequired: TextView? = null
     private var errorMessage: TextView? = null
+    override var isAnswerValid: Boolean = false
+        get()  {
+             return checkAnswerValidation()
+        }
+
+//    private var nested: ScrollView? = null
 
     private lateinit var choicesAdapter: MultipleChoiceAdapter
     private val selectedItems = arrayListOf<Int>()
@@ -33,9 +41,20 @@ internal class MultipleChoiceQuestion internal constructor(
             questionDescription = findViewById(R.id.MultipleChoiceQuestionDescription)
             choicesRecyclerView = findViewById(R.id.MultipleChoiceQuestionRecyclerView)
             errorMessage = findViewById(R.id.MultipleChoiceQuestionErrorMessage)
-            questionRequired = findViewById(R.id.MultipleChoiceQuestionRequired)
             choicesRecyclerView?.setHasFixedSize(true)
-            choicesRecyclerView?.isNestedScrollingEnabled = false
+
+            choicesRecyclerView?.addOnItemTouchListener(object : OnItemTouchListener {
+                override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                    val action = e.action
+                    when (action) {
+                        MotionEvent.ACTION_MOVE -> rv.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                    return false
+                }
+
+                override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+                override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+            })
         }
     }
 
@@ -43,9 +62,9 @@ internal class MultipleChoiceQuestion internal constructor(
         question.apply {
             questionTitle?.text = Title
             if (IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = Title
             Choices?.let { choices ->
                 choicesAdapter = MultipleChoiceAdapter(
                     choices,
@@ -62,12 +81,12 @@ internal class MultipleChoiceQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+//        errorMessage?.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer {
@@ -82,8 +101,7 @@ internal class MultipleChoiceQuestion internal constructor(
                             choicesAdapter.otherText.ifBlank { null }
                         )
                     )
-                }
-                else {
+                } else {
                     selectedChoices.add(
                         AnswerChoice(
                             Choices!![item].ChoiceGUID,
@@ -102,6 +120,18 @@ internal class MultipleChoiceQuestion internal constructor(
                     QuestionGUID, QuestionID, null, null
                 )
         }
+    }
+
+    private fun checkAnswerValidation(): Boolean{
+        if(selectedItems.isEmpty())
+            return false
+
+        for(item in selectedItems){
+            if (item == choicesAdapter.otherIndex && choicesAdapter.otherText.isBlank()) {
+                return false
+            }
+        }
+        return true
     }
 
     override fun onChoiceSelected(position: Int) {

@@ -36,17 +36,6 @@
         app:layout_constraintTop_toBottomOf="@id/npsQuestionDescription"
         tools:text="Ahmed Medhat Mohamed" />
 
-    <TextView
-        android:id="@+id/npsQuestionRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_14sdp"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/npsQuestionTitle" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/npsQuestionsNumbersContainer"
         android:layout_width="0dp"
@@ -55,7 +44,7 @@
         android:layout_marginEnd="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/npsQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/npsQuestionRequired">
+        app:layout_constraintTop_toBottomOf="@id/npsQuestionTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/npsQuestion5Container"

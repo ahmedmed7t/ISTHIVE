@@ -129,8 +129,6 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             if (currentView?.isAnswerValid == true) {
                 answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
                 goToNextStep()
-            } else {
-                currentView?.showError()
             }
         } else {
             if (currentView?.canGoNext == true) {
@@ -179,8 +177,6 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             if (currentView?.isAnswerValid == true) {
                 answers[currentView?.question?.QuestionGUID] = currentView?.getAnswer()
                 submitSurvey()
-            } else {
-                currentView?.showError()
             }
         } else {
             if (currentView?.getAnswer() != null)

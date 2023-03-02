@@ -25,7 +25,6 @@ internal class FCRQuestion internal constructor(
     private var option1: RadioButtonListItem? = null
     private var option2: RadioButtonListItem? = null
     private var optionsContainer: LinearLayout? = null
-    private var questionRequired: TextView? = null
 
     private var lastSelectedItem: RadioButtonListItem? = null
     private var lastSelectedIndex: Int? = null
@@ -38,7 +37,6 @@ internal class FCRQuestion internal constructor(
             option1 = findViewById(R.id.fcrOption1)
             option2 = findViewById(R.id.fcrOption2)
             optionsContainer = findViewById(R.id.fcrOptionsContainer)
-            questionRequired = findViewById(R.id.fcrQuestionRequired)
         }
     }
 
@@ -47,9 +45,9 @@ internal class FCRQuestion internal constructor(
             questionTitle?.text = Title
             setOptionsStyle(TemplateID)
             if (IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = Title
             Choices?.let { choices ->
                 showChoices(choices)
             }
@@ -77,12 +75,12 @@ internal class FCRQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+//        errorMessage?.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer {

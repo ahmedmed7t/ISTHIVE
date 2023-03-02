@@ -18,7 +18,6 @@ internal class SlidingQuestion internal constructor(
     BaseQuestionView(context, question, resourceLayout) {
 
     private var questionTitle: TextView? = null
-    private var questionRequired: TextView? = null
     private var slider: Slider? = null
     private var selectedValue: Int? = null
 
@@ -31,11 +30,9 @@ internal class SlidingQuestion internal constructor(
     private lateinit var number5: TextView
 
     override fun initViews(view: View?) {
-        isAnswerValid = true
         view?.apply {
             questionTitle = findViewById(R.id.slidingQuestionTitle)
             questionDescription = findViewById(R.id.slidingQuestionDescription)
-            questionRequired = findViewById(R.id.slidingQuestionRequired)
             slider = findViewById(R.id.slidingQuestionSlider)
             number1 = findViewById(R.id.slidingNumber1)
             number2 = findViewById(R.id.slidingNumber2)
@@ -49,14 +46,15 @@ internal class SlidingQuestion internal constructor(
         question.let {
             questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = it.Title
         }
     }
 
     override fun handleUiEvents() {
         slider?.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
+            isAnswerValid = true
             selectedValue = value.toInt()
             onNumberSelected()
             question.apply {

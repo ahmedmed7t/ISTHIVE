@@ -36,17 +36,6 @@
         app:layout_constraintTop_toBottomOf="@id/fcrQuestionDescription"
         tools:text="Ahmed Medhat Mohamed" />
 
-    <TextView
-        android:id="@+id/fcrQuestionRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fcrQuestionTitle" />
-
     <LinearLayout
         android:id="@+id/fcrOptionsContainer"
         android:layout_width="match_parent"
@@ -54,7 +43,7 @@
         android:layout_marginHorizontal="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/fcrQuestionRequired">
+        app:layout_constraintTop_toBottomOf="@id/fcrQuestionTitle">
 
         <com.isthive.ist.questionnaire.questionsViews.RadioButtonListItem
             android:id="@+id/fcrOption1"

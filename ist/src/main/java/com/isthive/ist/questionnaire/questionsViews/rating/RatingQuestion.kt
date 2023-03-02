@@ -26,7 +26,6 @@ internal class RatingQuestion internal constructor(
     private var selectedColor: Int? = null
 
     private var questionTitle: TextView? = null
-    private var questionRequired: TextView? = null
     private var errorMessage: TextView? = null
     private var selectedRate: Int? = null
 
@@ -59,7 +58,6 @@ internal class RatingQuestion internal constructor(
             questionTitle = findViewById(R.id.ratingQuestionTitle)
             questionDescription = findViewById(R.id.ratingQuestionDescription)
             errorMessage = findViewById(R.id.ratingQuestionErrorMessage)
-            questionRequired = findViewById(R.id.ratingQuestionRequired)
             rating1Text = findViewById(R.id.rating1Text)
             rating2Text = findViewById(R.id.rating2Text)
             rating3Text = findViewById(R.id.rating3Text)
@@ -90,9 +88,9 @@ internal class RatingQuestion internal constructor(
         question.let {
             questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = it.Title
             when (it.StarOption?.Shape) {
                 StarShape.STAR -> {
                     normalRatingIcon = R.drawable.ic_star
@@ -155,12 +153,12 @@ internal class RatingQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+//        errorMessage?.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer {

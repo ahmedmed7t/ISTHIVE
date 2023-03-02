@@ -97,11 +97,10 @@
                 android:layout_weight="2"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:text="@string/prev"
-                android:visibility="visible"
-                app:backgroundTint="@color/white_blue"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:tint="@color/fade_gray" />
+                />
 
             <TextView
                 android:id="@+id/popUpSmallSubmitButton"

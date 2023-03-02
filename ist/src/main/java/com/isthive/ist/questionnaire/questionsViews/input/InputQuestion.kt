@@ -22,7 +22,6 @@ internal class InputQuestion internal constructor(
 
     private var questionTitle: TextView? = null
     private var questionError: TextView? = null
-    private var requiredLabel: TextView? = null
     private var questionInput: EditText? = null
 
     private lateinit var questionType: QuestionType
@@ -33,7 +32,6 @@ internal class InputQuestion internal constructor(
             questionDescription = findViewById(R.id.inputQuestionDescription)
             questionError = findViewById(R.id.inputQuestionErrorMessage)
             questionInput = findViewById(R.id.inputQuestionEditText)
-            requiredLabel = findViewById(R.id.inputQuestionRequired)
         }
     }
 
@@ -43,9 +41,9 @@ internal class InputQuestion internal constructor(
             this@InputQuestion.questionType = QuestionType
             handleInputType()
             if (IsRequired)
-                requiredLabel?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
             else
-                requiredLabel?.visibility = View.GONE
+                questionTitle?.text = Title
         }
     }
 
@@ -63,16 +61,16 @@ internal class InputQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        questionError?.visibility = View.VISIBLE
-        questionInput?.background =
-            ContextCompat.getDrawable(context, R.drawable.error_edit_text_background)
+//        questionError?.visibility = View.VISIBLE
+//        questionInput?.background =
+//            ContextCompat.getDrawable(context, R.drawable.error_edit_text_background)
     }
 
     private fun showSuccess() {
         isAnswerValid = true
-        questionError?.visibility = View.GONE
-        questionInput?.background =
-            ContextCompat.getDrawable(context, R.drawable.correct_edit_text_background)
+//        questionError?.visibility = View.GONE
+//        questionInput?.background =
+//            ContextCompat.getDrawable(context, R.drawable.correct_edit_text_background)
     }
 
     override fun getAnswer(): Answer {

@@ -36,18 +36,6 @@
         app:layout_constraintStart_toStartOf="@id/inputQuestionTitle"
         app:layout_constraintTop_toBottomOf="@id/inputQuestionTitle" />
 
-    <TextView
-        android:id="@+id/inputQuestionRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputQuestionDescription"
-        />
-
     <EditText
         android:id="@+id/inputQuestionEditText"
         android:layout_width="match_parent"
@@ -56,7 +44,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:paddingHorizontal="@dimen/_4sdp"
         android:background="@drawable/normal_edit_text_background"
-        app:layout_constraintTop_toBottomOf="@id/inputQuestionRequired" />
+        app:layout_constraintTop_toBottomOf="@id/inputQuestionDescription" />
 
     <TextView
         android:id="@+id/inputQuestionErrorMessage"

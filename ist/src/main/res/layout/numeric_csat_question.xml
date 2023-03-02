@@ -36,17 +36,6 @@
         app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionDescription"
         tools:text="Ahmed Medhat Mohamed" />
 
-    <TextView
-        android:id="@+id/numericCsatQuestionRequired"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_12sdp"
-        android:text="@string/required"
-        android:textColor="@color/fade_gray"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionTitle" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/numericCsatQuestionsNumbersContainer"
         android:layout_width="0dp"
@@ -55,7 +44,7 @@
         android:layout_marginEnd="@dimen/_24sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/numericCsatQuestionTitle"
-        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionRequired">
+        app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionTitle">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/numericCsatQuestion5Container"

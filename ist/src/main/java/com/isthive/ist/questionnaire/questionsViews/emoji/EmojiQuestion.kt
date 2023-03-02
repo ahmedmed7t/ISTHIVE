@@ -42,7 +42,6 @@ internal class EmojiQuestion internal constructor(
     private var lastSpace: View? = null
 
     private var errorMessage: TextView? = null
-    private var questionRequired: TextView? = null
 
     private var selectedEmoji = 0
 
@@ -71,7 +70,6 @@ internal class EmojiQuestion internal constructor(
             lastSpace = findViewById(R.id.emojiQuestionLastSpace)
 
             errorMessage = findViewById(R.id.emojiQuestionErrorMessage)
-            questionRequired = findViewById(R.id.emojiQuestionRequired)
         }
     }
 
@@ -79,9 +77,9 @@ internal class EmojiQuestion internal constructor(
         question.apply {
             questionTitle?.text = Title
             if (IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = Title
             when (TemplateID) {
                 MODERN_STYLE -> enableModernMode()
                 CLASSIC_LIGHT -> enableClassicLightMode()
@@ -133,12 +131,12 @@ internal class EmojiQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     private fun hideError() {
         isAnswerValid = true
-        errorMessage?.visibility = View.GONE
+//        errorMessage?.visibility = View.GONE
     }
 
     override fun getAnswer(): Answer {
@@ -169,7 +167,7 @@ internal class EmojiQuestion internal constructor(
             lastEmojiClicked = emoji
         }
 
-        question?.apply {
+        question.apply {
             answerHandler?.onAnswerClicked(
                 Answer(QuestionGUID, QuestionID, null, selectedEmoji), question
             )

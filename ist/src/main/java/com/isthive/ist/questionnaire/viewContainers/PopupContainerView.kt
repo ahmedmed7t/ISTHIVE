@@ -184,19 +184,9 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         }
 
         if (isFirstItem) {
-            bottomBackButton.backgroundTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-            context?.let {
-                bottomBackButton.setTextColor(
-                    ContextCompat.getColorStateList(it, R.color.fade_gray)
-                )
-            }
+            bottomBackButton.visibility = View.INVISIBLE
         } else {
-            bottomBackButton.backgroundTintList =
-                context?.let { ContextCompat.getColorStateList(it, R.color.blue) }
-            context?.let {
-                bottomBackButton.setTextColor(ContextCompat.getColorStateList(it, R.color.white))
-            }
+            bottomBackButton.visibility = View.VISIBLE
         }
 
         if (isLastItem) {
@@ -275,11 +265,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
             smallNextButton.setTextColor(ContextCompat.getColorStateList(it, R.color.fade_gray))
         }
 
-        bottomBackButton.backgroundTintList =
-            context?.let { ContextCompat.getColorStateList(it, R.color.white_blue) }
-        context?.let {
-            bottomBackButton.setTextColor(ContextCompat.getColorStateList(it, R.color.fade_gray))
-        }
+        bottomBackButton.visibility = View.INVISIBLE
 
         smallSubmitButton.backgroundTintList =
             context?.let { ContextCompat.getColorStateList(it, R.color.blue) }

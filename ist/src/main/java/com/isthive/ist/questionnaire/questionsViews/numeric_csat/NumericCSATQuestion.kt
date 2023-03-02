@@ -20,7 +20,6 @@ internal class NumericCSATQuestion internal constructor(
     private var lastSelectedNumber: TextView? = null
 
     private var questionTitle: TextView? = null
-    private var questionRequired: TextView? = null
     private var errorMessage: TextView? = null
     private var scale10Container: ConstraintLayout? = null
     private var scale5Container: ConstraintLayout? = null
@@ -45,7 +44,6 @@ internal class NumericCSATQuestion internal constructor(
     override fun initViews(view: View?) {
         view?.apply {
             questionTitle = findViewById(R.id.numericCsatQuestionTitle)
-            questionRequired = findViewById(R.id.numericCsatQuestionRequired)
             questionDescription = findViewById(R.id.numericCsatQuestionDescription)
             errorMessage = findViewById(R.id.numericCsatQuestionErrorMessage)
             scale10Container = findViewById(R.id.numericCsatQuestion10Container)
@@ -74,9 +72,9 @@ internal class NumericCSATQuestion internal constructor(
         question.let {
             questionTitle?.text = it.Title
             if (it.IsRequired)
-                questionRequired?.visibility = View.VISIBLE
+                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
             else
-                questionRequired?.visibility = View.GONE
+                questionTitle?.text = it.Title
             if (it.Scale == 10) {
                 scale10Container?.visibility = View.VISIBLE
                 scale5Container?.visibility = View.GONE
@@ -138,7 +136,7 @@ internal class NumericCSATQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-        errorMessage?.visibility = View.VISIBLE
+//        errorMessage?.visibility = View.VISIBLE
     }
 
     override fun getAnswer(): Answer {
@@ -150,16 +148,7 @@ internal class NumericCSATQuestion internal constructor(
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView?) {
-        if(selectedView == lastSelectedNumber){
-            // deselect option
-            isAnswerValid = false
-            if (question.IsRequired){
-                showError()
-            }
-            lastSelectedNumber = null
-            selectedNumber = null
-            selectedView?.let { minimizeNumber(it) }
-        }else {
+        if(selectedView != lastSelectedNumber) {
             // select option
             isAnswerValid = true
             errorMessage?.visibility = View.GONE

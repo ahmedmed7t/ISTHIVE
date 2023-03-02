@@ -1,11 +1,16 @@
 package com.isthive.ist.questionnaire.questionsViews.multipleChoice
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Looper
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.Choice
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.ChoiceType
+
 
 internal class MultipleChoiceAdapter constructor(
     private val choices: ArrayList<Choice>,
@@ -45,10 +51,18 @@ internal class MultipleChoiceAdapter constructor(
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: MultipleViewHolder, position: Int) {
         holder.choiceTitle.text = choices[position].Title
         holder.choiceRightIcon.visibility = View.GONE
         holder.choiceCheckBox.isChecked = false
+
+        holder.otherEditText.movementMethod = ScrollingMovementMethod()
+        holder.otherEditText.setOnTouchListener { v, event -> // Disallow the touch request for parent scroll on touch of child view
+            v.parent.requestDisallowInterceptTouchEvent(true)
+            false
+        }
 
         holder.choiceContainer.setOnClickListener {
             selectChoice(position)
@@ -56,6 +70,7 @@ internal class MultipleChoiceAdapter constructor(
         holder.choiceCheckBox.setOnClickListener {
             selectChoice(position)
         }
+
         holder.choiceCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked && choices[position].Type == ChoiceType.Other_Choice) {
                 holder.otherEditText.setText("")
@@ -65,7 +80,6 @@ internal class MultipleChoiceAdapter constructor(
 
         holder.otherEditText.addTextChangedListener {
             otherText = it.toString()
-            otherIndex = position
         }
 
         when (isModernMode) {
@@ -126,10 +140,15 @@ internal class MultipleChoiceAdapter constructor(
     override fun getItemCount() = choices.size
 
     private fun selectChoice(position: Int) {
-        if (choices[position].isSelected)
+        if (choices[position].isSelected) {
+            if(choices[position].Type == ChoiceType.Other_Choice)
+                otherIndex = -1
             handlerMultiple.onChoiceUnSelected(position)
-        else
+        }else {
+            if(choices[position].Type == ChoiceType.Other_Choice)
+                otherIndex = position
             handlerMultiple.onChoiceSelected(position)
+        }
 
         choices[position].isSelected = !choices[position].isSelected
         android.os.Handler(Looper.getMainLooper()).post {
