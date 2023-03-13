@@ -145,7 +145,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         if (navigationMode == NavigationMode.Modern)
             handleModernNavigation(isLastItem, isFirstItem)
         else
-            handleClassicNavigation(isLastItem)
+            handleClassicNavigation(isLastItem, isFirstItem)
 
         popUpContent.layoutParams = ViewGroup.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -166,12 +166,17 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
         progressBar.progress = progress
     }
 
-    private fun handleClassicNavigation(isLastItem: Boolean) {
+    private fun handleClassicNavigation(isLastItem: Boolean, isFirstItem: Boolean) {
         if (isLastItem) {
             largeNextButton.text = context?.resources?.getString(R.string.submit)
         } else {
             largeNextButton.text = context?.resources?.getString(R.string.next)
         }
+
+        if(isFirstItem)
+            topBackButton.visibility = View.GONE
+        else
+            topBackButton.visibility = View.VISIBLE
     }
 
     private fun handleModernNavigation(isLastItem: Boolean, isFirstItem: Boolean) {
@@ -279,7 +284,6 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private fun enableSingleQuestionClassicNavigation() {
         largeNextButton.text = getString(R.string.submit)
         topBackButton.visibility = View.GONE
-        topBackButton.visibility = View.GONE
     }
 
 
@@ -330,7 +334,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     }
 
     private fun enableClassicNavigationMode() {
-        topBackButton.visibility = View.VISIBLE
+        topBackButton.visibility = View.GONE
         largeNextButton.visibility = View.VISIBLE
 
         smallActionsContainer.visibility = View.GONE
@@ -354,8 +358,6 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private fun hideWelcomeMessage() {
         welcomeContainer.visibility = View.GONE
         allActionsContainer.visibility = View.VISIBLE
-        if (navigationMode == NavigationMode.Classic)
-            topBackButton.visibility = View.VISIBLE
     }
 
     private fun getScreenWidth() = Resources.getSystem().displayMetrics.widthPixels

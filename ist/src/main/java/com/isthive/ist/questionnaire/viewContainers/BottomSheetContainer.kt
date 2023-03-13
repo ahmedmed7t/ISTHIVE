@@ -157,7 +157,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         if (navigationMode == NavigationMode.Modern)
             handleModernNavigation(isLastItem, isFirstItem)
         else
-            handleClassicNavigation(isLastItem)
+            handleClassicNavigation(isLastItem, isFirstItem)
         popUpContent.layoutParams = ViewGroup.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
@@ -182,12 +182,18 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
         questionHandler?.onDismiss()
     }
 
-    private fun handleClassicNavigation(isLastItem: Boolean) {
+    private fun handleClassicNavigation(isLastItem: Boolean, isFirstItem: Boolean) {
         if (isLastItem) {
             largeNextButton.text = context?.resources?.getString(R.string.submit)
         } else {
             largeNextButton.text = context?.resources?.getString(R.string.next)
         }
+
+        if(isFirstItem)
+            topBackButton.visibility = View.GONE
+        else
+            topBackButton.visibility = View.VISIBLE
+
     }
 
     private fun handleModernNavigation(isLastItem: Boolean, isFirstItem: Boolean) {
@@ -260,7 +266,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             handleModernNavigation(isLastItem = false, isFirstItem = true)
         } else {
             enableClassicNavigationMode()
-            handleClassicNavigation(false)
+            handleClassicNavigation(false, true)
         }
 
         if (isSingleQuestion)
@@ -329,7 +335,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     }
 
     private fun enableClassicNavigationMode() {
-        topBackButton.visibility = View.VISIBLE
+        topBackButton.visibility = View.GONE
         largeNextButton.visibility = View.VISIBLE
 
         smallActionsContainer.visibility = View.GONE
@@ -353,8 +359,6 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private fun hideWelcomeMessage() {
         welcomeContainer.visibility = View.GONE
         allActionsContainer.visibility = View.VISIBLE
-        if (navigationMode == NavigationMode.Classic)
-            topBackButton.visibility = View.VISIBLE
     }
 
     override fun getTheme(): Int {

@@ -59,7 +59,6 @@
                 android:id="@+id/fullScreenSubmitButtonIcon"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
-                android:src="@drawable/ic_send"
                 android:layout_marginEnd="@dimen/_4sdp"
                 android:tint="@color/blue"
                 app:layout_constraintTop_toTopOf="parent"

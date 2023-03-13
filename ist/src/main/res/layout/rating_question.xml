@@ -80,11 +80,15 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/rating2Container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_24sdp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -115,11 +119,15 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/rating3Container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_24sdp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -150,11 +158,15 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/rating4Container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_24sdp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -185,11 +197,15 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:id="@+id/rating5Container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_24sdp"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center"
@@ -219,6 +235,7 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <TextView
