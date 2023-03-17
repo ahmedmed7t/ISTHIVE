@@ -64,10 +64,10 @@ internal class SingleChoiceQuestion internal constructor(
 
     override fun viewQuestionData() {
         question.apply {
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
 
             Choices?.let { choices ->
                 choicesAdapter = SingleChoiceAdapter(
@@ -89,7 +89,7 @@ internal class SingleChoiceQuestion internal constructor(
 //        errorMessage?.visibility = View.VISIBLE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         val answer = Answer(
             question.QuestionGUID, question.QuestionID, NumberResponse = null
         )
@@ -102,12 +102,12 @@ internal class SingleChoiceQuestion internal constructor(
                 )
             )
         }
-        return answer
+        return getValidAnswer(answer)
     }
 
-    private fun checkValidation(): Boolean{
+    private fun checkValidation(): Boolean {
         selectedChoice?.let {
-            if(selectedChoice == -1)
+            if (selectedChoice == -1)
                 return false
             return !(question.Choices!![selectedChoice!!].Type == ChoiceType.Other_Choice && choicesAdapter.otherText.isBlank())
         }

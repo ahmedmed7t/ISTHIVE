@@ -45,62 +45,68 @@ internal class SlidingQuestion internal constructor(
     override fun viewQuestionData() {
         question.let {
             questionTitle?.text = it.Title
-            if (it.IsRequired)
-                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = it.Title
+            questionTitle?.setText(
+                getSpannableTitle(it.Title, it.IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
         }
     }
 
     override fun handleUiEvents() {
-        slider?.addOnChangeListener(Slider.OnChangeListener { slider, value, fromUser ->
-            isAnswerValid = true
-            selectedValue = value.toInt()
-            onNumberSelected()
-            question.apply {
-                answerHandler?.onAnswerClicked(
-                    Answer(
-                        QuestionGUID, QuestionID, null, selectedValue, null
-                    ), question
-                )
+        slider?.addOnSliderTouchListener(object : Slider.OnSliderTouchListener{
+            override fun onStartTrackingTouch(slider: Slider) {}
+
+            override fun onStopTrackingTouch(slider: Slider) {
+                isAnswerValid = true
+                selectedValue = slider.value.toInt()
+                onNumberSelected()
+                question.apply {
+                    answerHandler?.onAnswerClicked(
+                        Answer(
+                            QuestionGUID, QuestionID, null, selectedValue, null
+                        ), question
+                    )
+                }
             }
+
         })
     }
 
     override fun showError() {
     }
 
-    private fun onNumberSelected(){
+    private fun onNumberSelected() {
         lastSelectedNumber?.setTextColor(ContextCompat.getColor(context, R.color.gray))
-        when(selectedValue){
-            1 ->{
+        when (selectedValue) {
+            1 -> {
                 number1.setTextColor(ContextCompat.getColor(context, R.color.blue))
                 lastSelectedNumber = number1
             }
-            2 ->{
+            2 -> {
                 number2.setTextColor(ContextCompat.getColor(context, R.color.blue))
                 lastSelectedNumber = number2
             }
-            3 ->{
+            3 -> {
                 number3.setTextColor(ContextCompat.getColor(context, R.color.blue))
                 lastSelectedNumber = number3
             }
-            4 ->{
+            4 -> {
                 number4.setTextColor(ContextCompat.getColor(context, R.color.blue))
                 lastSelectedNumber = number4
             }
-            5 ->{
+            5 -> {
                 number5.setTextColor(ContextCompat.getColor(context, R.color.blue))
                 lastSelectedNumber = number5
             }
         }
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         question.apply {
-            return Answer(
+            val answer = Answer(
                 QuestionGUID, QuestionID, null, selectedValue, null
             )
+            return getValidAnswer(answer)
         }
     }
 }

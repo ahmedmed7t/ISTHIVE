@@ -53,13 +53,34 @@
             android:visibility="visible"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/not_likely"
+                android:textColor="@color/light_pink"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@id/npsQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/extremelyLikelyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/extremely_likely"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="@id/npsQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/npsQuestions5NumbersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/extremelyLikelyLabel"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
+                >
 
                 <TextView
                     android:id="@+id/npsQuestion5_1"
@@ -142,25 +163,6 @@
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/not_likely"
-                android:textColor="@color/light_pink"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/npsQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/npsQuestions5NumbersContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/extremely_likely"
-                android:textColor="@color/dark_green"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="@id/npsQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/npsQuestions5NumbersContainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

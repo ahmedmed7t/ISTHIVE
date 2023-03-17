@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.isthive.ist.R
 import com.isthive.ist.app.helper.LocaleHelper
@@ -54,8 +55,8 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
     private lateinit var fullScreenRecyclerView: RecyclerView
     private lateinit var fullScreenSubmitButton: TextView
     private lateinit var fullScreenLayout: ConstraintLayout
+    private lateinit var fullScreenNextButtonContainer: ConstraintLayout
     private lateinit var fullScreenCloseButton: AppCompatImageView
-    private lateinit var sendIcon: AppCompatImageView
     private val fullScreenListAdapter: FullScreenListAdapter by lazy {
         FullScreenListAdapter(arrayListOf())
     }
@@ -71,9 +72,9 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
 
         fullScreenRecyclerView = findViewById(R.id.fullScreenRecyclerView)
         fullScreenSubmitButton = findViewById(R.id.fullScreenSubmitButton)
+        fullScreenNextButtonContainer = findViewById(R.id.fullScreenSubmitButtonContainer)
         fullScreenLayout = findViewById(R.id.fullScreenListContainer)
         fullScreenCloseButton = findViewById(R.id.fullScreenContainerClose)
-        sendIcon = findViewById(R.id.fullScreenSubmitButtonIcon)
         loading = findViewById(R.id.surveyProgress)
         loading.visibility = View.VISIBLE
         listenToViewModelValues()
@@ -198,8 +199,12 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             for (item in answers)
                 viewModel.saveSurveyRequest.QuestionResponses.add(item.value)
         }
-        loading.visibility = View.VISIBLE
-        viewModel.saveSurvey()
+
+        if (viewModel.saveSurveyRequest.QuestionResponses.isNotEmpty()) {
+            loading.visibility = View.VISIBLE
+            viewModel.saveSurvey()
+        }else
+            Toast.makeText(this, "Sorry! Can't submit empty response", Toast.LENGTH_LONG).show()
     }
 
     override fun onDismiss() {
@@ -216,6 +221,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
             .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
             .setHasCloseButton(questionnaireUiState.survey.SurveyOptions.EnableCloseButton)
+            .setHasBackButton(questionnaireUiState.survey.SurveyOptions.EnablePreviousButton)
             .setHasProgressBar(questionnaireUiState.survey.SurveyOptions.HasProgressBar)
             .setHandler(this)
         (containerView as PopupContainerView).show(
@@ -234,6 +240,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
             .setNavigationMode(questionnaireUiState.survey.SurveyOptions.NavigationMode)
             .setWelcomeMessage(questionnaireUiState.survey.SurveyOptions.Theme.WelcomeMessage)
             .setHasCloseButton(questionnaireUiState.survey.SurveyOptions.EnableCloseButton)
+            .setHasBackButton(questionnaireUiState.survey.SurveyOptions.EnablePreviousButton)
             .setHasProgressBar(questionnaireUiState.survey.SurveyOptions.HasProgressBar)
             .setHandler(this)
         (containerView as BottomSheetContainer).show(
@@ -251,15 +258,15 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
 
         fullScreenListAdapter.updateQuestionsList(questionList)
         fullScreenRecyclerView.adapter = fullScreenListAdapter
-        if(questionnaireUiState.survey.SurveyOptions.EnableCloseButton){
+        if (questionnaireUiState.survey.SurveyOptions.EnableCloseButton) {
             fullScreenCloseButton.visibility = View.VISIBLE
-        }else{
+        } else {
             fullScreenCloseButton.visibility = View.GONE
         }
 
-        when(questionnaireUiState.survey.SurveyOptions.NavigationMode){
-            NavigationMode.Modern -> sendIcon.visibility = View.GONE
-            NavigationMode.Classic -> sendIcon.visibility = View.VISIBLE
+        when (questionnaireUiState.survey.SurveyOptions.NavigationMode) {
+            NavigationMode.Modern -> fullScreenNextButtonContainer.background = ContextCompat.getDrawable(this, R.drawable.rectangle_8_radius_white_round_corners)
+            NavigationMode.Classic -> fullScreenNextButtonContainer.background = ContextCompat.getDrawable(this, R.drawable.rectangle_18_radius_white_round_corners)
         }
 
         fullScreenSubmitButton.setOnClickListener {
@@ -268,8 +275,12 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
                 if (fullScreenAnswers.isNotEmpty()) {
                     viewModel.saveSurveyRequest.QuestionResponses.addAll(fullScreenAnswers)
                 }
-                loading.visibility = View.VISIBLE
-                viewModel.saveSurvey()
+                if (viewModel.saveSurveyRequest.QuestionResponses.isNotEmpty()) {
+                    loading.visibility = View.VISIBLE
+                    viewModel.saveSurvey()
+                }
+                else
+                    Toast.makeText(this, "Sorry! Can't submit empty response", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -310,7 +321,7 @@ internal class QuestionnaireActivity : AppCompatActivity(), QuestionHandler, Ans
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         fullScreenLayout.visibility = View.GONE
         containerView?.dismissContainer()
-        if(isFullScreenMode)
+        if (isFullScreenMode)
             onBackPressed()
     }
 

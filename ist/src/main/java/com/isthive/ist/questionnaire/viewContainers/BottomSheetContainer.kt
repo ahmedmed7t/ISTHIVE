@@ -2,20 +2,19 @@ package com.isthive.ist.questionnaire.viewContainers
 
 import android.content.DialogInterface
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.isthive.ist.R
 import com.isthive.ist.questionnaire.questionnaireModule.data.models.questionnaire.NavigationMode
@@ -35,6 +34,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
     private var hasCloseButton: Boolean = false
+    private var hasBackButton: Boolean = false
     private var hasProgressBar: Boolean = false
 
     private lateinit var topBackButton: AppCompatImageView
@@ -85,7 +85,13 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             welcomeTitle = findViewById(R.id.bottomSheetWelcomeTitle)
             welcomeDescription = findViewById(R.id.bottomSheetWelcomeMessage)
             takeSurveyButton = findViewById(R.id.bottomSheetWelcomeTakeSurvey)
+        }
 
+        dialog!!.setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dialog.dismiss()
+            }
+            true
         }
     }
 
@@ -106,7 +112,9 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             questionHandler?.onSubmitClicked()
         }
         largeNextButton.setOnClickListener {
-            if (isLastItem)
+            if(isSingleQuestion)
+                questionHandler?.onSubmitClicked()
+            else if (isLastItem)
                 questionHandler?.onSubmitClicked()
             else
                 questionHandler?.onNextClicked()
@@ -139,6 +147,11 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
 
     fun setHasCloseButton(hasCloseButton: Boolean): BottomSheetContainer {
         this.hasCloseButton = hasCloseButton
+        return this
+    }
+
+    fun setHasBackButton(hasBackButton: Boolean): BottomSheetContainer {
+        this.hasBackButton = hasBackButton
         return this
     }
 
@@ -191,7 +204,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
 
         if(isFirstItem)
             topBackButton.visibility = View.GONE
-        else
+        else if(hasBackButton)
             topBackButton.visibility = View.VISIBLE
 
     }
@@ -375,6 +388,21 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             setBackgroundDrawable(
                 ColorDrawable(Color.TRANSPARENT)
             )
+        }
+        isCancelable = false
+        // retrieve display dimensions
+        val displayRectangle = Rect()
+        val window: Window = activity!!.window
+        window.decorView.getWindowVisibleDisplayFrame(displayRectangle)
+
+        val minimumHeight = (displayRectangle.height() * 0.58f).toInt()
+
+        dialog?.also {
+            val bottomSheet = it.findViewById<View>(R.id.design_bottom_sheet)
+            bottomSheet?.layoutParams?.height = minimumHeight
+            val behavior = BottomSheetBehavior.from<View>(bottomSheet!!)
+            behavior.peekHeight = minimumHeight
+            view?.requestLayout()
         }
     }
 }

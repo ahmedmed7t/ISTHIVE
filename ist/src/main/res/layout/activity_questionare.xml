@@ -55,17 +55,6 @@
                 android:layout_height="match_parent"
                 android:text="@string/submit" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/fullScreenSubmitButtonIcon"
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_4sdp"
-                android:tint="@color/blue"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/fullScreenSubmitButton"
-                />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

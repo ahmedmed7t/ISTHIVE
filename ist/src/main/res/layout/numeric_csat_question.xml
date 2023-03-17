@@ -53,13 +53,34 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/very_dissatisfied"
+                android:textColor="@color/light_pink"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@id/numericCsatQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/verySatisfiedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/very_satisfied"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="@id/numericCsatQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
             <LinearLayout
                 android:id="@+id/numericCsatQuestions5NumbersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/verySatisfiedLabel">
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_1"
@@ -142,25 +163,6 @@
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/very_dissatisfied"
-                android:textColor="@color/light_pink"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/numericCsatQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/numericCsatQuestions5NumbersContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/very_satisfied"
-                android:textColor="@color/dark_green"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="@id/numericCsatQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/numericCsatQuestions5NumbersContainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -87,10 +87,11 @@ internal class RatingQuestion internal constructor(
     override fun viewQuestionData() {
         question.let {
             questionTitle?.text = it.Title
-            if (it.IsRequired)
-                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = it.Title
+            questionTitle?.setText(
+                getSpannableTitle(it.Title, it.IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             when (it.StarOption?.Shape) {
                 StarShape.STAR -> {
                     normalRatingIcon = R.drawable.ic_star
@@ -161,11 +162,12 @@ internal class RatingQuestion internal constructor(
 //        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         question.apply {
-            return Answer(
+            val answer = Answer(
                 QuestionGUID, QuestionID, null, selectedRate, null
             )
+            return getValidAnswer(answer)
         }
     }
 

@@ -30,7 +30,7 @@
         android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numericCesQuestionDescription"
@@ -53,13 +53,33 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/very_difficult"
+                android:textColor="@color/light_pink"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintStart_toStartOf="@id/numericCesQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/veryEasyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/very_easy"
+                android:textColor="@color/dark_green"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="@id/numericCesQuestions5NumbersContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
                 android:id="@+id/numericCesQuestions5NumbersContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@id/veryEasyLabel"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_1"
@@ -142,25 +162,6 @@
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/very_difficult"
-                android:textColor="@color/light_pink"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintStart_toStartOf="@id/numericCesQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/numericCesQuestions5NumbersContainer" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_12sdp"
-                android:text="@string/very_easy"
-                android:textColor="@color/dark_green"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="@id/numericCesQuestions5NumbersContainer"
-                app:layout_constraintTop_toBottomOf="@id/numericCesQuestions5NumbersContainer" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -203,7 +204,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/pink"
+                    android:backgroundTint="@color/red1"
                     android:gravity="center"
                     android:text="@string/_1"
                     android:textColor="@android:color/white"
@@ -220,7 +221,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/dark_orange"
+                    android:backgroundTint="@color/red2"
                     android:gravity="center"
                     android:text="@string/_2"
                     android:textColor="@android:color/white"
@@ -237,7 +238,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_orange"
+                    android:backgroundTint="@color/red3"
                     android:gravity="center"
                     android:text="@string/_3"
                     android:textColor="@android:color/white"
@@ -254,7 +255,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_orange"
+                    android:backgroundTint="@color/orange1"
                     android:gravity="center"
                     android:text="@string/_4"
                     android:textColor="@android:color/white"
@@ -271,7 +272,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/yellow"
+                    android:backgroundTint="@color/orange1"
                     android:gravity="center"
                     android:text="@string/_5"
                     android:textColor="@android:color/white"
@@ -298,7 +299,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/lemon"
+                    android:backgroundTint="@color/yellow1"
                     android:gravity="center"
                     android:text="@string/_6"
                     android:textColor="@android:color/white"
@@ -315,7 +316,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/lemon_green"
+                    android:backgroundTint="@color/mint_yellow"
                     android:gravity="center"
                     android:text="@string/_7"
                     android:textColor="@android:color/white"
@@ -332,7 +333,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_green"
+                    android:backgroundTint="@color/mint_green"
                     android:gravity="center"
                     android:text="@string/_8"
                     android:textColor="@android:color/white"
@@ -349,7 +350,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/green"
+                    android:backgroundTint="@color/light_green1"
                     android:gravity="center"
                     android:text="@string/_9"
                     android:textColor="@android:color/white"
@@ -366,7 +367,7 @@
                     android:layout_height="@dimen/_32sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/dark_green"
+                    android:backgroundTint="@color/dark_green1"
                     android:gravity="center"
                     android:text="@string/_10"
                     android:textColor="@android:color/white"

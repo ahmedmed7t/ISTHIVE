@@ -41,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
         android:layout_marginHorizontal="@dimen/_24sdp"
+        android:maxLength="999"
         android:layout_marginTop="@dimen/_10sdp"
         android:paddingHorizontal="@dimen/_4sdp"
         android:background="@drawable/normal_edit_text_background"

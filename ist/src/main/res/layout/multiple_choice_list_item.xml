@@ -63,6 +63,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/rounded_border"
         android:gravity="top"
+        android:maxLength="999"
         android:hint="@string/please_enter_your_answer"
         android:inputType="textMultiLine"
         android:isScrollContainer="true"

@@ -18,7 +18,7 @@ internal class CESQuestion internal constructor(
 ) : BaseQuestionView(context, question, resourceLayout) {
 
     private var questionTitle: TextView? = null
-    private var errorMessage: TextView?  = null
+    private var errorMessage: TextView? = null
 
     private var option1: RadioButtonListItem? = null
     private var option2: RadioButtonListItem? = null
@@ -50,10 +50,11 @@ internal class CESQuestion internal constructor(
         question.apply {
             questionTitle?.text = Title
             setOptionsStyle(TemplateID)
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             when (Scale) {
                 3 -> {
                     option4?.visibility = View.GONE
@@ -116,7 +117,7 @@ internal class CESQuestion internal constructor(
 //        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         val answer = Answer(question.QuestionGUID, question.QuestionID)
 
         lastSelectedIndex?.let { lastIndex ->
@@ -128,7 +129,7 @@ internal class CESQuestion internal constructor(
                 )
             )
         }
-        return answer
+        return getValidAnswer(answer)
     }
 
     private fun onOptionClicked(selectedItem: RadioButtonListItem?, index: Int) {

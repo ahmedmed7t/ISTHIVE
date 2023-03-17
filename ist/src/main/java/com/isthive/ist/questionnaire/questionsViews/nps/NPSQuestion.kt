@@ -72,10 +72,11 @@ internal class NPSQuestion internal constructor(
     override fun viewQuestionData() {
         question.let {
             questionTitle?.text = it.Title
-            if (it.IsRequired)
-                questionTitle?.setText(getSpannableTitle(it.Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = it.Title
+            questionTitle?.setText(
+                getSpannableTitle(it.Title, it.IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             if (it.Scale == 10) {
                 scale10Container?.visibility = View.VISIBLE
                 scale5Container?.visibility = View.GONE
@@ -142,16 +143,17 @@ internal class NPSQuestion internal constructor(
 //        errorMessage?.visibility = View.VISIBLE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         question.apply {
-            return Answer(
+            val answer = Answer(
                 QuestionGUID, QuestionID, null, selectedNumber, null
             )
+            return getValidAnswer(answer)
         }
     }
 
     private fun onNumberClicked(value: Int, selectedView: TextView?) {
-        if(selectedView != lastSelectedNumber) {
+        if (selectedView != lastSelectedNumber) {
             // select option
             isAnswerValid = true
             errorMessage?.visibility = View.GONE

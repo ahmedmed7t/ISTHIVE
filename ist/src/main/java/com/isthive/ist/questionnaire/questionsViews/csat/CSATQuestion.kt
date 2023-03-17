@@ -50,10 +50,11 @@ internal class CSATQuestion internal constructor(
         question.apply {
             questionTitle?.text = Title
             setOptionsStyle(TemplateID)
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             when (Scale) {
                 2 -> {
                     option3?.visibility = View.GONE
@@ -123,7 +124,7 @@ internal class CSATQuestion internal constructor(
 //        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         val answer = Answer(
             question.QuestionGUID, question.QuestionID
         )
@@ -139,7 +140,7 @@ internal class CSATQuestion internal constructor(
                 )
             }
         }
-        return answer
+        return getValidAnswer(answer)
     }
 
     private fun onOptionClicked(selectedItem: RadioButtonListItem?, index: Int) {

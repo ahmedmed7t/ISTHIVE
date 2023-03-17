@@ -110,8 +110,8 @@ internal class QuestionProvider(
                                 question.QuestionType != QuestionType.Postal_code_input ||
                                 question.QuestionType != QuestionType.URL_input ||
                                 question.QuestionType != QuestionType.Image_MCQ) &&
-                        (item.MinValue <= (answer?.NumberResponse ?: 0) &&
-                                item.MaxValue >= (answer?.NumberResponse ?: 0))
+                        (item.MinValue <= (answer?.NumberResponse ?: -1) &&
+                                item.MaxValue >= (answer?.NumberResponse ?: -1))
                     ) {
                         nextQuestionGuid = item.SkipToQuestionGUID
                         nextQuestionIndex = nextQuestionGuidIsNull(

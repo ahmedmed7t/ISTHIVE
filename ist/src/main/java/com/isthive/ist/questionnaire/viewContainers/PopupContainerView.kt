@@ -7,10 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -67,6 +64,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     private var navigationMode = NavigationMode.Modern
     private var welcomeMessage: WelcomeMessage? = null
     private var hasCloseButton: Boolean = false
+    private var hasBackButton: Boolean = false
     private var hasProgressBar: Boolean = false
 
     override fun onCreateView(
@@ -101,6 +99,13 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
             welcomeDescription = findViewById(R.id.popUpWelcomeMessage)
             takeSurveyButton = findViewById(R.id.popUpWelcomeTakeSurvey)
         }
+
+        dialog!!.setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dialog.dismiss()
+            }
+            true
+        }
     }
 
     fun mainView(popUpContent: View): PopupContainerView {
@@ -127,6 +132,11 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
 
     fun setHasCloseButton(hasCloseButton: Boolean): PopupContainerView {
         this.hasCloseButton = hasCloseButton
+        return this
+    }
+
+    fun setHasBackButton(hasBackButton: Boolean): PopupContainerView {
+        this.hasBackButton = hasBackButton
         return this
     }
 
@@ -294,6 +304,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
 
     override fun onStart() {
         super.onStart()
+        isCancelable = false
         dialog?.window?.apply {
             setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -323,7 +334,9 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
             questionHandler?.onSubmitClicked()
         }
         largeNextButton.setOnClickListener {
-            if (isLastItem)
+            if(isSingleQuestion)
+                questionHandler?.onSubmitClicked()
+            else if (isLastItem)
                 questionHandler?.onSubmitClicked()
             else
                 questionHandler?.onNextClicked()
@@ -361,4 +374,6 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
     }
 
     private fun getScreenWidth() = Resources.getSystem().displayMetrics.widthPixels
+
+
 }

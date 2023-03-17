@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/design_bottom_sheet"
     android:background="@drawable/rectangle_8_radius_white_round_corners">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -16,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/blue"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <ProgressBar
@@ -31,7 +32,7 @@
         android:layout_marginTop="@dimen/_28sdp"
         android:progressTint="@color/blue"
         android:progress="0"
-        android:visibility="visible"
+        android:visibility="gone"
         />
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/bottomSheetContainerBack"
@@ -47,9 +48,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheetContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_height="0dp"
         android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:background="@drawable/bottom_sheet_background"
         app:layout_constraintBottom_toTopOf="@id/bottomSheetActionContainer"
         app:layout_constraintTop_toBottomOf="@id/bottomSheetContainerClose">

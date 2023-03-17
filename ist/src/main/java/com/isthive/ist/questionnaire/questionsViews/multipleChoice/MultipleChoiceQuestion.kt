@@ -26,8 +26,8 @@ internal class MultipleChoiceQuestion internal constructor(
     private var choicesRecyclerView: RecyclerView? = null
     private var errorMessage: TextView? = null
     override var isAnswerValid: Boolean = false
-        get()  {
-             return checkAnswerValidation()
+        get() {
+            return checkAnswerValidation()
         }
 
 //    private var nested: ScrollView? = null
@@ -61,10 +61,11 @@ internal class MultipleChoiceQuestion internal constructor(
     override fun viewQuestionData() {
         question.apply {
             questionTitle?.text = Title
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             Choices?.let { choices ->
                 choicesAdapter = MultipleChoiceAdapter(
                     choices,
@@ -89,7 +90,7 @@ internal class MultipleChoiceQuestion internal constructor(
 //        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         val selectedChoices = arrayListOf<AnswerChoice>()
         question.apply {
             for (item in selectedItems) {
@@ -111,7 +112,8 @@ internal class MultipleChoiceQuestion internal constructor(
                     )
                 }
             }
-            return if (selectedChoices.isNotEmpty())
+
+            val answer = if (selectedChoices.isNotEmpty())
                 Answer(
                     QuestionGUID, QuestionID, selectedChoices, null
                 )
@@ -119,14 +121,15 @@ internal class MultipleChoiceQuestion internal constructor(
                 Answer(
                     QuestionGUID, QuestionID, null, null
                 )
+            return getValidAnswer(answer)
         }
     }
 
-    private fun checkAnswerValidation(): Boolean{
-        if(selectedItems.isEmpty())
+    private fun checkAnswerValidation(): Boolean {
+        if (selectedItems.isEmpty())
             return false
 
-        for(item in selectedItems){
+        for (item in selectedItems) {
             if (item == choicesAdapter.otherIndex && choicesAdapter.otherText.isBlank()) {
                 return false
             }

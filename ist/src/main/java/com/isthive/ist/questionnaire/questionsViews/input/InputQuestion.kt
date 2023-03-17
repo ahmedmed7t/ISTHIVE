@@ -40,16 +40,19 @@ internal class InputQuestion internal constructor(
             questionTitle?.text = Title
             this@InputQuestion.questionType = QuestionType
             handleInputType()
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
         }
     }
 
     override fun handleUiEvents() {
         questionInput?.addTextChangedListener {
-            if (isTextValid(it.toString().trim()) || (!question.IsRequired && it.toString().isEmpty())) {
+            if (isTextValid(it.toString().trim()) || (!question.IsRequired && it.toString()
+                    .isEmpty())
+            ) {
                 showSuccess()
                 canGoNext = true
             } else {
@@ -61,23 +64,24 @@ internal class InputQuestion internal constructor(
 
     override fun showError() {
         isAnswerValid = false
-//        questionError?.visibility = View.VISIBLE
+        questionError?.visibility = View.VISIBLE
 //        questionInput?.background =
 //            ContextCompat.getDrawable(context, R.drawable.error_edit_text_background)
     }
 
     private fun showSuccess() {
         isAnswerValid = true
-//        questionError?.visibility = View.GONE
+        questionError?.visibility = View.GONE
 //        questionInput?.background =
 //            ContextCompat.getDrawable(context, R.drawable.correct_edit_text_background)
     }
 
-    override fun getAnswer(): Answer {
-        return Answer(
+    override fun getAnswer(): Answer? {
+        val answer = Answer(
             question.QuestionGUID, question.QuestionID, null,
-            null, questionInput?.text.toString()
+            null, questionInput?.text.toString().ifBlank { null }
         )
+        return getValidAnswer(answer)
     }
 
     private fun handleInputType() {
@@ -125,7 +129,7 @@ internal class InputQuestion internal constructor(
                 text.isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(text).matches()
             }
             QuestionType.Phone_number_input -> {
-                text.isNotBlank() && text.length == 11
+                text.isNotBlank() && text.length in 9..15
             }
             QuestionType.Postal_code_input -> {
                 (text.isNotBlank() && text.isDigitsOnly() && text.length == 5)

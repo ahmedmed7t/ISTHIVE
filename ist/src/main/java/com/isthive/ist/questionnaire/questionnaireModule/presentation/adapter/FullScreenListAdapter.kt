@@ -88,7 +88,7 @@ internal class FullScreenListAdapter(
     fun collectAnswers(): ArrayList<Answer> {
         val answers = arrayListOf<Answer>()
         for(item in questions){
-            answers.add(item.getAnswer())
+            item.getAnswer()?.let { answers.add(it) }
         }
         return answers
     }

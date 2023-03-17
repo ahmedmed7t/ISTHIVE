@@ -43,7 +43,7 @@ internal class EmojiQuestion internal constructor(
 
     private var errorMessage: TextView? = null
 
-    private var selectedEmoji = 0
+    private var selectedEmoji = -1
 
     override fun initViews(view: View?) {
         view?.apply {
@@ -76,10 +76,11 @@ internal class EmojiQuestion internal constructor(
     override fun viewQuestionData() {
         question.apply {
             questionTitle?.text = Title
-            if (IsRequired)
-                questionTitle?.setText(getSpannableTitle(Title), TextView.BufferType.SPANNABLE)
-            else
-                questionTitle?.text = Title
+            questionTitle?.setText(
+                getSpannableTitle(Title, IsRequired),
+                TextView.BufferType.SPANNABLE
+            )
+
             when (TemplateID) {
                 MODERN_STYLE -> enableModernMode()
                 CLASSIC_LIGHT -> enableClassicLightMode()
@@ -139,13 +140,13 @@ internal class EmojiQuestion internal constructor(
 //        errorMessage?.visibility = View.GONE
     }
 
-    override fun getAnswer(): Answer {
+    override fun getAnswer(): Answer? {
         val answer = Answer(question.QuestionGUID, question.QuestionID, null)
 
-        if(isAnswerValid)
+        if (isAnswerValid)
             answer.NumberResponse = selectedEmoji
 
-        return answer
+        return getValidAnswer(answer)
     }
 
     private fun onEmojiClicked(emoji: AppCompatImageView?) {
@@ -174,9 +175,9 @@ internal class EmojiQuestion internal constructor(
         }
     }
 
-    private fun showEmojiLine(emoji: AppCompatImageView?){
+    private fun showEmojiLine(emoji: AppCompatImageView?) {
         lastSelectedLine?.visibility = View.INVISIBLE
-        when(emoji){
+        when (emoji) {
             angryEmoji -> {
                 angryEmojiLine?.visibility = View.VISIBLE
                 lastSelectedLine = angryEmojiLine

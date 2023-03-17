@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_380sdp"
+    android:layout_height="@dimen/_360sdp"
     android:background="@drawable/rectangle_8_radius_white_round_corners">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/_28sdp"
             android:progress="0"
             android:progressTint="@color/blue"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +53,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/popUpContainer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_280sdp"
-        android:layout_marginHorizontal="10dp"
+        android:layout_height="@dimen/_260sdp"
         android:background="@drawable/rectangle_4_radius_white_round_corners"
         app:layout_constraintBottom_toTopOf="@id/popUpActionContainer"
         app:layout_constraintTop_toBottomOf="@id/popUpContainerHeader">
