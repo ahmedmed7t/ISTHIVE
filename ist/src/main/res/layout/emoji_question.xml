@@ -30,7 +30,6 @@
         android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/emojiQuestionDescription"
@@ -75,6 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:animateLayoutChanges="true"
                     android:src="@color/blue"
                     android:visibility="invisible" />
@@ -104,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:animateLayoutChanges="true"
                     android:src="@color/blue"
                     android:visibility="invisible" />
@@ -132,6 +133,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:animateLayoutChanges="true"
                     android:src="@color/blue"
                     android:visibility="invisible" />
@@ -160,6 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:animateLayoutChanges="true"
                     android:src="@color/blue"
                     android:visibility="invisible" />
@@ -188,6 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginHorizontal="@dimen/_12sdp"
                     android:animateLayoutChanges="true"
                     android:src="@color/blue"
                     android:visibility="invisible" />

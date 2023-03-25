@@ -50,14 +50,29 @@ internal class InputQuestion internal constructor(
 
     override fun handleUiEvents() {
         questionInput?.addTextChangedListener {
-            if (isTextValid(it.toString().trim()) || (!question.IsRequired && it.toString()
-                    .isEmpty())
-            ) {
-                showSuccess()
-                canGoNext = true
+            if (question.IsRequired) {
+                if (it.toString().isEmpty()) {
+                    isAnswerValid = false
+                    questionError?.visibility = View.GONE
+                    canGoNext = false
+                } else if (!isTextValid(it.toString().trim())) {
+                    showError()
+                    canGoNext = false
+                } else {
+                    showSuccess()
+                    canGoNext = true
+                }
             } else {
-                canGoNext = false
-                showError()
+                canGoNext = if (it.toString().isEmpty()) {
+                    showSuccess()
+                    true
+                } else if (!isTextValid(it.toString().trim())) {
+                    showError()
+                    false
+                } else {
+                    showSuccess()
+                    true
+                }
             }
         }
     }

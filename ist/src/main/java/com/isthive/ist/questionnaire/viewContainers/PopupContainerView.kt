@@ -104,7 +104,7 @@ internal class PopupContainerView : DialogFragment(), ContainersContract {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 dialog.dismiss()
             }
-            true
+            false
         }
     }
 

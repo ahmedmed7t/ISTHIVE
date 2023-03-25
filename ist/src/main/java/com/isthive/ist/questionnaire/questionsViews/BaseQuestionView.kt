@@ -46,6 +46,9 @@ abstract class BaseQuestionView internal constructor(
 
     private fun init(resourceFile: Int) {
         view = LayoutInflater.from(context).inflate(resourceFile, this, true)
+        if(!question.IsRequired){
+            isAnswerValid = true
+        }
         initViews(view)
         viewQuestionData()
         handleUiEvents()

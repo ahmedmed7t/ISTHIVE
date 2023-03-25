@@ -174,8 +174,8 @@ internal class NumericCSATQuestion internal constructor(
     private fun maximizeSelectedNumber(selectedView: TextView?) {
         val params = selectedView?.layoutParams
         context?.resources?.apply {
-            params?.height = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
-            params?.width = getDimension(com.intuit.sdp.R.dimen._38sdp).toInt()
+            params?.height = getDimension(com.intuit.sdp.R.dimen._34sdp).toInt()
+            params?.width = getDimension(com.intuit.sdp.R.dimen._34sdp).toInt()
         }
         selectedView?.layoutParams = params
     }
@@ -183,8 +183,8 @@ internal class NumericCSATQuestion internal constructor(
     private fun minimizeNumber(unSelectedView: TextView) {
         val params = unSelectedView.layoutParams
         context?.resources?.apply {
-            params.height = getDimension(com.intuit.sdp.R.dimen._32sdp).toInt()
-            params.width = getDimension(com.intuit.sdp.R.dimen._32sdp).toInt()
+            params.height = getDimension(com.intuit.sdp.R.dimen._26sdp).toInt()
+            params.width = getDimension(com.intuit.sdp.R.dimen._26sdp).toInt()
         }
         unSelectedView.layoutParams = params
     }

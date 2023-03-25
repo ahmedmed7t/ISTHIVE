@@ -91,7 +91,7 @@ internal class BottomSheetContainer : BottomSheetDialogFragment(), ContainersCon
             if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
                 dialog.dismiss()
             }
-            true
+            false
         }
     }
 

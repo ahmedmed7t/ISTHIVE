@@ -83,8 +83,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_1"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/pink"
@@ -100,8 +100,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_2"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/mustard"
@@ -117,8 +117,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_3"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/yellow"
@@ -134,8 +134,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_4"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/lemon_green"
@@ -151,8 +151,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion5_5"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_green"
@@ -200,8 +200,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_1"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/red1"
@@ -217,8 +217,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_2"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/red2"
@@ -234,8 +234,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_3"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/red3"
@@ -251,8 +251,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_4"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/orange1"
@@ -268,8 +268,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_5"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/orange1"
@@ -277,6 +277,24 @@
                     android:text="@string/_5"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/numericCesQuestion10_6"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/yellow1"
+                    android:gravity="center"
+                    android:text="@string/_6"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_14ssp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -294,26 +312,9 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/numericCesQuestion10_6"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:animateLayoutChanges="true"
-                    android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/yellow1"
-                    android:gravity="center"
-                    android:text="@string/_6"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_14ssp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
                     android:id="@+id/numericCesQuestion10_7"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/mint_yellow"
@@ -329,8 +330,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_8"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/mint_green"
@@ -346,8 +347,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_9"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/light_green1"
@@ -363,8 +364,8 @@
 
                 <TextView
                     android:id="@+id/numericCesQuestion10_10"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_green1"

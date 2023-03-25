@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_10sdp"
     android:orientation="vertical"
     android:weightSum="10"
     >
@@ -31,7 +32,6 @@
         android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
         tools:text="Ahmed Medhat Mohamed" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -30,7 +30,6 @@
         android:gravity="start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numericCsatQuestionDescription"
@@ -84,8 +83,8 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_1"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/pink"
@@ -101,8 +100,8 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_2"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/mustard"
@@ -118,8 +117,8 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_3"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/yellow"
@@ -135,8 +134,8 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_4"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/lemon_green"
@@ -152,8 +151,8 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion5_5"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
                     android:backgroundTint="@color/dark_green"
@@ -202,11 +201,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_1"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/pink"
+                    android:backgroundTint="@color/red1"
                     android:gravity="center"
                     android:text="@string/_1"
                     android:textColor="@android:color/white"
@@ -219,11 +218,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_2"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/dark_orange"
+                    android:backgroundTint="@color/red2"
                     android:gravity="center"
                     android:text="@string/_2"
                     android:textColor="@android:color/white"
@@ -236,11 +235,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_3"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_orange"
+                    android:backgroundTint="@color/red3"
                     android:gravity="center"
                     android:text="@string/_3"
                     android:textColor="@android:color/white"
@@ -253,11 +252,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_4"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_orange"
+                    android:backgroundTint="@color/orange1"
                     android:gravity="center"
                     android:text="@string/_4"
                     android:textColor="@android:color/white"
@@ -270,13 +269,30 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_5"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/yellow"
+                    android:backgroundTint="@color/orange2"
                     android:gravity="center"
                     android:text="@string/_5"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_14ssp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/numericCsatQuestion10_6"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/circle_background"
+                    android:backgroundTint="@color/yellow1"
+                    android:gravity="center"
+                    android:text="@string/_6"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_14ssp" />
             </LinearLayout>
@@ -285,7 +301,7 @@
                 android:id="@+id/numericCsatQuestions10NumbersContainerSecondRow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@id/numericCsatQuestions10NumbersContainerFirstRow">
@@ -296,29 +312,12 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/numericCsatQuestion10_6"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                    android:animateLayoutChanges="true"
-                    android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/lemon"
-                    android:gravity="center"
-                    android:text="@string/_6"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_14ssp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <TextView
                     android:id="@+id/numericCsatQuestion10_7"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/lemon_green"
+                    android:backgroundTint="@color/mint_yellow"
                     android:gravity="center"
                     android:text="@string/_7"
                     android:textColor="@android:color/white"
@@ -331,11 +330,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_8"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/light_green"
+                    android:backgroundTint="@color/mint_green"
                     android:gravity="center"
                     android:text="@string/_8"
                     android:textColor="@android:color/white"
@@ -348,11 +347,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_9"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/green"
+                    android:backgroundTint="@color/light_green1"
                     android:gravity="center"
                     android:text="@string/_9"
                     android:textColor="@android:color/white"
@@ -365,11 +364,11 @@
 
                 <TextView
                     android:id="@+id/numericCsatQuestion10_10"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
+                    android:layout_width="@dimen/_26sdp"
+                    android:layout_height="@dimen/_26sdp"
                     android:animateLayoutChanges="true"
                     android:background="@drawable/circle_background"
-                    android:backgroundTint="@color/dark_green"
+                    android:backgroundTint="@color/dark_green1"
                     android:gravity="center"
                     android:text="@string/_10"
                     android:textColor="@android:color/white"

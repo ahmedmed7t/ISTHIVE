@@ -77,7 +77,7 @@ internal class FullScreenListAdapter(
     fun checkAnswersAvailability(): Boolean{
         var allQuestionsValid = true
         for(item in questions){
-            if(item.question.IsRequired && !item.isAnswerValid) {
+            if(!item.isAnswerValid) {
                 allQuestionsValid = false
                 item.showError()
             }

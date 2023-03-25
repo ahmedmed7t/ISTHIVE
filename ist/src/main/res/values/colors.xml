@@ -25,11 +25,11 @@
     <color name="fade_gray">#AEB5CF</color>
     <color name="transparent_black">#55000000</color>
 
-    <color name="red1">#f50037</color>
-    <color name="red2">#fb0048</color>
+    <color name="red1">#ff002e</color>
+    <color name="red2">#fc0048</color>
     <color name="red3">#fb434a</color>
     <color name="orange1">#faab4c</color>
-    <color name="orange2">#faab4d</color>
+    <color name="orange2">#faab4c</color>
     <color name="yellow1">#f9d241</color>
     <color name="mint_yellow">#ddd841</color>
     <color name="mint_green">#b3e340</color>
