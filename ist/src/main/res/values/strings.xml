@@ -13,10 +13,10 @@
     <string name="url">URL</string>
     <string name="please_enter_valid_text">please enter valid Text</string>
     <string name="please_enter_valid_number">Please Enter Valid Number</string>
-    <string name="please_enter_valid_url">please enter valid URL</string>
-    <string name="please_enter_valid_postal_code">please enter valid Postal Code</string>
+    <string name="please_enter_valid_url">Please Enter a valid URL that ends with \".com\" or \".net\" …etc</string>
+    <string name="please_enter_valid_postal_code">Please Enter a valid postal code (numbers only) Like \'XXXXX\'</string>
     <string name="please_enter_valid_telephone">please enter valid Telephone</string>
-    <string name="please_enter_valid_email">please enter valid Email</string>
+    <string name="please_enter_valid_email">Please Enter a valid mail in this format xx@xxx.xxx</string>
     <string name="required">(Required)</string>
     <string name="please_answer_this_question">Please Answer this question</string>
     <string name="take_survey">Take Survey</string>
